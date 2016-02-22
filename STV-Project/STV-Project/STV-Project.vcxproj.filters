@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2ca297d9-5c23-4d70-b79f-1ea3ed4d1ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine">
+      <UniqueIdentifier>{b6d14c55-5df6-409f-95f6-063a1210c262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Game">
+      <UniqueIdentifier>{a9750f27-37e3-4666-834b-66e5430a0b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Visual">
+      <UniqueIdentifier>{f13651bc-b080-4d5b-9673-5eb2594e6de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Logic">
+      <UniqueIdentifier>{d2e4af6c-7795-43df-84e0-935883fdd68c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Visual\Shaders">
+      <UniqueIdentifier>{c8bba9ed-848b-409a-abb2-3383b40358fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Visual\Models">
+      <UniqueIdentifier>{541cc42f-da2b-4a23-852e-3b3490f3b49c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Visual\Models\Core">
+      <UniqueIdentifier>{40231cff-1f58-4bad-bf43-52a9f5f6ad0a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="STV-Project.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameManager.h">
+      <Filter>Core\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Core\Engine\Visual\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Core\Engine\Visual\Models\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Core\Engine\Visual\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterRenderer.h">
+      <Filter>Core\Engine\Visual</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Core\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Core\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Core\Engine\Visual\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Core\Engine\Visual\Models\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Core\Engine\Visual\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterRenderer.cpp">
+      <Filter>Core\Engine\Visual</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\static.frag">
+      <Filter>Core\Engine\Visual\Shaders</Filter>
+    </None>
+    <None Include="Shaders\static.vert">
+      <Filter>Core\Engine\Visual\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
