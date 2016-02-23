@@ -11,9 +11,11 @@ void RenderScene()
 	Game::master_renderer->Render();
 }
 
-void GameManager::Setup(int argc, char** argv)
+GameManager::GameManager()
 {
-	glutInit(&argc, argv);
+	int fakeargc = 1;
+	char *fakeargv[] = { "fake", NULL };
+	glutInit(&fakeargc, fakeargv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 
 	glutInitWindowPosition(100, 100);
@@ -30,6 +32,7 @@ void GameManager::Setup(int argc, char** argv)
 
 GameManager::~GameManager()
 {
+	cout << endl  << "======" << endl << "Cleaning up.." << endl;
 	delete model_loader;
 	delete master_renderer;
 }

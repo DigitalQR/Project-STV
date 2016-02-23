@@ -14,11 +14,18 @@ class MasterRenderer;
 class GameManager
 {
 public:
-	void Setup(int argc, char** argv);
+	GameManager();
 	~GameManager();
 	void MainLoop();
+
 	MasterRenderer* master_renderer;
 	ModelLoader* model_loader;
+
+	static GameManager* getMain()
+	{
+		static GameManager* MAIN = new GameManager();
+		return MAIN;
+	}
 
 private:
 	void GLInit();
