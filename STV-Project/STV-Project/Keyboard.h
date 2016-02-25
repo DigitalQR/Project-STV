@@ -1,14 +1,34 @@
 #pragma once
+#include <iostream>
+
 class Keyboard
 {
 public:
-	static void setState(char key, bool state) { _key_states[key] = state; }
-	static bool isKeyDown(char key) { return _key_states[key]; }
-	static bool isKeyUp(char key) { return !_key_states[key]; }
+	Keyboard()
+	{
+		_key_states = new bool[256];
+	}
+	~Keyboard()
+	{
+		cout << "Deleting Keyboard." << endl;
+		delete[] _key_states;
+	}
+
+	static Keyboard* getMain()
+	{
+		static Keyboard* MAIN = new Keyboard();
+		return MAIN;
+	}
+
+	static void setState(char key, bool state) {
+		getMain()->_key_states[key] = &state;
+	}
+	static bool isKeyDown(char key) { return getMain()->_key_states[key]; }
+	static bool isKeyUp(char key) { return !getMain()->_key_states[key]; }
 
 
 private:
-	static bool _key_states[256];
+	bool* _key_states;
 
 };
 

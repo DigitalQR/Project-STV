@@ -12,7 +12,7 @@ public:
 	void PrepareShader();
 
 private:
-	GLuint _UNIFORM_VIEW_MATRIX;
-	GLuint _UNIFORM_PROJECTION_MATRIX;
+	const GLuint _UNIFORM_VIEW_MATRIX;
+	const GLuint _UNIFORM_PROJECTION_MATRIX;
 };
 

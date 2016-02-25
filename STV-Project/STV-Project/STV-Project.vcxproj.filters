@@ -51,6 +51,9 @@
     <ClInclude Include="StaticShader.h">
       <Filter>Core\Engine\Visual\Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Core\Engine\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">

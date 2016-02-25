@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />

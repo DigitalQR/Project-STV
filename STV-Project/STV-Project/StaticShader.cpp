@@ -1,10 +1,10 @@
 #include "StaticShader.h"
 #include "Camera.h"
 
-StaticShader::StaticShader() : Shader("static")
+StaticShader::StaticShader() : Shader("static"),
+	_UNIFORM_VIEW_MATRIX(glGetUniformLocation(_program, "view_matrix")),
+	_UNIFORM_PROJECTION_MATRIX(glGetUniformLocation(_program, "projection_matrix"))
 {
-	_UNIFORM_VIEW_MATRIX = glGetUniformLocation(_program, "view_matrix");
-	_UNIFORM_PROJECTION_MATRIX = glGetUniformLocation(_program, "projection_matrix");
 }
 
 

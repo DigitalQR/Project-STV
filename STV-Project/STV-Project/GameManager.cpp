@@ -59,6 +59,7 @@ GameManager::~GameManager()
 	delete model_loader;
 	delete master_renderer;
 	delete Camera::getMain();
+	delete Keyboard::getMain();
 }
 
 void GameManager::GLInit()
