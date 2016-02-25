@@ -45,6 +45,12 @@
     <ClInclude Include="MasterRenderer.h">
       <Filter>Core\Engine\Visual</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Core\Engine\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticShader.h">
+      <Filter>Core\Engine\Visual\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -64,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="MasterRenderer.cpp">
       <Filter>Core\Engine\Visual</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Core\Engine\Visual</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticShader.cpp">
+      <Filter>Core\Engine\Visual\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

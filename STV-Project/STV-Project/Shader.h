@@ -9,12 +9,18 @@ class Shader
 {
 public:
 	Shader(string name);
+	void Init(string name, string vertex_source, string fragment_source);
 	~Shader();
 	string name;
-	GLuint getProgram() { return _program; }
+	virtual void PrepareShader() 
+	{ 
+		glUseProgram(_program);
+	};
+
+protected:
+	GLuint _program;
 
 private:
-	GLuint _program;
 
 	/**
 		Compiles a shader of specified type from source.

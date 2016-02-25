@@ -1,5 +1,6 @@
 #include "MasterRenderer.h"
 #include <iostream>
+#include "StaticShader.h"
 
 namespace Shaders 
 {
@@ -12,7 +13,7 @@ Model* model;
 
 MasterRenderer::MasterRenderer(GameManager* game_manager) : _GAME_MANAGER(game_manager)
 {
-	static_shader = new Shader("static");
+	static_shader = new StaticShader();
 
 	vector<float> verts{
 		0.0, 0.0, 0.5,
@@ -33,7 +34,7 @@ void MasterRenderer::Render()
 	glClearColor(0.0, 0.3, 0.3, 1.0);
 
 	glBindVertexArray(model->getVAO());
-	glUseProgram(static_shader->getProgram());
+	static_shader->PrepareShader();
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glutSwapBuffers();

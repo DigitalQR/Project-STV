@@ -5,14 +5,20 @@
 
 Shader::Shader(string name)
 {
+	//Load vertex/fragment shader
+	string vertex_code = Shader::ReadShader("Shaders/" + name + ".vert");
+	string frag_code = Shader::ReadShader("Shaders/" + name + ".frag");
+	Init(name, vertex_code, frag_code);
+}
+
+void Shader::Init(string name, string vertex_source, string fragment_source)
+{
 	Shader::name = name;
 	cout << "Creating shader for '" << name.c_str() << "'" << endl;
 
-	//Load and compile vertex/fragment shader
-	string vertex_code = Shader::ReadShader("Shaders/" + name + ".vert");
-	string frag_code = Shader::ReadShader("Shaders/" + name + ".frag");
-	GLuint vertex_shader = Shader::CreateShader(GL_VERTEX_SHADER, vertex_code, name + ".vert");
-	GLuint frag_shader = Shader::CreateShader(GL_FRAGMENT_SHADER, frag_code, name + ".frag");
+	//Compile vertex/fragment shader
+	GLuint vertex_shader = Shader::CreateShader(GL_VERTEX_SHADER, vertex_source, name + ".vert");
+	GLuint frag_shader = Shader::CreateShader(GL_FRAGMENT_SHADER, fragment_source, name + ".frag");
 
 	int link_result = 0;
 
@@ -25,7 +31,7 @@ Shader::Shader(string name)
 	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
 
 	//Log if link failed
-	if (link_result == GL_FALSE) 
+	if (link_result == GL_FALSE)
 	{
 		int log_length = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_length);
@@ -37,7 +43,6 @@ Shader::Shader(string name)
 	}
 
 	cout << "Program ID: " << program << endl;
-	cout << "Finished." << endl;
 	Shader::_program = program;
 }
 
@@ -45,7 +50,7 @@ Shader::Shader(string name)
 Shader::~Shader()
 {
 	glDeleteProgram(_program);
-	std::cout << "Deleting '" << &Shader::name[0] << "' shader." << endl;
+	cout << "Deleting '" << &Shader::name[0] << "' shader." << endl;
 }
 
 

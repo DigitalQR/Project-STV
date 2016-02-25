@@ -129,19 +129,23 @@
     <ResourceCompile Include="STV-Project.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="StaticShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="StaticShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\static.frag" />

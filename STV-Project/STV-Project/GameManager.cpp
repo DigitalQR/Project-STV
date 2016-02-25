@@ -1,14 +1,23 @@
 #include "GameManager.h"
 #include "Model.h"
+#include "Camera.h"
 #include <vector>
 
-namespace Game{
-	MasterRenderer* master_renderer;
-}
 
 void RenderScene()
 {
-	Game::master_renderer->Render();
+	GameManager::getMain()->master_renderer->Render();
+}
+
+void ReshapeWindow(int width, int height)
+{
+	if (height == 0)
+		height = 1;
+
+	float aspect_ratio = width * 1.0f / height;
+	Camera::getMain()->rebuildProjectionMatrix(aspect_ratio);
+
+	glViewport(0, 0, width, height);
 }
 
 GameManager::GameManager()
@@ -19,7 +28,7 @@ GameManager::GameManager()
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 
 	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(320, 320);
+	glutInitWindowSize(1280, 720);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glutCreateWindow("Game");
 
@@ -28,6 +37,7 @@ GameManager::GameManager()
 	GameInit();
 
 	glutDisplayFunc(RenderScene);
+	glutReshapeFunc(ReshapeWindow);
 }
 
 GameManager::~GameManager()
@@ -35,6 +45,7 @@ GameManager::~GameManager()
 	cout << endl  << "======" << endl << "Cleaning up.." << endl;
 	delete model_loader;
 	delete master_renderer;
+	delete Camera::getMain();
 }
 
 void GameManager::GLInit()
@@ -49,10 +60,11 @@ void GameManager::GameInit()
 {
 	model_loader = new ModelLoader();
 	master_renderer = new MasterRenderer(this);
-	Game::master_renderer = master_renderer;
 }
 
 void GameManager::MainLoop()
 {
+	cout << "Starting 'glutMainLoop'" << endl;
 	glutMainLoop();
+	cout << "Finshed 'glutMainLoop'" << endl;
 }
