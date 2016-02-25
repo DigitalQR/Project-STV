@@ -33,8 +33,8 @@ void MasterRenderer::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.3, 0.3, 1.0);
 
-	glBindVertexArray(model->getVAO());
 	static_shader->PrepareShader();
+	glBindVertexArray(model->getVAO());
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glutSwapBuffers();

@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "Model.h"
 #include "Camera.h"
+#include "Keyboard.h"
 #include <vector>
 
 
@@ -18,6 +19,16 @@ void ReshapeWindow(int width, int height)
 	Camera::getMain()->rebuildProjectionMatrix(aspect_ratio);
 
 	glViewport(0, 0, width, height);
+}
+
+void KeyDown(unsigned char key, int x, int y)
+{
+	Keyboard::setState(key, true);
+}
+
+void KeyUp(unsigned char key, int x, int y)
+{
+	Keyboard::setState(key, false);
 }
 
 GameManager::GameManager()
@@ -38,6 +49,8 @@ GameManager::GameManager()
 
 	glutDisplayFunc(RenderScene);
 	glutReshapeFunc(ReshapeWindow);
+	glutKeyboardFunc(KeyDown);
+	glutKeyboardUpFunc(KeyUp);
 }
 
 GameManager::~GameManager()
