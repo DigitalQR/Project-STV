@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Model* ModelLoader::CreateModel(vector<float> vertices, vector<unsigned int> indices)
+Model* ModelLoader::CreateModel(vector<float> vertices, vector<float> uv_coords, vector<unsigned int> indices)
 {
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -11,6 +11,7 @@ Model* ModelLoader::CreateModel(vector<float> vertices, vector<unsigned int> ind
 	glBindVertexArray(vao);
 	BindIndicesBuffer(indices);
 	StoreInVBO(0, 3, vertices, GL_STATIC_DRAW);
+	StoreInVBO(1, 2, uv_coords, GL_STATIC_DRAW);
 
 	glBindVertexArray(0);
 	return new Model(vao, indices.size());
@@ -47,7 +48,7 @@ GLuint ModelLoader::BindIndicesBuffer(vector<unsigned int>& indices)
 
 ModelLoader::~ModelLoader()
 {
-	glDeleteVertexArrays(ModelLoader::_vaos.size(), &ModelLoader::_vaos[0]);
-	glDeleteBuffers(ModelLoader::_vbos.size(), &ModelLoader::_vbos[0]);
+	if (_vaos.size() != 0)glDeleteVertexArrays(ModelLoader::_vaos.size(), &ModelLoader::_vaos[0]);
+	if (_vbos.size() != 0)glDeleteBuffers(ModelLoader::_vbos.size(), &ModelLoader::_vbos[0]);
 	std::cout << "Deleting all VAOs and VBOs." << endl;
 }

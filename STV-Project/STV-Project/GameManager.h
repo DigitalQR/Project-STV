@@ -2,9 +2,9 @@
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 
-#include "Shader.h"
 #include "ModelLoader.h"
 #include "MasterRenderer.h"
+#include "TextureLoader.h"
 
 #include <iostream>
 
@@ -24,6 +24,7 @@ public:
 
 	MasterRenderer* master_renderer;
 	ModelLoader* model_loader;
+	TextureLoader* texture_loader;
 
 	/**
 	Generates a singleton

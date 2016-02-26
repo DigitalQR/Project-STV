@@ -58,6 +58,7 @@ GameManager::~GameManager()
 	cout << endl  << "======" << endl << "Cleaning up.." << endl;
 	delete model_loader;
 	delete master_renderer;
+	delete texture_loader;
 	delete Camera::getMain();
 	delete Keyboard::getMain();
 }
@@ -72,6 +73,7 @@ void GameManager::GLInit()
 	
 void GameManager::GameInit()
 {
+	texture_loader = new TextureLoader();
 	model_loader = new ModelLoader();
 	master_renderer = new MasterRenderer(this);
 }

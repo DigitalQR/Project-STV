@@ -18,11 +18,12 @@ public:
 
 	Attribute Positions:
 	0 = Vertices
+	1 = UVs
 
 	@params Vector holding the vertices in format x0,y0,z0,x1,y2,z2 etc.
 	@return Model
 	*/
-	Model* CreateModel(vector<float> vertices, vector<unsigned int> indices);
+	Model* CreateModel(vector<float> vertices, vector<float> uv_coords, vector<unsigned int> indices);
 
 	/**
 	Generates a VBO and stores the data in the given attribute position

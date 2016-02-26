@@ -16,14 +16,17 @@
     <Filter Include="Core\Engine\Logic">
       <UniqueIdentifier>{d2e4af6c-7795-43df-84e0-935883fdd68c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Engine\Visual\Shaders">
-      <UniqueIdentifier>{c8bba9ed-848b-409a-abb2-3383b40358fd}</UniqueIdentifier>
+    <Filter Include="Core\Engine\Visual\Rendering">
+      <UniqueIdentifier>{2a54caee-2b64-4a03-8f75-aa00b09792f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Engine\Visual\Models">
+    <Filter Include="Core\Engine\Visual\Rendering\Models">
       <UniqueIdentifier>{541cc42f-da2b-4a23-852e-3b3490f3b49c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Engine\Visual\Models\Core">
+    <Filter Include="Core\Engine\Visual\Rendering\Models\Core">
       <UniqueIdentifier>{40231cff-1f58-4bad-bf43-52a9f5f6ad0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Visual\Rendering\Shaders">
+      <UniqueIdentifier>{c8bba9ed-848b-409a-abb2-3383b40358fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,25 +37,28 @@
       <Filter>Core\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Core\Engine\Visual\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Core\Engine\Visual\Models\Core</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
     </ClInclude>
     <ClInclude Include="ModelLoader.h">
-      <Filter>Core\Engine\Visual\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="MasterRenderer.h">
-      <Filter>Core\Engine\Visual</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Models</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Core\Engine\Visual</Filter>
     </ClInclude>
     <ClInclude Include="StaticShader.h">
-      <Filter>Core\Engine\Visual\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
       <Filter>Core\Engine\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterRenderer.h">
+      <Filter>Core\Engine\Visual\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Core\Engine\Visual\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,30 +69,33 @@
       <Filter>Core\Game</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Core\Engine\Visual\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Core\Engine\Visual\Models\Core</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
     </ClCompile>
     <ClCompile Include="ModelLoader.cpp">
-      <Filter>Core\Engine\Visual\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="MasterRenderer.cpp">
-      <Filter>Core\Engine\Visual</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Models</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Core\Engine\Visual</Filter>
     </ClCompile>
     <ClCompile Include="StaticShader.cpp">
-      <Filter>Core\Engine\Visual\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterRenderer.cpp">
+      <Filter>Core\Engine\Visual\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Core\Engine\Visual\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\static.frag">
-      <Filter>Core\Engine\Visual\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </None>
     <None Include="Shaders\static.vert">
-      <Filter>Core\Engine\Visual\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
