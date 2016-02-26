@@ -5,10 +5,12 @@
 class Model
 {
 public:
-	Model(GLuint VAO) : _VAO(VAO) {};
-	GLuint getVAO() { return _VAO; }
+	Model(GLuint VAO, unsigned int indices_size) : _vao(VAO), _indices_size(indices_size) {};
+	GLuint getVAO() { return _vao; }
+	unsigned int getIndiceCount() { return _indices_size;  }
 
 private:
-	GLuint _VAO;
+	GLuint _vao;
+	unsigned int _indices_size;
 };
 

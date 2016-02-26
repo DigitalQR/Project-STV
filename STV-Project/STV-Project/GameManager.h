@@ -16,11 +16,20 @@ class GameManager
 public:
 	GameManager();
 	~GameManager();
+	/**
+	Activates glut's main loop
+
+	*/
 	void MainLoop();
 
 	MasterRenderer* master_renderer;
 	ModelLoader* model_loader;
 
+	/**
+	Generates a singleton
+
+	@returns GameManager singleton
+	*/
 	static GameManager* getMain()
 	{
 		static GameManager* MAIN = new GameManager();

@@ -19,8 +19,13 @@ MasterRenderer::MasterRenderer(GameManager* game_manager) : _GAME_MANAGER(game_m
 		0.0, 0.0, 0.5,
 		1.0, 0.0, 0.5,
 		0.0, 1.0, 0.5,
+		1.0, 1.0, 0.5,
 	};
-	model = _GAME_MANAGER->model_loader->CreateModel(verts);
+	vector<unsigned int> inds{
+		0,1,2,
+		1,3,2
+	};
+	model = _GAME_MANAGER->model_loader->CreateModel(verts, inds);
 }
 
 MasterRenderer::~MasterRenderer()
@@ -35,7 +40,7 @@ void MasterRenderer::Render()
 
 	static_shader->PrepareShader();
 	glBindVertexArray(model->getVAO());
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawElements(GL_TRIANGLES, model->getIndiceCount(), GL_UNSIGNED_INT, 0);
 
 	glutSwapBuffers();
 	glutPostRedisplay();

@@ -14,6 +14,11 @@ public:
 		delete[] _key_states;
 	}
 
+	/**
+	Generates a singleton
+
+	@returns Keyboard singleton
+	*/
 	static Keyboard* getMain()
 	{
 		static Keyboard* MAIN = new Keyboard();

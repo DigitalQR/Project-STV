@@ -22,7 +22,7 @@ public:
 	@params Vector holding the vertices in format x0,y0,z0,x1,y2,z2 etc.
 	@return Model
 	*/
-	Model* CreateModel(vector<float> vertices);
+	Model* CreateModel(vector<float> vertices, vector<unsigned int> indices);
 
 	/**
 	Generates a VBO and stores the data in the given attribute position
@@ -35,5 +35,13 @@ public:
 private:
 	vector<GLuint> _vaos;
 	vector<GLuint> _vbos;
+
+	/**
+	Generates a VBO and stores the indices data in int
+
+	@params Vector of indices
+	@return VBO ID for index buffer
+	*/
+	GLuint BindIndicesBuffer(vector<unsigned int>& indices);
 };
 

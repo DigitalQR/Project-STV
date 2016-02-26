@@ -43,6 +43,10 @@ public:
 		return _offset;
 	}
 
+	/**
+	Methods for building the appropriate Camera matrices
+
+	*/
 	void buildViewMatrix();
 	void rebuildProjectionMatrix();
 	void rebuildProjectionMatrix(float aspect_ratio);
@@ -50,6 +54,11 @@ public:
 	mat4 getViewMatrix() { return _view_matrix; }
 	mat4 getProjectionMatrix() { return _projection_matrix; }
 
+	/**
+	Generates a singleton
+
+	@returns Camera singleton
+	*/
 	static Camera* getMain()
 	{
 		static Camera* MAIN = new Camera();
