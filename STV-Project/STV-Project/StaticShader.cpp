@@ -12,7 +12,7 @@ StaticShader::~StaticShader()
 {
 }
 
-void StaticShader::PrepareShader() 
+void StaticShader::PrepareShader()
 {
 	Shader::PrepareShader();
 	Camera::getMain()->buildViewMatrix();
@@ -20,3 +20,12 @@ void StaticShader::PrepareShader()
 	glUniformMatrix4fv(_UNIFORM_VIEW_MATRIX, 1, GL_FALSE, &Camera::getMain()->getViewMatrix()[0][0]);
 	glUniformMatrix4fv(_UNIFORM_PROJECTION_MATRIX, 1, GL_FALSE, &Camera::getMain()->getProjectionMatrix()[0][0]);
 }
+
+void StaticShader::PrepareModel(Model* model)
+{
+	Shader::PrepareModel(model);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, model->texture);
+}
+
+

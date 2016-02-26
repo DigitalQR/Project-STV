@@ -2,6 +2,9 @@
 #include <iostream>
 #include "StaticShader.h"
 
+#include "RenderQueue.h"
+#include "Entity.h"
+
 namespace Shaders 
 {
 	Shader* static_shader;
@@ -11,7 +14,6 @@ using namespace Shaders;
 //FOR TESTING
 Model* model;
 GLuint texture;
-GLuint texture1;
 
 MasterRenderer::MasterRenderer(GameManager* game_manager) : _GAME_MANAGER(game_manager)
 {
@@ -35,8 +37,13 @@ MasterRenderer::MasterRenderer(GameManager* game_manager) : _GAME_MANAGER(game_m
 	};
 	model = _GAME_MANAGER->model_loader->CreateModel(verts, uvs, inds);
 
-	texture = _GAME_MANAGER->texture_loader->LoadPNG("Res/test.png");
-	texture1 = _GAME_MANAGER->texture_loader->LoadPNG("Res/test2.png");
+	model->texture = _GAME_MANAGER->texture_loader->LoadPNG("Res/world/grass_tile.png");
+
+	//REMOVE TESTING-------------------------------------------------------------------------------------------------------------------------------------------------------
+	RenderQueue queue;
+	Entity ent;
+	ent.model = model;
+	queue.addToStaticRenderQueue(&ent);
 }
 
 MasterRenderer::~MasterRenderer()
@@ -50,9 +57,7 @@ void MasterRenderer::Render()
 	glClearColor(0.0, 0.3, 0.3, 1.0);
 
 	static_shader->PrepareShader();
-	glBindVertexArray(model->getVAO());
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	static_shader->PrepareModel(model);
 	glDrawElements(GL_TRIANGLES, model->getIndiceCount(), GL_UNSIGNED_INT, 0);
 
 	glutSwapBuffers();

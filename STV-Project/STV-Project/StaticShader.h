@@ -10,6 +10,7 @@ public:
 	~StaticShader();
 
 	void PrepareShader();
+	void PrepareModel(Model* model);
 
 private:
 	const GLuint _UNIFORM_VIEW_MATRIX;

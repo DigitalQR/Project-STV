@@ -28,6 +28,12 @@
     <Filter Include="Core\Engine\Visual\Rendering\Shaders">
       <UniqueIdentifier>{c8bba9ed-848b-409a-abb2-3383b40358fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Visual\Rendering\Tools">
+      <UniqueIdentifier>{c08f51bc-db05-4ab3-b2ec-605b2b600521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Logic\Core">
+      <UniqueIdentifier>{3cffefcb-99a7-4905-b099-b7c688f882a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -60,6 +66,10 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Core\Engine\Visual\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="RenderQueue.h" />
+    <ClInclude Include="Entity.h">
+      <Filter>Core\Engine\Logic\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -88,6 +98,10 @@
     </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Core\Engine\Visual\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderQueue.cpp" />
+    <ClCompile Include="Entity.cpp">
+      <Filter>Core\Engine\Logic\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

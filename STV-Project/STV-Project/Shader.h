@@ -1,6 +1,8 @@
 #pragma once
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
+#include "Dependencies\glm\common.hpp"
+#include "Model.h"
 #include <iostream>
 
 using namespace std;
@@ -12,9 +14,14 @@ public:
 	void Init(string name, string vertex_source, string fragment_source);
 	~Shader();
 	string name;
-	virtual void PrepareShader() 
-	{ 
+
+	virtual void PrepareShader()
+	{
 		glUseProgram(_program);
+	};
+	virtual void PrepareModel(Model* model)
+	{
+		glBindVertexArray(model->getVAO());
 	};
 
 protected:
