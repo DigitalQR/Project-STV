@@ -140,6 +140,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\static.frag" />

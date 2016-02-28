@@ -14,31 +14,26 @@ public:
 	Camera();
 	~Camera();
 
-
 	void setFoV(float fov) 
 	{
 		if (fov > 0 && fov <= 300)
 			_FoV = fov;
 	}
 
-	void setPosition(float x, float y, float z)
+	void setPosition(vec3& location)
 	{
-		_position->x = x;
-		_position->y = y;
-		_position->z = z;
+		_position = location;
 	}
-	vec3* getPosition()
+	vec3& getPosition()
 	{
 		return _position;
 	}
 
-	void setOffset(float x, float y, float z)
+	void setOffset(vec3& offset)
 	{
-		_offset->x = x;
-		_offset->y = y;
-		_offset->z = z;
+		_offset = offset;
 	}
-	vec3* getOffset()
+	vec3& getOffset()
 	{
 		return _offset;
 	}
@@ -66,8 +61,8 @@ public:
 	}
 
 private:
-	vec3* _position;
-	vec3* _offset;
+	vec3 _position;
+	vec3 _offset;
 
 	//Projection Matrix
 	float _last_aspect_ratio = 1;

@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <vector>
+#include <list>o
 #include "Model.h"
 #include "Entity.h"
 
@@ -11,9 +12,10 @@ class RenderQueue
 public:
 	RenderQueue();
 	~RenderQueue();
-	void addToStaticRenderQueue(Entity* e);
+	void AddToRenderQueue(Entity* e);
+	void RemoveFromRenderQueue(Entity* e);
 
 private:
-	map<Model*, vector<Entity*>*> _static_queue;
+	map<const Model*, vector<Entity*>*> _queue;
 };
 

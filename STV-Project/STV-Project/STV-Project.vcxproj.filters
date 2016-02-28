@@ -70,6 +70,9 @@
     <ClInclude Include="Entity.h">
       <Filter>Core\Engine\Logic\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Core\Engine\Logic\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="Entity.cpp">
+      <Filter>Core\Engine\Logic\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
       <Filter>Core\Engine\Logic\Core</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,23 +5,21 @@ using namespace std;
 
 Camera::Camera()
 {
-	_position = new vec3(0, 0, 0);
-	_offset = new vec3(0, 3, -3);
+	_position = vec3(0, 0, 0);
+	_offset = vec3(0, 3, -3);
 }
 
 Camera::~Camera()
 {
 	cout << "Deleting Camera." << endl;
-	delete _position;
-	delete _offset;
 }
 
 void Camera::buildViewMatrix() 
 {
-	vec3 actual_position = *_position - *_offset;
+	vec3 actual_position = _position - _offset;
 
 	_view_matrix = glm::lookAt(
-		actual_position, *_position, vec3(0, 1, 0)
+		actual_position, _position, vec3(0, 1, 0)
 	); 
 }
 

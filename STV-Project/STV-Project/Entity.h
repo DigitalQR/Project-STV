@@ -1,11 +1,13 @@
 #pragma once
 #include "Model.h"
+#include "Transform.h"
 
 class Entity
 {
 public:
 	Model* model;
-	Entity();
+	Transform transform;
+	Entity(Model* model);
 	~Entity();
 };
 

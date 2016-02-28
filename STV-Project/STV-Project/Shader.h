@@ -3,6 +3,7 @@
 #include "Dependencies\freeglut\freeglut.h"
 #include "Dependencies\glm\common.hpp"
 #include "Model.h"
+#include "Entity.h"
 #include <iostream>
 
 using namespace std;
@@ -23,6 +24,7 @@ public:
 	{
 		glBindVertexArray(model->getVAO());
 	};
+	virtual void PrepareInstance(Entity* entity) = 0;
 
 protected:
 	GLuint _program;

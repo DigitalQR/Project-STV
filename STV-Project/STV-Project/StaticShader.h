@@ -11,8 +11,10 @@ public:
 
 	void PrepareShader();
 	void PrepareModel(Model* model);
+	void PrepareInstance(Entity* entity);
 
 private:
+	const GLuint _UNIFORM_MODEL_MATRIX;
 	const GLuint _UNIFORM_VIEW_MATRIX;
 	const GLuint _UNIFORM_PROJECTION_MATRIX;
 };
