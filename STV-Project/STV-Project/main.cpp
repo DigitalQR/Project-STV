@@ -6,7 +6,6 @@
 #include "TexturedModel.h"
 #include "Entity.h"
 
-#include "TestComponent.h"
 
 using namespace std;
 
@@ -39,7 +38,6 @@ void Start()
 
 	Entity* entity1 = new Entity(tm);
 	entity1->location = vec3(0.0, 0.3, 0.2);
-	entity1->AddComponent(new TestComponent());
 	GameManager::getMain()->master_renderer->static_shader->AddForRender(entity1);
 
 
