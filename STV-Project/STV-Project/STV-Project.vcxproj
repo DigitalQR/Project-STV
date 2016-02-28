@@ -141,6 +141,8 @@
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
+    <ClInclude Include="TestComponent.h" />
+    <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
@@ -151,11 +153,11 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticShader.cpp" />
+    <ClCompile Include="TestComponent.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>

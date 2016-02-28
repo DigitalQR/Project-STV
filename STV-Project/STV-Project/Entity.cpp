@@ -1,7 +1,7 @@
 #include "Entity.h"
 
 
-Entity::Entity(Model* model) : model(model)
+Entity::Entity(TexturedModel* textured_model) : textured_model(textured_model)
 {
 }
 

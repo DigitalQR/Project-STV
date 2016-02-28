@@ -3,8 +3,7 @@
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 #include "Dependencies\glm\common.hpp"
-#include "Model.h"
-#include "Entity.h"
+
 #include "RenderQueue.h"
 
 #include <iostream>
@@ -24,22 +23,25 @@ public:
 	{
 		glUseProgram(_program);
 	};
-	virtual void PrepareModel(Model* model)
+	virtual void PrepareModel(TexturedModel* textured_model)
 	{
-		glBindVertexArray(model->getVAO());
+		glBindVertexArray(textured_model->model->getVAO());
 	};
 
-	virtual void PrepareInstance(Entity* entity) = 0;
+	virtual void PrepareInstance(Entity* entity) 
+	{
+		entity->VisualUpdate();
+	};
 
-	void AddForRender(Entity* entity) 
+	void AddForRender(Entity* entity)
 	{
 		render_queue.AddToRenderQueue(entity);
 	};
-	RenderQueue render_queue;
 	void Render();
 
 protected:
 	GLuint _program;
+	RenderQueue render_queue;
 
 private:
 

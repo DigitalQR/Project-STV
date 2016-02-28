@@ -1,7 +1,7 @@
 #pragma once
 #include "MemoryListener.h"
 #include <vector>
-#include "Model.h"
+#include "TexturedModel.h"
 #include "Transform.h"
 #include "Component.h"
 
@@ -10,15 +10,14 @@ using namespace std;
 class Entity : public Transform
 {
 public:
-	Entity(Model* model);
+	Entity(TexturedModel* textured_model);
 	~Entity();
 
-	Model* model;
+	TexturedModel* textured_model;
 
 	virtual void LogicUpdate();
 	virtual void VisualUpdate();
 
-protected:
 	void AddComponent(Component* component);
 	void RemoveComponentAndDelete(Component* component);
 

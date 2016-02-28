@@ -11,7 +11,7 @@ public:
 	~StaticShader();
 
 	void PrepareShader();
-	void PrepareModel(Model* model);
+	void PrepareModel(TexturedModel* textured_model);
 	void PrepareInstance(Entity* entity);
 
 private:

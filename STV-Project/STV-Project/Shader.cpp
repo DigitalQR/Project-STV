@@ -107,16 +107,16 @@ void Shader::Render()
 {
 	PrepareShader();
 
-	for (map<const Model*, vector<Entity*>*>::iterator it = render_queue.queue.begin(); it != render_queue.queue.end(); it++)
+	for (map<const TexturedModel*, vector<Entity*>*>::iterator it = render_queue.queue.begin(); it != render_queue.queue.end(); it++)
 	{
-		Model* model = (Model*)it->first;
-		PrepareModel(model);
+		TexturedModel* textured_model = (TexturedModel*)it->first;
+		PrepareModel(textured_model);
 
-		vector<Entity*>* list = render_queue.queue[model];
+		vector<Entity*>* list = render_queue.queue[textured_model];
 		for (Entity* entity : *list)
 		{
 			PrepareInstance(entity);
-			glDrawElements(GL_TRIANGLES, model->getIndiceCount(), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, textured_model->model->getIndiceCount(), GL_UNSIGNED_INT, 0);
 		}
 	}
 }

@@ -1,12 +1,15 @@
 #include "MemoryListener.h"
-
 #include <iostream>
-
-using namespace std;
 
 #include "GameManager.h"
 #include "Model.h"
+#include "TexturedModel.h"
 #include "Entity.h"
+
+#include "TestComponent.h"
+
+using namespace std;
+
 
 void Start() 
 {
@@ -28,15 +31,25 @@ void Start()
 	};
 
 	Model* model = GameManager::getMain()->model_loader->CreateModel(verts, uvs, inds);
-	model->texture = GameManager::getMain()->texture_loader->LoadPNG("Res/world/grass_tile.png");
-	Entity* entity = new Entity(model);
+	GLuint texture = GameManager::getMain()->texture_loader->LoadPNG("Res/world/grass_tile.png");
+	TexturedModel* tm = new TexturedModel(model, texture);
+
+	Entity* entity = new Entity(tm);
 	GameManager::getMain()->master_renderer->static_shader->AddForRender(entity);
+
+	Entity* entity1 = new Entity(tm);
+	entity1->location = vec3(0.0, 0.3, 0.2);
+	entity1->AddComponent(new TestComponent());
+	GameManager::getMain()->master_renderer->static_shader->AddForRender(entity1);
+
 
 	GameManager::getMain()->MainLoop();
 	delete GameManager::getMain();
 
 	delete model;
 	delete entity;
+	delete entity1;
+	delete tm;
 }
 
 int main(int argc, char **argv)
