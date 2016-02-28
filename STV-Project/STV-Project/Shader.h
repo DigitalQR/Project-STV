@@ -1,10 +1,14 @@
 #pragma once
+#include "MemoryListener.h"
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 #include "Dependencies\glm\common.hpp"
 #include "Model.h"
 #include "Entity.h"
+#include "RenderQueue.h"
+
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -24,7 +28,15 @@ public:
 	{
 		glBindVertexArray(model->getVAO());
 	};
+
 	virtual void PrepareInstance(Entity* entity) = 0;
+
+	void AddForRender(Entity* entity) 
+	{
+		render_queue.AddToRenderQueue(entity);
+	};
+	RenderQueue render_queue;
+	void Render();
 
 protected:
 	GLuint _program;
@@ -47,4 +59,3 @@ private:
 	*/
 	static string ReadShader(string file_name);
 };
-

@@ -29,7 +29,8 @@ void StaticShader::PrepareModel(Model* model)
 
 void StaticShader::PrepareInstance(Entity* entity) 
 {
-	glUniformMatrix4fv(_UNIFORM_MODEL_MATRIX, 1, GL_FALSE, &entity->transform.getModelMatrix()[0][0]);
+	glUniformMatrix4fv(_UNIFORM_MODEL_MATRIX, 1, GL_FALSE, &entity->getModelMatrix()[0][0]);
 }
+
 
 

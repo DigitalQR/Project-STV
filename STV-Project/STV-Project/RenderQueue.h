@@ -1,21 +1,14 @@
 #pragma once
+#include "MemoryListener.h"
 #include <map>
-#include <vector>
-#include <list>o
-#include "Model.h"
 #include "Entity.h"
-
-using namespace std;
 
 class RenderQueue
 {
 public:
-	RenderQueue();
 	~RenderQueue();
 	void AddToRenderQueue(Entity* e);
 	void RemoveFromRenderQueue(Entity* e);
+	map<const Model*, vector<Entity*>*> queue;
 
-private:
-	map<const Model*, vector<Entity*>*> _queue;
 };
-

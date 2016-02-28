@@ -2,7 +2,6 @@
 #include <fstream>
 #include <vector>
 
-
 Shader::Shader(string name)
 {
 	//Load vertex/fragment shader
@@ -52,7 +51,6 @@ Shader::~Shader()
 	glDeleteProgram(_program);
 	cout << "Deleting '" << &Shader::name[0] << "' shader." << endl;
 }
-
 
 string Shader::ReadShader(string file_name)
 {
@@ -105,4 +103,20 @@ GLuint Shader::CreateShader(GLenum shader_type, string source, string shader_nam
 	return shader_ID;
 }
 
+void Shader::Render() 
+{
+	PrepareShader();
 
+	for (map<const Model*, vector<Entity*>*>::iterator it = render_queue.queue.begin(); it != render_queue.queue.end(); it++)
+	{
+		Model* model = (Model*)it->first;
+		PrepareModel(model);
+
+		vector<Entity*>* list = render_queue.queue[model];
+		for (Entity* entity : *list)
+		{
+			PrepareInstance(entity);
+			glDrawElements(GL_TRIANGLES, model->getIndiceCount(), GL_UNSIGNED_INT, 0);
+		}
+	}
+}

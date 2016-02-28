@@ -1,4 +1,5 @@
 #pragma once
+#include "MemoryListener.h"
 #include "Dependencies\glm\common.hpp"
 #include "Dependencies\glm\mat4x4.hpp"
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "MemoryListener.h"
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 #include "Shader.h"

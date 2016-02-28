@@ -1,4 +1,5 @@
 #pragma once
+#include "MemoryListener.h"
 #include "Dependencies\glm\vec3.hpp"
 #include "Dependencies\glm\mat4x4.hpp"
 #include "Dependencies\glm\gtc\matrix_transform.hpp"

@@ -2,45 +2,40 @@
 #include <iostream>
 
 
-RenderQueue::RenderQueue()
-{
-}
-
-
 RenderQueue::~RenderQueue()
 {
 	cout << "\tDeleting render queue." << endl;
-	for (map<const Model*, vector<Entity*>*>::iterator it = _queue.begin(); it != _queue.end(); it++)
+	for (map<const Model*, vector<Entity*>*>::iterator it = queue.begin(); it != queue.end(); it++)
 	{
-		delete _queue[it->first];
+		delete queue[it->first];
 	}
 }
 
 void RenderQueue::AddToRenderQueue(Entity* e)
 {
-	if (_queue.find(e->model) != _queue.end())
+	if (queue.find(e->model) != queue.end())
 	{
 		//Found
-		_queue[e->model]->push_back(e);
+		queue[e->model]->push_back(e);
 	}
 	else
 	{
 		//Not found
 		vector<Entity*>* vec = new vector<Entity*>();
 		vec->push_back(e);
-		_queue[e->model] = vec;
+		queue[e->model] = vec;
 	}
 
 }
 
 void RenderQueue::RemoveFromRenderQueue(Entity* e)
 {
-	vector<Entity*>* queue = _queue[e->model];
+	vector<Entity*>* q = queue[e->model];
 
 	int index = -1;
 
-	for (int i = 0; i < queue->size(); i++) {
-		if (queue->at(i) == e)
+	for (int i = 0; i < q->size(); i++) {
+		if (q->at(i) == e)
 		{
 			index = i;
 			break;
@@ -51,14 +46,14 @@ void RenderQueue::RemoveFromRenderQueue(Entity* e)
 	if (index != -1)
 	{
 		//Remove queue (Last item in queue)
-		if (queue->size() == 1)
+		if (q->size() == 1)
 		{
-			_queue.erase(e->model);
+			queue.erase(e->model);
 		}
 		//Remove item in queue
 		else
 		{
-			queue->erase(queue->begin() + index);
+			q->erase(q->begin() + index);
 		}
 	}
 }

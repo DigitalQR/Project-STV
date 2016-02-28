@@ -34,6 +34,9 @@
     <Filter Include="Core\Engine\Logic\Core">
       <UniqueIdentifier>{3cffefcb-99a7-4905-b099-b7c688f882a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Visual\Rendering\Shaders\Core">
+      <UniqueIdentifier>{791e93a2-366b-461d-81ed-5727511eec54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -41,9 +44,6 @@
   <ItemGroup>
     <ClInclude Include="GameManager.h">
       <Filter>Core\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
@@ -66,12 +66,23 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Core\Engine\Visual\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="Entity.h">
       <Filter>Core\Engine\Logic\Core</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Core\Engine\Logic\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Core\Engine\Logic\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderQueue.h">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryListener.h">
+      <Filter>Core\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,9 +91,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Core\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
@@ -102,12 +110,20 @@
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Core\Engine\Visual\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="RenderQueue.cpp" />
+    <ClCompile Include="Transform.cpp">
+      <Filter>Core\Engine\Logic\Core</Filter>
+    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Core\Engine\Logic\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
+    <ClCompile Include="Component.cpp">
       <Filter>Core\Engine\Logic\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderQueue.cpp">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
