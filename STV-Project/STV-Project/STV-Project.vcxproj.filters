@@ -87,7 +87,7 @@
     <ClInclude Include="TexturedModel.h">
       <Filter>Core\Engine\Visual\Rendering\Models</Filter>
     </ClInclude>
-    <ClInclude Include="TestComponent.h">
+    <ClInclude Include="TestRotationComponent.h">
       <Filter>Core\Game</Filter>
     </ClInclude>
   </ItemGroup>
@@ -127,9 +127,6 @@
     </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Core\Engine\Visual\Rendering\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="TestComponent.cpp">
-      <Filter>Core\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

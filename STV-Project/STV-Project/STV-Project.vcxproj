@@ -141,7 +141,7 @@
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
-    <ClInclude Include="TestComponent.h" />
+    <ClInclude Include="TestRotationComponent.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Transform.h" />
@@ -157,7 +157,6 @@
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticShader.cpp" />
-    <ClCompile Include="TestComponent.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
