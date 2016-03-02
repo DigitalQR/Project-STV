@@ -138,6 +138,7 @@
     <ClInclude Include="MemoryListener.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
+    <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticShader.cpp" />

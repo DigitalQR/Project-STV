@@ -6,7 +6,7 @@ using namespace std;
 Camera::Camera()
 {
 	_position = vec3(0, 0, 0);
-	_offset = vec3(0, 3, -3);
+	_offset = vec3(0, 30, -30);
 }
 
 Camera::~Camera()
