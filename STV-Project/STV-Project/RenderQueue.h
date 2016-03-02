@@ -1,6 +1,7 @@
 #pragma once
 #include "MemoryListener.h"
 #include <map>
+#include <list>
 #include "Entity.h"
 
 
@@ -10,6 +11,6 @@ public:
 	~RenderQueue();
 	void AddToRenderQueue(Entity* e);
 	void RemoveFromRenderQueue(Entity* e);
-	map<const TexturedModel*, vector<Entity*>*> queue;
+	map<const TexturedModel*, list<Entity*>*> queue;
 
 };

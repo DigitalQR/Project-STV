@@ -1,6 +1,5 @@
 #include "Shader.h"
 #include <fstream>
-#include <vector>
 
 Shader::Shader(string name)
 {
@@ -107,13 +106,13 @@ void Shader::Render()
 {
 	PrepareShader();
 
-	for (map<const TexturedModel*, vector<Entity*>*>::iterator it = render_queue.queue.begin(); it != render_queue.queue.end(); it++)
+	for (map<const TexturedModel*, list<Entity*>*>::iterator it = render_queue.queue.begin(); it != render_queue.queue.end(); it++)
 	{
 		TexturedModel* textured_model = (TexturedModel*)it->first;
 		PrepareModel(textured_model);
 
-		vector<Entity*>* list = render_queue.queue[textured_model];
-		for (Entity* entity : *list)
+		list<Entity*>* entity_list = render_queue.queue[textured_model];
+		for (Entity* entity : *entity_list)
 		{
 			PrepareInstance(entity);
 			glDrawElements(GL_TRIANGLES, textured_model->model->getIndiceCount(), GL_UNSIGNED_INT, 0);
