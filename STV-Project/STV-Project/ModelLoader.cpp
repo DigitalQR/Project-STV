@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Model* ModelLoader::CreateModel(vector<float> vertices, vector<float> uv_coords, vector<unsigned int> indices)
+Model* ModelLoader::CreateModel(vector<float> vertices, vector<float> uv_coords, vector<float> normals, vector<unsigned int> indices)
 {
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -12,6 +12,7 @@ Model* ModelLoader::CreateModel(vector<float> vertices, vector<float> uv_coords,
 	BindIndicesBuffer(indices);
 	StoreInVBO(0, 3, vertices, GL_STATIC_DRAW);
 	StoreInVBO(1, 2, uv_coords, GL_STATIC_DRAW);
+	StoreInVBO(2, 3, normals, GL_STATIC_DRAW);
 
 	glBindVertexArray(0);
 	return new Model(vao, indices.size());

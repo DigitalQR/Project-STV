@@ -93,7 +93,9 @@
     <ClInclude Include="TextureLoader.h">
       <Filter>Core\Engine\Visual\Rendering\Models\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="OBJLoader.h" />
+    <ClInclude Include="OBJLoader.h">
+      <Filter>Core\Engine\Visual\Rendering\Models\Loaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -132,7 +134,9 @@
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Core\Engine\Visual\Rendering\Models\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="OBJLoader.cpp" />
+    <ClCompile Include="OBJLoader.cpp">
+      <Filter>Core\Engine\Visual\Rendering\Models\Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\static.frag">
