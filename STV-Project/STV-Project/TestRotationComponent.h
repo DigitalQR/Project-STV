@@ -11,7 +11,7 @@ public:
 	void LogicUpdate() {};
 	void VisualUpdate() 
 	{
-		parent->rotation += vec3(0.0, 0.01f, 0.0);
+		parent->rotation += vec3(0.0, 0.0, 0.01f);
 	};
 };
 

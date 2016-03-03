@@ -5,8 +5,8 @@ using namespace std;
 
 Camera::Camera()
 {
-	_position = vec3(0, 0, 0);
-	_offset = vec3(0, 30, -30);
+	_position = vec3(0, 10, 0);
+	_offset = vec3(0, 0, -50);
 }
 
 Camera::~Camera()

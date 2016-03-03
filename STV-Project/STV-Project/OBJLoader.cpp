@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cmath>
 
 map<string, Model*> OBJLoader::LoadOBJ(string path)
 {
@@ -109,7 +110,7 @@ map<string, Model*> OBJLoader::LoadOBJ(string path)
 						break;
 					}
 
-					index -= 1; //Correct offest for OpenGL
+					index--; //Correct offest for OpenGL
 					raw_int.push_back(index);
 
 					track++; 
@@ -165,7 +166,7 @@ map<string, Model*> OBJLoader::LoadOBJ(string path)
 		//Updating offset for next object
 		total_vertex_count += raw_vertex_buffer.size() / 3;
 		total_uv_count += raw_uv_buffer.size() / 2;
-		total_normal_count += raw_normal_buffer.size() / 3;
+		total_normal_count += raw_normal_buffer.size()/ 3;
 
 		raw_vertex_buffer.clear();
 		raw_uv_buffer.clear();
@@ -193,15 +194,12 @@ Model* OBJLoader::Build(
 
 	vector<unsigned int> indices;
 
-	//cout << endl;
 	for (int i = 0; i < raw_face_buffer.size(); i+=3)
 	{
 		unsigned int position_index = raw_face_buffer[i];
 		unsigned int uv_index = raw_face_buffer[i+1];
 		unsigned int normal_index = raw_face_buffer[i+2];
-
-		//cout << position_index + 1 << "/" << uv_index + 1 << "/" << normal_index + 1 << endl;
-
+		
 		uv[position_index * 2 + 0] = raw_uv_buffer[uv_index * 2 + 0];
 		uv[position_index * 2 + 1] = raw_uv_buffer[uv_index * 2 + 1];
 
