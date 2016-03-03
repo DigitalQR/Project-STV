@@ -40,87 +40,46 @@ map<string, Model*> OBJLoader::LoadOBJ(string path)
 		//Vertex position
 		if (sub_code == "v ")
 		{
-			istringstream line_stream(&line[2]);
-			float x, y, z;
-			line_stream >> x >> y >> z;
-			raw_vertex_buffer.push_back(x);
-			raw_vertex_buffer.push_back(y);
-			raw_vertex_buffer.push_back(z);
+			vector<float> values = getValues(line.substr(2), ' ');
+			raw_vertex_buffer.push_back(values[0]);
+			raw_vertex_buffer.push_back(values[1]);
+			raw_vertex_buffer.push_back(values[2]);
 		}
 		//Vertex normal
 		else if (sub_code == "vn")
 		{
-			istringstream line_stream(&line[2]);
-			float x, y, z;
-			line_stream >> x >> y >> z;
-			raw_normal_buffer.push_back(x);
-			raw_normal_buffer.push_back(y);
-			raw_normal_buffer.push_back(z);
+			vector<float> values = getValues(line.substr(2), ' ');
+			raw_normal_buffer.push_back(values[0]);
+			raw_normal_buffer.push_back(values[1]);
+			raw_normal_buffer.push_back(values[2]);
 		}
 		//Vertex UV
 		else if (sub_code == "vt")
 		{
-			istringstream line_stream(&line[2]);
-			float u, v;
-			line_stream >> u >> v;
-			raw_uv_buffer.push_back(u);
-			raw_uv_buffer.push_back(v);
+			vector<float> values = getValues(line.substr(2), ' ');
+			raw_uv_buffer.push_back(values[0]);
+			raw_uv_buffer.push_back(values[1]);
 		}
 		//Object name
 		else if (sub_code == "g ")
 		{
-			istringstream line_stream(&line[2]);
-			string name;
-			line_stream >> name;
-			current_model_name = name;
-			cout << "\tObject '" << name << "' ";
+			current_model_name = &line[2];
+			cout << "\tObject '" << &current_model_name[0] << "' ";
 			building = true;
 		}
 		//Face
 		else if (sub_code == "f ")
 		{
-			stringstream faces(&line[2]);
-			vector<float> raw_int;
+			vector<string> faces = getSubText(line.substr(2), ' ');
 
-			string face;
-			string operands;
-			
-			while (getline(faces, face, ' ')) {
-				stringstream ops(face);
+			for (string face: faces)
+			{
+				vector<float> values = getValues(face, '/');
 
-				int track = 0;
-				while (getline(ops, operands, '/'))
-				{
-					int index = (unsigned int)stoi(operands);
-					bool yes = false;
-
-					//Correcting offset for object
-					switch (track) 
-					{
-					case 0:
-						index -= total_vertex_count;
-						if (yes)
-							cout << " v " << index  << endl;
-						break;
-					case 1:
-						index -= total_uv_count;
-						break;
-					case 2:
-						index -= total_normal_count;
-						break;
-					}
-
-					index--; //Correct offest for OpenGL
-					raw_int.push_back(index);
-
-					track++; 
-					if (track == 3)
-					{
-						track = 0;
-					}
-				}
+				raw_face_buffer.push_back((int)values[0] - total_vertex_count - 1);
+				raw_face_buffer.push_back((int)values[1] - total_uv_count - 1);
+				raw_face_buffer.push_back((int)values[2] - total_normal_count - 1);
 			}
-			raw_face_buffer.insert(raw_face_buffer.end(), raw_int.begin(), raw_int.end());
 		}
 		//Look out for comment at end of face section
 		else if (sub_code == "# " && building)
@@ -176,6 +135,47 @@ map<string, Model*> OBJLoader::LoadOBJ(string path)
 
 	return object_map;
 }
+
+vector<float> OBJLoader::getValues(string raw_text, char split)
+{
+	vector<float> content;
+	string current_line = "";
+
+	for (char c : raw_text)
+	{
+		if (c == split)
+		{
+			if (current_line != "") content.push_back(stof(current_line));
+			current_line = "";
+		}
+		else
+			current_line += c;
+	}
+	if (current_line != "") content.push_back(stof(current_line));
+
+	return content;
+}
+
+vector<string> OBJLoader::getSubText(string raw_text, char split)
+{
+	vector<string> content;
+	string current_line = "";
+
+	for (char c : raw_text)
+	{
+		if (c == split)
+		{
+			if (current_line != "") content.push_back(current_line);
+			current_line = "";
+		}
+		else
+			current_line += c;
+	}
+	if (current_line != "") content.push_back(current_line);
+
+	return content;
+}
+
 
 Model* OBJLoader::Build(
 	vector<float>& raw_vertex_buffer,

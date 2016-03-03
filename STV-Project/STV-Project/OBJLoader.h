@@ -18,5 +18,8 @@ private:
 		vector<float>& raw_uv_buffer,
 		vector<float>& raw_normal_buffer,
 		vector<float>& raw_face_buffer );
+
+	static vector<float> getValues(string raw_text, char split);
+	static vector<string> getSubText(string raw_text, char split);
 };
 
