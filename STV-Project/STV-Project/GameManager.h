@@ -8,8 +8,8 @@
 #include "TextureLoader.h"
 
 #include <iostream>
+#include <list>
 
-using namespace std;
 class MasterRenderer;
 
 class GameManager

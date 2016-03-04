@@ -1,16 +1,17 @@
 #pragma once
 #include "MemoryListener.h"
+#include "Element3D.h"
 #include <map>
 #include <list>
-#include "Entity.h"
 
+using namespace std;
 
 class RenderQueue
 {
 public:
 	~RenderQueue();
-	void AddToRenderQueue(Entity* e);
-	void RemoveFromRenderQueue(Entity* e);
-	map<const TexturedModel*, list<Entity*>*> queue;
+	void AddToRenderQueue(Element3D* e);
+	void RemoveFromRenderQueue(Element3D* e);
+	map<const TexturedModel*, list<Element3D*>*> queue;
 
 };

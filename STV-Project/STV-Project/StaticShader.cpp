@@ -27,10 +27,10 @@ void StaticShader::PrepareModel(TexturedModel* textured_model)
 	glBindTexture(GL_TEXTURE_2D, textured_model->texture);
 }
 
-void StaticShader::PrepareInstance(Entity* entity) 
+void StaticShader::PrepareInstance(Element3D* element)
 {
-	Shader::PrepareInstance(entity);
-	glUniformMatrix4fv(_UNIFORM_MODEL_MATRIX, 1, GL_FALSE, &entity->getModelMatrix()[0][0]);
+	Shader::PrepareInstance(element);
+	glUniformMatrix4fv(_UNIFORM_MODEL_MATRIX, 1, GL_FALSE, &element->getModelMatrix()[0][0]);
 }
 
 

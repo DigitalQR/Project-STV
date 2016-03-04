@@ -5,13 +5,13 @@
 RenderQueue::~RenderQueue()
 {
 	cout << "\tDeleting render queue." << endl;
-	for (map<const TexturedModel*, list<Entity*>*>::iterator it = queue.begin(); it != queue.end(); it++)
+	for (map<const TexturedModel*, list<Element3D*>*>::iterator it = queue.begin(); it != queue.end(); it++)
 	{
 		delete queue[it->first];
 	}
 }
 
-void RenderQueue::AddToRenderQueue(Entity* e)
+void RenderQueue::AddToRenderQueue(Element3D* e)
 {
 	if (queue.find(e->textured_model) != queue.end())
 	{
@@ -21,16 +21,16 @@ void RenderQueue::AddToRenderQueue(Entity* e)
 	else
 	{
 		//Not found
-		list<Entity*>* vec = new list<Entity*>();
+		list<Element3D*>* vec = new list<Element3D*>();
 		vec->push_back(e);
 		queue[e->textured_model] = vec;
 	}
 
 }
 
-void RenderQueue::RemoveFromRenderQueue(Entity* e)
+void RenderQueue::RemoveFromRenderQueue(Element3D* e)
 {
-	list<Entity*>* q = queue[e->textured_model];
+	list<Element3D*>* q = queue[e->textured_model];
 
 	bool contains = (find(q->begin(), q->end(), e)) != q->end();
 

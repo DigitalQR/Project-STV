@@ -28,14 +28,11 @@ public:
 		glBindVertexArray(textured_model->model->getVAO());
 	};
 
-	virtual void PrepareInstance(Entity* entity) 
-	{
-		entity->VisualUpdate();
-	};
+	virtual void PrepareInstance(Element3D* e) {};
 
-	void AddForRender(Entity* entity)
+	void AddForRender(Element3D* e)
 	{
-		render_queue.AddToRenderQueue(entity);
+		render_queue.AddToRenderQueue(e);
 	};
 	void Render();
 

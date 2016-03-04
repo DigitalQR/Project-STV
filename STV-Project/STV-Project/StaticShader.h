@@ -12,7 +12,7 @@ public:
 
 	void PrepareShader();
 	void PrepareModel(TexturedModel* textured_model);
-	void PrepareInstance(Entity* entity);
+	void PrepareInstance(Element3D* element);
 
 private:
 	const GLuint _UNIFORM_MODEL_MATRIX;

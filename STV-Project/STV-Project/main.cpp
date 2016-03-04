@@ -8,6 +8,7 @@
 
 #include "TestRotationComponent.h"
 #include "OBJLoader.h"
+#include "Element3D.h"
 
 using namespace std;
 
@@ -22,27 +23,32 @@ void Start()
 	GLuint texture = GameManager::getMain()->texture_loader->LoadPNG("Res/Creatures/Player/stv_charpal.png");
 	TexturedModel* tm = new TexturedModel(model, texture);
 
-	Entity* entity = new Entity(tm);
-	entity->AddComponent(new TestRotationComponent());
-	GameManager::getMain()->master_renderer->static_shader->AddForRender(entity);
+	Element3D element(tm);
 
-	Entity* entity1 = new Entity(tm);
-	entity1->AddComponent(new TestRotationComponent());
-	//entity1->location = vec3(0.0, 1.0, 0);
-	//GameManager::getMain()->master_renderer->static_shader->AddForRender(entity1);
+	GameManager::getMain()->master_renderer->static_shader->AddForRender(&element);
 
-	//entity->setParent(entity1);
+	Entity entity;
+	entity.AddComponent(new TestRotationComponent);
+
+
+
+
+
+
+
+
+
+
+
 
 	GameManager::getMain()->MainLoop();
-	delete GameManager::getMain();
 
 	for (map<string, Model*>::iterator it = model_map.begin(); it != model_map.end(); it++)
 	{
 		delete it->second;
 	}
-	
-	delete entity;
-	delete entity1;
+
+	delete GameManager::getMain();
 	delete tm;
 }
 
