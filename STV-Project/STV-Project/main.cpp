@@ -29,16 +29,7 @@ void Start()
 
 	Entity entity;
 	entity.AddComponent(new TestRotationComponent);
-
-
-
-
-
-
-
-
-
-
+	entity.GetComponent<TestRotationComponent>();
 
 
 	GameManager::getMain()->MainLoop();

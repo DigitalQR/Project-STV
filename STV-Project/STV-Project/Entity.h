@@ -19,6 +19,21 @@ public:
 	virtual void VisualUpdate();
 
 	void AddComponent(Component* component);
+
+	template<class component_type>
+	component_type* GetComponent()
+	{
+		for (Component* component : _components)
+		{
+			component_type* comp = dynamic_cast<component_type*>(component);
+			if (comp != nullptr)
+			{
+				return comp;
+			}
+		}
+		return nullptr;
+	}
+
 	void RemoveComponentAndDelete(Component* component);
 
 	vector<Element3D*> GetElements() const { return _elements; }
