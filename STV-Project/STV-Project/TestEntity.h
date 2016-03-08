@@ -8,10 +8,10 @@ class TestEntity : public Entity
 public:
 	TestEntity() 
 	{
-		_models = OBJLoader::LoadOBJ("Res/Creatures/Player/T-Pose.obj");
+		map<string, Model*> models = OBJLoader::LoadOBJ("Res/Creatures/Player/T-Pose.obj");
 		_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/Creatures/Player/stv_charpal.png");
 
-		for (map<string, Model*>::iterator it = _models.begin(); it != _models.end(); it++)
+		for (map<string, Model*>::iterator it = models.begin(); it != models.end(); it++)
 		{
 			TexturedModel* tm = new TexturedModel(it->second, _texture);
 			_textured_models.push_back(tm);
@@ -22,19 +22,14 @@ public:
 
 	~TestEntity() 
 	{
-		for (map<string, Model*>::iterator it = _models.begin(); it != _models.end(); it++)
-		{
-			delete it->second;
-		}
-		
 		for (TexturedModel* tm: _textured_models)
 		{
+			delete tm->model;
 			delete tm;
 		}
 	}
 
 private:
 	list<TexturedModel*> _textured_models;
-	map<string, Model*> _models;
 	GLuint _texture;
 };

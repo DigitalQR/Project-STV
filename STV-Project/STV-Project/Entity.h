@@ -21,7 +21,7 @@ class Entity : public Transform
 {
 public:
 	Entity();
-	~Entity();
+	virtual ~Entity();
 	
 	virtual void Start();
 	virtual void LogicUpdate();
