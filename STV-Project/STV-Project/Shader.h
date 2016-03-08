@@ -36,6 +36,10 @@ public:
 		render_queue.AddToRenderQueue(e);
 	};
 	void Render();
+	void ClearRenderQueue() 
+	{
+		render_queue.queue.clear();
+	}
 
 protected:
 	GLuint _program;

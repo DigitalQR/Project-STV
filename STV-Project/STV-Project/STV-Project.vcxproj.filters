@@ -37,14 +37,14 @@
     <Filter Include="Core\Engine\Visual\Rendering\Models\Loaders">
       <UniqueIdentifier>{3be03e89-bd53-41e6-9a7f-2049158b2f0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Core">
+      <UniqueIdentifier>{20ba84ef-4fd1-4807-b654-dc8b0d979f0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameManager.h">
-      <Filter>Core\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
     </ClInclude>
@@ -99,11 +99,14 @@
     <ClInclude Include="TestEntity.h">
       <Filter>Core\Game</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Core\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Core\Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Core\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Core\Game</Filter>
     </ClCompile>
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="OBJLoader.cpp">
       <Filter>Core\Engine\Visual\Rendering\Models\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Core\Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@
 
 void RenderScene()
 {
-	GameManager::getMain()->EntityVisualUpdates();
+	GameManager::getMain()->GetCurrentScene()->VisualUpdate();
 	GameManager::getMain()->master_renderer->Render();
 }
 
@@ -84,4 +84,11 @@ void GameManager::MainLoop()
 	cout << "Starting 'glutMainLoop'" << endl;
 	glutMainLoop();
 	cout << "Finshed 'glutMainLoop'" << endl;
+}
+
+void GameManager::SetCurrentScene(Scene* scene)
+{
+	master_renderer->ClearAllRenderQueues();
+	_current_scene = scene;
+	scene->AttachScene();
 }

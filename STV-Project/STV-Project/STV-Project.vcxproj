@@ -141,6 +141,7 @@
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="RenderQueue.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="TestEntity.h" />

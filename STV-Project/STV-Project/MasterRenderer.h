@@ -16,6 +16,10 @@ public:
 	MasterRenderer(GameManager* game_manager);
 	~MasterRenderer();
 	void Render();
+	void ClearAllRenderQueues() 
+	{
+		static_shader->ClearRenderQueue();
+	}
 
 private:
 	const GameManager* _GAME_MANAGER;

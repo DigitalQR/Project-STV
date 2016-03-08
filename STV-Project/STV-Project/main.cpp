@@ -7,7 +7,7 @@
 
 #include "TestEntity.h"
 #include "TestRotationComponent.h"
-
+#include "Scene.h"
 
 using namespace std;
 
@@ -17,9 +17,13 @@ void Start()
 	GameManager::getMain();
 
 	
-	TestEntity te;
-	te.AddComponent(new TestRotationComponent());
-	GameManager::getMain()->AddToGame(&te);
+	TestEntity* te = new TestEntity;
+	te->AddComponent(new TestRotationComponent());
+
+
+	Scene scene;
+	scene.AddToScene(te);
+	GameManager::getMain()->SetCurrentScene(&scene);
 
 	GameManager::getMain()->MainLoop();
 
