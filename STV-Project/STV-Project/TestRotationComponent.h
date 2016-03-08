@@ -6,6 +6,10 @@
 class TestRotationComponent : public Component
 {
 public:
+	~TestRotationComponent() 
+	{
+		cout << "TTTTTTEEEEEEEEEESSSSSSSSSSTTTTTTTTTTTTTT" << endl;
+	}
 	void Start()
 	{
 		cout << "START" << endl;
