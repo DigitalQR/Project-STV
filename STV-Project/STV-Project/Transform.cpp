@@ -21,7 +21,6 @@ Transform::Transform(vec3& location, vec3& rotation, float scale)
 	Init(location, rotation, scale);
 }
 
-
 Transform::~Transform()
 {
 }
@@ -59,8 +58,8 @@ mat4& Transform::getModelMatrix()
 
 	_model_matrix = glm::translate(_model_matrix, pivot);
 	_model_matrix = glm::rotate(_model_matrix, rotation.x, vec3(1, 0, 0));
-	_model_matrix = glm::rotate(_model_matrix, rotation.y, vec3(0, 0, 1));
-	_model_matrix = glm::rotate(_model_matrix, rotation.z, vec3(0, 1, 0));
+	_model_matrix = glm::rotate(_model_matrix, rotation.y, vec3(0, 1, 0));
+	_model_matrix = glm::rotate(_model_matrix, rotation.z, vec3(0, 0, 1));
 	_model_matrix = glm::translate(_model_matrix, -pivot);
 
 	return _model_matrix;

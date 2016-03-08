@@ -6,20 +6,34 @@
 #include "Component.h"
 
 #include "Element3D.h"
+#include "Shader.h"
 
 using namespace std;
 
+/**
+Entity:
+-Holds models to be rendererd and is used logic side.
+-Components attached to an entity will be ran at the begining, every update and every frame.
+
+
+*/
 class Entity : public Transform
 {
 public:
 	Entity();
 	~Entity();
 	
+	virtual void Start();
 	virtual void LogicUpdate();
 	virtual void VisualUpdate();
+	
+	/**
+	Tries to find a component attached to Entity
 
-	void AddComponent(Component* component);
 
+	@params Template takes class of desired component
+	@returns Component of passed class, if it is found
+	*/
 	template<class component_type>
 	component_type* GetComponent()
 	{
@@ -34,12 +48,35 @@ public:
 		return nullptr;
 	}
 
+	void AddComponent(Component* component);
 	void RemoveComponentAndDelete(Component* component);
 
-	vector<Element3D*> GetElements() const { return _elements; }
 
+	vector<Element3D*> GetElements() const { return _elements; }
 	void AddElement(Element3D* element);
 	void RemoveElementAndDelete(Element3D* component);
+
+	virtual void AddElementsForRender();
+
+protected:	
+	/**
+	Add Elements for render in desired shader
+	
+	@params Desired shader
+	*/	
+	void AddElementsForRender(Shader* shader)
+	{
+		for (Element3D* element : _elements)
+		{
+			AddElementForRender(element, shader);
+		}
+	}
+
+	inline void AddElementForRender(Element3D* element, Shader* shader)
+	{
+		shader->AddForRender(element);
+	}
+
 
 private:
 	vector<Component*> _components;

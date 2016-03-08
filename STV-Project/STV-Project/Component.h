@@ -1,18 +1,21 @@
 #pragma once
 #include "MemoryListener.h"
-#include "Transform.h"
+#include "Entity.h"
+
+class Entity;
 
 class Component
 {
 public:
 	bool enabled = true;
-	Transform* parent;
-
-	Component();
-	~Component();
-
-	void Attach(Transform* parent);
-	virtual void LogicUpdate() = 0;
-	virtual void VisualUpdate() = 0;
+	Entity* parent;
+	
+	void Attach(Entity* parent)
+	{
+		this->parent = parent;
+	}
+	virtual void Start() {};
+	virtual void LogicUpdate() {};
+	virtual void VisualUpdate() {};
 };
 

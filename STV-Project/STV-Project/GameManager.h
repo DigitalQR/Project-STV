@@ -6,6 +6,7 @@
 #include "ModelLoader.h"
 #include "MasterRenderer.h"
 #include "TextureLoader.h"
+#include "Entity.h"
 
 #include <iostream>
 #include <list>
@@ -38,10 +39,24 @@ public:
 		return MAIN;
 	}
 
+	void AddToGame(Entity* entity) 
+	{
+		_entities.push_back(entity);
+		entity->Start();
+		entity->AddElementsForRender();
+	}
+
+	void EntityVisualUpdates() 
+	{
+		for (Entity* entity : _entities)
+			entity->VisualUpdate();
+	}
+
 private:
+	list<Entity*> _entities;
+
 	void GLInit();
 	void GameInit();
-
 };
 
 

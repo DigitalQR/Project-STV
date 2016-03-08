@@ -7,6 +7,7 @@
 
 void RenderScene()
 {
+	GameManager::getMain()->EntityVisualUpdates();
 	GameManager::getMain()->master_renderer->Render();
 }
 

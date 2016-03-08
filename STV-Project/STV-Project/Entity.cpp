@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "GameManager.h"
 #include <iostream>
 
 Entity::Entity()
@@ -11,6 +12,12 @@ Entity::~Entity()
 		delete component;
 	for (Element3D* element : _elements)
 		delete element;
+}
+
+void Entity::Start() 
+{
+	for (Component* component : _components)
+		component->Start();
 }
 
 void Entity::LogicUpdate()
@@ -77,4 +84,9 @@ void Entity::RemoveElementAndDelete(Element3D* element)
 		_elements.erase(_elements.begin() + index);
 		delete element;
 	}
+}
+
+void Entity::AddElementsForRender() 
+{
+	this->AddElementsForRender(GameManager::getMain()->master_renderer->static_shader);
 }

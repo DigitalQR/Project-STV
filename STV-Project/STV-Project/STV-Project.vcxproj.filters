@@ -96,6 +96,9 @@
     <ClInclude Include="Element3D.h">
       <Filter>Core\Engine\Visual\Rendering\Shaders\Core</Filter>
     </ClInclude>
+    <ClInclude Include="TestEntity.h">
+      <Filter>Core\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -117,9 +120,6 @@
       <Filter>Core\Engine\Logic\Core</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Core\Engine\Logic\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
       <Filter>Core\Engine\Logic\Core</Filter>
     </ClCompile>
     <ClCompile Include="RenderQueue.cpp">
