@@ -58,6 +58,7 @@ public:
 		for (int y = -1; y < 2; y++)
 			for (int x = -1; x < 2; x++)
 			{
+				cout << x << " " << y << endl;
 				Chunk* chunk = new Chunk(&terrain, x, y);
 				chunk->BuildTerrain();
 				_chunks.push_back(chunk);

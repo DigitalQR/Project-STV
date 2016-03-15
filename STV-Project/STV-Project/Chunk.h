@@ -29,8 +29,11 @@ public:
 		x -= _X * CHUNK_SIZE;
 		z -= _Z * CHUNK_SIZE;
 
-		if (x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_MAX_HEIGHT || z >= CHUNK_SIZE)
+		if (x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_MAX_HEIGHT || z >= CHUNK_SIZE) {
+			if (y > GetHeight(x, z))
+				return BLOCK_AIR;
 			return BLOCK_UNKNOWN;
+		}
 
 		return _blocks[x][y][z];
 	}
@@ -49,9 +52,12 @@ protected:
 	}
 
 	int GetHeight(int x, int y);
-	float GetRawNoise(int x, int y);
-	float GetNoise(int x, int y, int smoothness);
-	float GetSmoothNoise(int x, int y, int smoothness);
+	int GetCaveChance(int x, int y, int z);
+	float GetRawNoise(int x, int y, int z, float frequency);
+	float GetNoise(int x, int y, int z, float frequency, int smoothness);
+	float GetNoise(int x, int y, float frequency, int smoothness);
+	float GetSmoothNoise(int x, int y, int z, float frequency, int smoothness);
+	float GetSmoothNoise(int x, int y, float frequency, int smoothness);
 
 	void AddToPanel(int x, int y, int z, int x_point, int y_point, int z_point, 
 		vector<float>& verts, vector<float>& uvs, vector<float>& normals, vector<unsigned int>& indices, unsigned int& index_track);
