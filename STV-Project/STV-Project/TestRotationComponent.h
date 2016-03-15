@@ -18,7 +18,7 @@ public:
 
 	void VisualUpdate() 
 	{
-		parent->rotation += vec3(0.0f, 0.001f, 0.0f);
+		parent->rotation += vec3(0.0f, 0.01f, 0.0f);
 	};
 };
 

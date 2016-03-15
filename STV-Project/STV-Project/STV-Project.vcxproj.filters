@@ -40,6 +40,9 @@
     <Filter Include="Core\Engine\Core">
       <UniqueIdentifier>{20ba84ef-4fd1-4807-b654-dc8b0d979f0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Terrain">
+      <UniqueIdentifier>{b32243af-9f31-486a-8b93-5b5d07869aa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -105,6 +108,15 @@
     <ClInclude Include="Scene.h">
       <Filter>Core\Engine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Core\Engine\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>Core\Engine\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockGlossary.h">
+      <Filter>Core\Engine\Terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -142,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Core\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Core\Engine\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Core\Engine\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
