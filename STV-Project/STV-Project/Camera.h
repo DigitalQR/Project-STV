@@ -5,7 +5,7 @@
 #include "Dependencies\glm\gtc\matrix_transform.hpp"
 
 #define NEAR_CLIPPING_PLANE 0.1f
-#define FAR_CLIPPING_PLANE 100.0f
+#define FAR_CLIPPING_PLANE 10000.0f
 
 using namespace glm;
 

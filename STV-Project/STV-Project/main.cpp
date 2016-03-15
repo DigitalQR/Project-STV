@@ -17,7 +17,8 @@ void Start()
 	GameManager::getMain();
 
 	
-	TestEntity* te = new TestEntity;
+	TestEntity* te = new TestEntity2;
+	te->ReadyUp();
 	te->AddComponent(new TestRotationComponent());
 
 
