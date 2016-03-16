@@ -14,7 +14,7 @@ using namespace std;
 
 #define CHUNK_SIZE 16
 #define CHUNK_MAX_HEIGHT 128
-#define CHUNK_CAVE_SIZE 52
+#define CHUNK_CAVE_SIZE 54
 #define CHUNK_SURFACE_HEIGHT 32
 #define SQRT_3 1.7320500807557
 

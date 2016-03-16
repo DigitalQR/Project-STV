@@ -94,7 +94,7 @@ void Chunk::BuildModel()
 
 float Chunk::GetRawNoise(int x, int y, int z, float frequency)
 {	
-	srand(_parent->GetSeed() + x* frequency + y* frequency + z*frequency);
+	srand(_parent->GetSeed() + (x * frequency * 1.1 + y* frequency * 1.0 + z *frequency * 1.2));
 	rand(); //Throw away
 
 	float value = rand() % CHUNK_SURFACE_HEIGHT - CHUNK_SURFACE_HEIGHT / 2;
