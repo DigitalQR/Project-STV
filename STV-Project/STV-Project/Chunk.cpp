@@ -19,8 +19,6 @@ void Chunk::BuildTerrain()
 
 void Chunk::Generate()
 {
-	int cave_size = 10;
-
 	for (int x = 0; x < CHUNK_SIZE; x++)
 		for (int z = 0; z < CHUNK_SIZE; z++)
 		{
@@ -29,7 +27,7 @@ void Chunk::Generate()
 			for (int y = height; y >= 0; y--){
 				int cave_noise = GetCaveChance(x, y, z);
 
-				if(cave_size < cave_noise)
+				if(CHUNK_CAVE_SIZE < cave_noise)
 					_blocks[x][y][z] = BLOCK_GRASS;
 			}
 
@@ -47,7 +45,7 @@ int Chunk::GetCaveChance(int x, int y, int z)
 {
 	x += _X * CHUNK_SIZE;
 	z += _Z * CHUNK_SIZE;
-	return floorf(GetSmoothNoise(x, y, z, 100.0f, 10) + CHUNK_MAX_HEIGHT / 2);
+	return floorf(GetSmoothNoise(x, y, z, 100.0f, 30) + CHUNK_MAX_HEIGHT / 2);
 }
 
 void Chunk::BuildModel()

@@ -14,6 +14,7 @@ using namespace std;
 
 #define CHUNK_SIZE 16
 #define CHUNK_MAX_HEIGHT 128
+#define CHUNK_CAVE_SIZE 52
 #define CHUNK_SURFACE_HEIGHT 32
 #define SQRT_3 1.7320500807557
 
@@ -30,8 +31,13 @@ public:
 		z -= _Z * CHUNK_SIZE;
 
 		if (x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_MAX_HEIGHT || z >= CHUNK_SIZE) {
-			if (y > GetHeight(x, z))
+			if (y > GetHeight(x, z)) {
+					return BLOCK_AIR;
+			}
+			float cave_chance = GetCaveChance(x, y, z);
+			if (cave_chance <= CHUNK_CAVE_SIZE)
 				return BLOCK_AIR;
+
 			return BLOCK_UNKNOWN;
 		}
 

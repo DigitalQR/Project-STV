@@ -51,12 +51,14 @@ public:
 
 	void ReadyUp() override
 	{
-		Terrain terrain(1297);
+		Terrain terrain(1278);
 
 		_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/World/grass_tile.png");
 
-		for (int y = -1; y < 2; y++)
-			for (int x = -1; x < 2; x++)
+		int size = 3;
+
+		for (int y = -size; y < size; y++)
+			for (int x = -size; x < size; x++)
 			{
 				cout << x << " " << y << endl;
 				Chunk* chunk = new Chunk(&terrain, x, y);

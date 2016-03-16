@@ -7,7 +7,7 @@ class Keyboard
 public:
 	Keyboard()
 	{
-		_key_states = new bool[256];
+		_key_states = new bool[256]{false};
 	}
 	~Keyboard()
 	{
@@ -27,7 +27,7 @@ public:
 	}
 
 	static void setState(char key, bool state) {
-		getMain()->_key_states[key] = &state;
+		getMain()->_key_states[key] = state;
 	}
 	static bool isKeyDown(char key) { return getMain()->_key_states[key]; }
 	static bool isKeyUp(char key) { return !getMain()->_key_states[key]; }
