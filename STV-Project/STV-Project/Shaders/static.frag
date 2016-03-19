@@ -17,7 +17,7 @@ void main()
 
 	float bias = 0.85;
 	colour.xyz *= bias + normalize(normal)*(1.0-bias)*2;
-
+	colour.xyz = pass_normal;
 	if(colour.a == 0)
 		discard;
 
