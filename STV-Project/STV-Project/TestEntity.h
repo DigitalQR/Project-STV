@@ -55,10 +55,10 @@ public:
 
 		_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/World/grass_tile.png");
 
-		int size = 3;
+		int size = 1;
 
-		for (int y = -size; y < size; y++)
-			for (int x = -size; x < size; x++)
+		for (int y = -size; y <= size; y++)
+			for (int x = -size; x <= size; x++)
 			{
 				cout << x << " " << y << endl;
 				Chunk* chunk = new Chunk(&terrain, x, y);
