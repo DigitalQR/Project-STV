@@ -43,6 +43,9 @@
     <Filter Include="Core\Engine\Terrain">
       <UniqueIdentifier>{b32243af-9f31-486a-8b93-5b5d07869aa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Terrain\Core">
+      <UniqueIdentifier>{4b598280-baf6-4c27-aace-7025116f35b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -120,6 +123,12 @@
     <ClInclude Include="VoxelMesh.h">
       <Filter>Core\Engine\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="MarchingCube.h">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTools.h">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -166,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="VoxelMesh.cpp">
       <Filter>Core\Engine\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchingCube.cpp">
+      <Filter>Core\Engine\Terrain\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

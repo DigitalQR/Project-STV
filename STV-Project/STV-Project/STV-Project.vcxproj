@@ -137,6 +137,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MasterRenderer.h" />
     <ClInclude Include="MemoryListener.h" />
     <ClInclude Include="Model.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TerrainTools.h" />
     <ClInclude Include="TestEntity.h" />
     <ClInclude Include="TestRotationComponent.h" />
     <ClInclude Include="TexturedModel.h" />
@@ -160,6 +162,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="OBJLoader.cpp" />

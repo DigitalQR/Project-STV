@@ -1,6 +1,7 @@
 #pragma once
 #include "MemoryListener.h"
 #include "BlockGlossary.h"
+#include "MarchingCube.h"
 
 
 using namespace std;
@@ -13,7 +14,6 @@ public:
 	~Terrain();
 
 	unsigned int GetSeed() { return _SEED; }
-
 
 private:
 	const unsigned int _SEED;
