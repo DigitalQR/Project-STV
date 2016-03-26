@@ -1,5 +1,6 @@
 #include "Chunk.h"
 #include "GameManager.h"
+#include "Dependencies\glew\glew.h"
 
 Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
 	VoxelMesh(Vectori(CHUNK_SIZE, CHUNK_MAX_HEIGHT, CHUNK_SIZE), Vectori(x, 0, z))
@@ -9,12 +10,97 @@ Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
 
 Chunk::~Chunk()
 {
+	delete _debug_model;
 }
 
 void Chunk::BuildTerrain()
 {
-	Generate();
+	//Generate();
+
+	//*
+	//TEST//////////////////////
+	for (int x = 0; x < MESH_SIZE.x; x++)
+		for (int z = 0; z < MESH_SIZE.z; z++) 
+		{
+			SetBlockAt(x, CHUNK_MAX_HEIGHT - 1, z, BLOCK_GRASS);
+			SetBlockAt(x, 0, z, BLOCK_GRASS);
+		}
+
+	for (int x = 0; x < 3; x++)
+		for (int y = 0; y < 3; y++)
+			for (int z = 0; z < 3; z++)
+				SetBlockAt(8 + x, 64 + y, 8 + z, BLOCK_GRASS);
+
+	SetBlockAt(8, 64, 8, BLOCK_AIR);
+
+	SetBlockAt(2, 30, 1, BLOCK_GRASS);
+	SetBlockAt(1, 31, 2, BLOCK_GRASS);
+	SetBlockAt(2, 31, 2, BLOCK_GRASS);
+	SetBlockAt(1, 31, 1, BLOCK_GRASS);
+	SetBlockAt(1, 30, 2, BLOCK_GRASS);
+
+	/*
+	SetBlockAt(8, 34, 8, BLOCK_GRASS);
+	SetBlockAt(8, 34, 9, BLOCK_GRASS);
+	SetBlockAt(9, 34, 8, BLOCK_GRASS);
+	SetBlockAt(9, 33, 8, BLOCK_GRASS);
+	SetBlockAt(9, 33, 9, BLOCK_GRASS);
+
+	SetBlockAt(9, 37, 8, BLOCK_GRASS);
+	SetBlockAt(9, 37, 9, BLOCK_GRASS);
+	SetBlockAt(8, 37, 9, BLOCK_GRASS);
+	SetBlockAt(8, 36, 8, BLOCK_GRASS);
+	SetBlockAt(8, 36, 9, BLOCK_GRASS);
+
+	SetBlockAt(8, 28, 9, BLOCK_GRASS);
+	SetBlockAt(9, 28, 9, BLOCK_GRASS);
+	SetBlockAt(9, 28, 8, BLOCK_GRASS);
+	SetBlockAt(8, 27, 8, BLOCK_GRASS);
+	SetBlockAt(9, 27, 8, BLOCK_GRASS);*/
+	///////////////////////////*/
+
 	BuildModel();
+	if(_DEBUG) GenerateDebugModel();
+}
+
+void Chunk::GenerateDebugModel()
+{
+	vector<float> verts{};
+	vector<float> uvs{};
+	vector<float> normals{};
+	vector<unsigned int> indices{};
+
+	unsigned int index_track = 0; 
+	const Vectori offset = MESH_SIZE * MESH_OFFSET;
+
+	for (int x = 0; x < MESH_SIZE.x; x++)
+		for (int y = 0; y < MESH_SIZE.y; y++)
+			for (int z = 0; z < MESH_SIZE.z; z++)
+			{
+				if (GetBlockAt(x, y, z) != BLOCK_AIR) {
+					if (GetBlockAt(x + 1, y, z) == BLOCK_AIR)
+						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 1, 0, 0, verts, uvs, normals, indices, index_track);
+
+					if (GetBlockAt(x - 1, y, z) == BLOCK_AIR)
+						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, -1, 0, 0, verts, uvs, normals, indices, index_track);
+
+					if (GetBlockAt(x, y + 1, z) == BLOCK_AIR)
+						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, 1, 0, verts, uvs, normals, indices, index_track);
+
+					if (GetBlockAt(x, y - 1, z) == BLOCK_AIR)
+						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, -1, 0, verts, uvs, normals, indices, index_track);
+
+					if (GetBlockAt(x, y, z + 1) == BLOCK_AIR)
+						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, 0, 1, verts, uvs, normals, indices, index_track);
+
+					if (GetBlockAt(x, y, z - 1) == BLOCK_AIR)
+						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, 0, -1, verts, uvs, normals, indices, index_track);
+				}
+			}
+
+
+	_debug_model = GameManager::getMain()->model_loader->CreateModel(verts, uvs, normals, indices);
+	_debug_model->polygon_mode = GL_LINE;
 }
 
 void Chunk::Generate()
@@ -116,3 +202,76 @@ float Chunk::GetSmoothNoise(int x, int y, int z, float frequency, int smoothness
 	return GetNoise(x, y, z, frequency, smoothness) + GetNoise(x, y, z, frequency, smoothness / 2) / 4.0f + GetNoise(x, y, z, frequency, smoothness / 4) / 8.0f;
 }
 
+void Chunk::AddDebugPanel(int x, int y, int z, int x_point, int y_point, int z_point, vector<float>& verts, vector<float>& uvs, vector<float>& normals, vector<unsigned int>& indices, unsigned int& index_track)
+{
+	const float SQRT_3 = sqrt(3);
+
+	for (int a_sign = -1; a_sign <= 1; a_sign += 2)
+		for (int b_sign = -1; b_sign <= 1; b_sign += 2)
+		{
+			if (x_point != 0)
+			{
+				verts.push_back(x + 0.5f * x_point);
+				verts.push_back(y + 0.5f * a_sign);
+				verts.push_back(z + 0.5f * b_sign);
+				normals.push_back(1.0f / SQRT_3 * x_point);
+				normals.push_back(1.0f / SQRT_3 * a_sign);
+				normals.push_back(1.0f / SQRT_3 * b_sign);
+			}
+			if (y_point != 0)
+			{
+				verts.push_back(x + 0.5f * a_sign);
+				verts.push_back(y + 0.5f * y_point);
+				verts.push_back(z + 0.5f * b_sign);
+				normals.push_back(1.0f / SQRT_3 * a_sign);
+				normals.push_back(1.0f / SQRT_3 * y_point);
+				normals.push_back(1.0f / SQRT_3 * b_sign);
+			}
+			if (z_point != 0)
+			{
+				verts.push_back(x + 0.5f * a_sign);
+				verts.push_back(y + 0.5f * b_sign);
+				verts.push_back(z + 0.5f * z_point);
+				normals.push_back(1.0f / SQRT_3 * a_sign);
+				normals.push_back(1.0f / SQRT_3 * b_sign);
+				normals.push_back(1.0f / SQRT_3 * z_point);
+			}
+
+		}
+	uvs.push_back(0.0);
+	uvs.push_back(1.0);
+
+	uvs.push_back(0.0);
+	uvs.push_back(0.0);
+
+	uvs.push_back(1.0);
+	uvs.push_back(1.0);
+
+	uvs.push_back(1.0);
+	uvs.push_back(0.0);
+
+
+	if (x_point > 0 || y_point < 0 || z_point > 0)
+	{
+		indices.push_back(index_track);
+		indices.push_back(index_track + 3);
+		indices.push_back(index_track + 1);
+
+		indices.push_back(index_track + 2);
+		indices.push_back(index_track + 3);
+		indices.push_back(index_track);
+	}
+	else
+	{
+		indices.push_back(index_track + 1);
+		indices.push_back(index_track + 3);
+		indices.push_back(index_track);
+
+		indices.push_back(index_track);
+		indices.push_back(index_track + 3);
+		indices.push_back(index_track + 2);
+	}
+
+
+	index_track += 4;
+}

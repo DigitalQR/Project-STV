@@ -154,6 +154,7 @@
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="VoxelBuilder.h" />
     <ClInclude Include="VoxelMesh.h" />
   </ItemGroup>
   <ItemGroup>

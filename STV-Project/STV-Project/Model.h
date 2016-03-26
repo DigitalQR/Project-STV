@@ -11,6 +11,7 @@ public:
 		_indices_size(indices_size) 
 	{};
 
+	GLuint polygon_mode = GL_FILL;
 	GLuint getVAO() { return _vao; }
 	unsigned int getIndiceCount() { return _indices_size;  }
 

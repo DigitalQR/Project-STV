@@ -6,6 +6,7 @@
 #include "ModelLoader.h"
 #include "MasterRenderer.h"
 #include "TextureLoader.h"
+#include "VoxelBuilder.h"
 #include "Scene.h"
 
 #include <iostream>
@@ -27,6 +28,7 @@ public:
 	MasterRenderer* master_renderer;
 	ModelLoader* model_loader;
 	TextureLoader* texture_loader;
+	VoxelBuilder* voxel_builder;
 
 	/**
 	Generates a singleton

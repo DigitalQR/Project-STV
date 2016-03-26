@@ -38,8 +38,14 @@ public:
 		return VoxelMesh::GetBlockAt(x,y,z);
 	}
 
+	Model* GetDebugModel() 
+	{
+		return _debug_model;
+	}
+
 protected:
 	virtual void Generate();
+	void GenerateDebugModel();
 
 	float CosineInterpolate(float a, float b, float blend)
 	{
@@ -56,8 +62,11 @@ protected:
 	float GetSmoothNoise(int x, int y, int z, float frequency, int smoothness);
 	float GetSmoothNoise(int x, int y, float frequency, int smoothness);	
 
+	void AddDebugPanel(int x, int y, int z, int x_point, int y_point, int z_point, vector<float>& verts, vector<float>& uvs, vector<float>& normals, vector<unsigned int>& indices, unsigned int& index_track);
+
 private:
 	Terrain* _parent;
+	Model* _debug_model;
 
 
 };

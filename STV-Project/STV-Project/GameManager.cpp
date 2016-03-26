@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Keyboard.h"
+#include "MarchingCube.h"
 #include <vector>
 
 
@@ -60,6 +61,7 @@ GameManager::~GameManager()
 	delete model_loader;
 	delete master_renderer;
 	delete texture_loader;
+	delete voxel_builder;
 	delete Camera::getMain();
 	delete Keyboard::getMain();
 }
@@ -74,9 +76,10 @@ void GameManager::GLInit()
 	
 void GameManager::GameInit()
 {
-	texture_loader = new TextureLoader();
-	model_loader = new ModelLoader();
+	texture_loader = new TextureLoader;
+	model_loader = new ModelLoader;
 	master_renderer = new MasterRenderer(this);
+	voxel_builder = new MarchingCube;
 }
 
 void GameManager::MainLoop()

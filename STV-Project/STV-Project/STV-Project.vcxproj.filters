@@ -46,6 +46,12 @@
     <Filter Include="Core\Engine\Terrain\Core">
       <UniqueIdentifier>{4b598280-baf6-4c27-aace-7025116f35b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Terrain\Building">
+      <UniqueIdentifier>{5f2d82a0-4104-4eb5-b67f-342790f2070c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Terrain\Building\Core">
+      <UniqueIdentifier>{f663cafd-7719-48bb-bdfe-d9d4cea2a392}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -117,17 +123,20 @@
     <ClInclude Include="Chunk.h">
       <Filter>Core\Engine\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="BlockGlossary.h">
-      <Filter>Core\Engine\Terrain</Filter>
-    </ClInclude>
     <ClInclude Include="VoxelMesh.h">
       <Filter>Core\Engine\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="MarchingCube.h">
-      <Filter>Core\Engine\Terrain\Core</Filter>
-    </ClInclude>
     <ClInclude Include="TerrainTools.h">
       <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingCube.h">
+      <Filter>Core\Engine\Terrain\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockGlossary.h">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelBuilder.h">
+      <Filter>Core\Engine\Terrain\Building\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,7 +186,7 @@
       <Filter>Core\Engine\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="MarchingCube.cpp">
-      <Filter>Core\Engine\Terrain\Core</Filter>
+      <Filter>Core\Engine\Terrain\Building</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

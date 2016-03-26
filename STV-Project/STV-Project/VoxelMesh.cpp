@@ -1,6 +1,5 @@
 #include "VoxelMesh.h"
 #include "GameManager.h"
-#include "MarchingCube.h"
 
 VoxelMesh::VoxelMesh(Vectori& mesh_size, Vectori& mesh_offset) :
 	MESH_SIZE(mesh_size), MESH_OFFSET(mesh_offset)
@@ -45,7 +44,7 @@ void VoxelMesh::BuildModel()
 				states[1][0][1] = GetBlockAt(x+1, y, z+1);
 				states[0][1][1] = GetBlockAt(x, y+1, z+1);
 				states[1][1][1] = GetBlockAt(x+1, y+1, z+1);
-				MarchingCube::getMain()->BuildFaces(x + offset.x, y + offset.y, z + offset.z, states, model_data);
+				GameManager::getMain()->voxel_builder->BuildFaces(x + offset.x, y + offset.y, z + offset.z, states, model_data);
 			}
 
 	_model = GameManager::getMain()->model_loader->CreateModel(model_data.verts, model_data.uvs, model_data.normals, model_data.indices);

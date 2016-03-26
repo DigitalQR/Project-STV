@@ -27,6 +27,7 @@ public:
 	virtual void PrepareModel(TexturedModel* textured_model)
 	{
 		glBindVertexArray(textured_model->model->getVAO());
+		glPolygonMode(GL_FRONT_AND_BACK, textured_model->model->polygon_mode);
 	};
 
 	virtual void PrepareInstance(Element3D* e) {};

@@ -37,6 +37,43 @@ public:
 		if (Keyboard::isKeyDown('e'))
 			parent->location += vec3(0.0f, 0.0f, 0.5f);
 
+		/*if (Keyboard::isKeyDown('a'))
+			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(-0.5f, 0.0f, 0.0f));
+
+		if (Keyboard::isKeyDown('d'))
+			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.5f, 0.0f, 0.0f));
+
+		if (Keyboard::isKeyDown('w'))
+			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.0f, 0.0f, -0.5f));
+
+		if (Keyboard::isKeyDown('s'))
+			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.0f, 0.0f, 0.5f));
+
+		if (Keyboard::isKeyDown('q'))
+			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.0f, 0.5f, 0.0f));
+
+		if (Keyboard::isKeyDown('e'))
+			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.0f, -0.5f, 0.0f));
+
+
+		if (Keyboard::isKeyDown('j'))
+			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.5f, 0.0f, 0.0f));
+
+		if (Keyboard::isKeyDown('l'))
+			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(-0.5f, 0.0f, 0.0f));
+
+		if (Keyboard::isKeyDown('i'))
+			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.0f, 0.0f, 0.5f));
+
+		if (Keyboard::isKeyDown('k'))
+			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.0f, 0.0f, -0.5f));
+
+		if (Keyboard::isKeyDown('u'))
+			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.0f, -0.5f, 0.0f));
+
+		if (Keyboard::isKeyDown('o'))
+			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.0f, 0.5f, 0.0f));
+*/
 	};
 };
 

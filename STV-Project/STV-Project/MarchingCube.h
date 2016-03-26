@@ -1,18 +1,14 @@
 #pragma once
 #include "BlockGlossary.h"
 #include "TerrainTools.h"
+#include "VoxelBuilder.h"
 #include <array>
 
-class MarchingCube {
 
+class MarchingCube : public VoxelBuilder
+{
 public:
-	static MarchingCube* getMain()
-	{
-		static MarchingCube* MAIN = new MarchingCube();
-		return MAIN;
-	}
-
-	MarchingCube()
+	MarchingCube() 
 	{
 		for (vector<float> values : _case_vertices)
 		{
@@ -22,85 +18,12 @@ public:
 
 			_case_uvs.push_back(vector<float>{0, 0});
 		}
-		GenerateParts();
-	};
-
-	void RotateIndices(unsigned int x, unsigned int y, unsigned int z, bool& v0, bool& v1, bool& v2, bool& v3, bool& v4, bool& v5, bool& v6, bool& v7)
-	{
-		bool t0, t1, t2, t3, t4, t5, t6, t7;
-
-		while (x != 0)
-		{
-			t0 = v0;
-			t1 = v1;
-			t2 = v2;
-			t3 = v3;
-			t4 = v4;
-			t5 = v5;
-			t6 = v6;
-			t7 = v7;
-
-			v0 = t3;
-			v1 = t2;
-			v2 = t6;
-			v3 = t7;
-			v4 = t0;
-			v5 = t1;
-			v6 = t5;
-			v7 = t4;
-
-			x--;
-		}
-		while (y != 0)
-		{
-			t0 = v0;
-			t1 = v1;
-			t2 = v2;
-			t3 = v3;
-			t4 = v4;
-			t5 = v5;
-			t6 = v6;
-			t7 = v7;
-
-			v0 = t1;
-			v1 = t2;
-			v2 = t3;
-			v3 = t0;
-			v4 = t5;
-			v5 = t6;
-			v6 = t7;
-			v7 = t4;
-
-			y--;
-		}
-		while (z != 0)
-		{
-			t0 = v0;
-			t1 = v1;
-			t2 = v2;
-			t3 = v3;
-			t4 = v4;
-			t5 = v5;
-			t6 = v6;
-			t7 = v7;
-
-			v0 = t1;
-			v1 = t5;
-			v2 = t6;
-			v3 = t2;
-			v4 = t0;
-			v5 = t4;
-			v6 = t7;
-			v7 = t3;
-			z--;
-		}
+		Init();
 	}
 
 	void GenerateParts();
-	void BuildFaces(int x, int y, int z, array<array<array<block_id, 2>, 2>, 2>& states, ModelData& model_data);
 
 protected:
-	void SetData(ModelData& model_data, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7);
 	void RotateAndSetData(ModelData& model_data, unsigned int x, unsigned int y, unsigned int z, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7);
 	void SetAllData(unsigned int state_case, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7);
 
@@ -118,6 +41,7 @@ private:
 #define e10 0.5f,1.0f,1.0f
 #define e11 0.0f,1.0f,0.5f
 	//Cases appear in order as seen by http://users.polytech.unice.fr/~lingrand/MarchingCubes/resources/MCcases.gif
+	//Ambiguois cases appear appeneded to the end in the order they appear here http://users.polytech.unice.fr/~lingrand/MarchingCubes/resources/MCAmb.gif
 	//14 Cases: +ve heavy, where cube is defined from (0,0,0) to (1,1,1)
 	//                 v7__________e10_________v6 (1,1,1)
 	//                  /|                    /|
@@ -152,6 +76,7 @@ private:
 		{ e0,e3,e5,e7,e6, e11,e8,e4 },//v1,v2,v3,v4 --12
 		{ e0,e4,e3, e5,e9,e8, e1,e2,e6, e11,e10,e7 },//v0,v2,v7,v5 --13
 		{ e0,e3,e11,e5,e6,e10 },//v1,v2,v3,v7 --14
+		{ e1,e5,e3,e4, e9,e6,e10 },//v2,v3,v7,v4,v5
 	};
 
 	vector<vector<float>> _case_normals;
@@ -172,10 +97,10 @@ private:
 		{ 0,2,1, 2,3,1,  4,7,6, 4,6,5 },//v0,v2,v4,v6
 		{ 0,1,3, 0,3,5, 0,2,5, 3,5,4 },//v0,v3,v2,v6
 		{ 0,1,3, 0,3,2, 2,3,4,  6,5,7 },//v1,v2,v3,v4
-		{ 0,1,2,  3,4,5,  6,8,7,  9,10,11 },//v0,v2,v7,v5
+		{ 0,1,2,  3,4,5,  7,8,6,  9,10,11 },//v0,v2,v7,v5
 		{ 0,1,2, 0,2,4, 0,4,3, 2,5,4 },//v1,v2,v3,v7
+		{ 2,3,1, 0,2,1, 1,4,0, 0,4,5, 4,6,5 },//v2,v3,v7,v4,v5
 	};
 
-	array<array<array<array<array<array<array<array<ModelData, 2>, 2>, 2>, 2>, 2>, 2>, 2>, 2> _model_parts;
 };
 
