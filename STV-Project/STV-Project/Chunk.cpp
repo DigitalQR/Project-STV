@@ -29,15 +29,17 @@ void Chunk::BuildTerrain()
 	for (int x = 0; x < 3; x++)
 		for (int y = 0; y < 3; y++)
 			for (int z = 0; z < 3; z++)
-				SetBlockAt(8 + x, 64 + y, 8 + z, BLOCK_GRASS);
+				SetBlockAt(1 + x, 64 + y, 1 + z, BLOCK_GRASS);
 
-	SetBlockAt(8, 64, 8, BLOCK_AIR);
 
 	SetBlockAt(2, 30, 1, BLOCK_GRASS);
 	SetBlockAt(1, 31, 2, BLOCK_GRASS);
 	SetBlockAt(2, 31, 2, BLOCK_GRASS);
 	SetBlockAt(1, 31, 1, BLOCK_GRASS);
 	SetBlockAt(1, 30, 2, BLOCK_GRASS);
+
+
+	SetBlockAt(1, 40, 2, BLOCK_GRASS);
 
 	/*
 	SetBlockAt(8, 34, 8, BLOCK_GRASS);

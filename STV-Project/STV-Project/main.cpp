@@ -17,17 +17,16 @@ void Start()
 	GameManager::getMain();
 
 	
-	TestEntity* te = new TestEntity2;
-	te->ReadyUp();
-	te->AddComponent(new TestRotationComponent());
+	//TestEntity* te = new TestEntity2;
+	//te->ReadyUp();
+	//te->AddComponent(new TestRotationComponent());
 
 
 	Scene scene;
-	scene.AddToScene(te);
+	//scene.AddToScene(te);
 	GameManager::getMain()->SetCurrentScene(&scene);
 
 	GameManager::getMain()->MainLoop();
-
 
 	delete GameManager::getMain();
 }

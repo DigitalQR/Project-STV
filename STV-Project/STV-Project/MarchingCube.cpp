@@ -16,7 +16,7 @@ void MarchingCube::GenerateParts()
 	SetAllData(12, 0, 1, 1, 1, 1, 0, 0, 0);
 	SetAllData(13, 1, 0, 1, 0, 0, 1, 0, 1);
 	SetAllData(14, 0, 1, 1, 1, 0, 0, 0, 1);
-	//SetAllData(15, 0, 0, 1, 1, 1, 1, 0, 1);
+	SetAllData(15, 0, 0, 1, 1, 1, 1, 0, 1);
 }
 
 

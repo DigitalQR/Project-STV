@@ -85,6 +85,34 @@ struct ModelData
 		return verts.size();
 	}
 
+	void Mirror(bool x, bool y, bool z, float pivot_x, float pivot_y, float pivot_z) 
+	{
+		for (unsigned int i = 0; i < verts.size(); i += 3) {
+			verts[i] -= pivot_x;
+			verts[i + 1] -= pivot_y;
+			verts[i + 2] -= pivot_z;
+		}
+
+		for (unsigned int i = 0; i < verts.size(); i += 3) 
+		{
+			if (x) verts[i] *= -1;
+			if (y) verts[i+1] *= -1;
+			if (z) verts[i+2] *= -1;
+		}
+
+		for (unsigned int i = 0; i < verts.size(); i += 3) {
+			verts[i] += pivot_x;
+			verts[i + 1] += pivot_y;
+			verts[i + 2] += pivot_z;
+		}
+
+		if (x)
+			Flip();
+		if (y)
+			Flip();
+		if (z)
+			Flip();
+	}
 
 	void Rotate(unsigned int x, unsigned int y, unsigned int z, float pivot_x, float pivot_y, float pivot_z)
 	{
