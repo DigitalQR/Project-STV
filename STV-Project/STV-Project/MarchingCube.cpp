@@ -1,4 +1,5 @@
 #include "MarchingCube.h"
+#include <iostream>
 
 void MarchingCube::GenerateParts()
 {
@@ -16,7 +17,13 @@ void MarchingCube::GenerateParts()
 	SetAllData(12, 0, 1, 1, 1, 1, 0, 0, 0);
 	SetAllData(13, 1, 0, 1, 0, 0, 1, 0, 1);
 	SetAllData(14, 0, 1, 1, 1, 0, 0, 0, 1);
-	SetAllData(15, 0, 0, 1, 1, 1, 1, 0, 1);
+
+	//Ambiguous cases
+	RotateAndSetData(15, 0, 1, 1, 1, 1, 0, 1, 1);
+	RotateAndSetData(16, 0, 0, 1, 1, 1, 1, 0, 1);
+	RotateAndSetData(17, 1, 0, 1, 1, 0, 1, 0, 1);
+	RotateAndSetData(18, 0, 1, 0, 1, 0, 1, 0, 1);
+	RotateAndSetData(19, 1, 0, 0, 0, 0, 1, 1, 1);
 }
 
 
@@ -34,6 +41,16 @@ void MarchingCube::SetAllData(unsigned int state_case, bool v0, bool v1, bool v2
 		for (int yr = 0; yr < 7; yr++)
 			for (int zr = 0; zr < 7; zr++)
 				RotateAndSetData(model_data, xr, yr, zr, !v0, !v1, !v2, !v3, !v4, !v5, !v6, !v7);
+}
+
+void MarchingCube::RotateAndSetData(unsigned int state_case, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7) 
+{
+	ModelData model_data = ModelData(_case_vertices[state_case], _case_uvs[state_case], _case_normals[state_case], _case_indices[state_case]);
+
+	for (int xr = 0; xr < 7; xr++)
+		for (int yr = 0; yr < 7; yr++)
+			for (int zr = 0; zr < 7; zr++)
+				RotateAndSetData(model_data, xr, yr, zr, v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
 void MarchingCube::RotateAndSetData(ModelData& model_data, unsigned int x, unsigned int y, unsigned int z, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7)

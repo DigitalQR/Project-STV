@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "Dependencies\glew\glew.h"
 
+
 Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
 	VoxelMesh(Vectori(CHUNK_SIZE, CHUNK_MAX_HEIGHT, CHUNK_SIZE), Vectori(x, 0, z))
 {
@@ -15,9 +16,11 @@ Chunk::~Chunk()
 
 void Chunk::BuildTerrain()
 {
-	//Generate();
+	cout << "\tGenerating.. ";
+	Generate();
+	cout << "done." << endl;
 
-	//*
+	/*
 	//TEST//////////////////////
 	for (int x = 0; x < MESH_SIZE.x; x++)
 		for (int z = 0; z < MESH_SIZE.z; z++) 
@@ -26,10 +29,10 @@ void Chunk::BuildTerrain()
 			SetBlockAt(x, 0, z, BLOCK_GRASS);
 		}
 
-	for (int x = 0; x < 3; x++)
-		for (int y = 0; y < 3; y++)
-			for (int z = 0; z < 3; z++)
-				SetBlockAt(1 + x, 64 + y, 1 + z, BLOCK_GRASS);
+	SetBlockAt(2, 64, 1, BLOCK_GRASS);
+	SetBlockAt(2, 64, 2, BLOCK_GRASS);
+	SetBlockAt(2, 64, 1, BLOCK_GRASS);
+	SetBlockAt(2, 65, 1, BLOCK_GRASS);
 
 
 	SetBlockAt(2, 30, 1, BLOCK_GRASS);
@@ -61,7 +64,9 @@ void Chunk::BuildTerrain()
 	SetBlockAt(9, 27, 8, BLOCK_GRASS);*/
 	///////////////////////////*/
 
+	cout << "\tBuilding.. ";
 	BuildModel();
+	cout << "done." << endl;
 	if(_DEBUG) GenerateDebugModel();
 }
 

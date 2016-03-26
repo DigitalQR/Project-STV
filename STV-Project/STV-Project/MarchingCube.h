@@ -26,6 +26,7 @@ public:
 
 protected:
 	void RotateAndSetData(ModelData& model_data, unsigned int x, unsigned int y, unsigned int z, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7);
+	void RotateAndSetData(unsigned int state_case, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7);
 	void SetAllData(unsigned int state_case, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7);
 
 private:
@@ -42,8 +43,9 @@ private:
 #define e10 0.5f,1.0f,1.0f
 #define e11 0.0f,1.0f,0.5f
 	//Cases appear in order as seen by http://users.polytech.unice.fr/~lingrand/MarchingCubes/resources/MCcases.gif
-	//Ambiguois cases appear appeneded to the end in the order they appear here http://users.polytech.unice.fr/~lingrand/MarchingCubes/resources/MCAmb.gif
+	//Ambiguous cases appear appeneded to the end in the order they appear here http://users.polytech.unice.fr/~lingrand/MarchingCubes/resources/MCAmb.gif
 	//14 Cases: +ve heavy, where cube is defined from (0,0,0) to (1,1,1)
+	//Defined treating reds as solid
 	//                 v7__________e10_________v6 (1,1,1)
 	//                  /|                    /|
 	//              e11/ |                e9 / |
@@ -77,7 +79,14 @@ private:
 		{ e0,e3,e5,e7,e6, e11,e8,e4 },//v1,v2,v3,v4 --12
 		{ e0,e4,e3, e5,e9,e8, e1,e2,e6, e11,e10,e7 },//v0,v2,v7,v5 --13
 		{ e0,e3,e11,e5,e6,e10 },//v1,v2,v3,v7 --14
-		{ e1,e5,e3,e4, e9,e6,e10 },//v2,v3,v7,v4,v5
+
+		//Ambiguous cases
+		{ e0,e3,e4,e8,e5,e9 },//v1,v2,v3,v4,v6,v7 --3c (15)
+		{ e4,e3,e1,e5,e10,e9,e6 },//v3,v2,v4,v5,v7 --6c (16)
+		{ e0,e4,e11,e10,e6,e1, e5,e8,e9 },//v0,v3,v2,v7,v5 -- 7c (17)
+		{ e0,e1,e8,e9, e3,e2,e10,e11 }, //v1,v5,v3,v7 --10c (18)
+		{ e0,e4,e3, e7,e11,e8,e5,e6 }, //v0,v7,v6,v5 --12c(19)
+		{  }, //v0,v2,v7,v5 --13c(20)
 	};
 
 	vector<vector<float>> _case_normals;
@@ -99,8 +108,14 @@ private:
 		{ 0,1,3, 0,3,5, 0,2,5, 3,5,4 },//v0,v3,v2,v6
 		{ 0,1,3, 0,3,2, 2,3,4,  6,5,7 },//v1,v2,v3,v4
 		{ 0,1,2,  3,4,5,  7,8,6,  9,10,11 },//v0,v2,v7,v5
-		{ 0,1,2, 0,2,4, 0,4,3, 2,5,4 },//v1,v2,v3,v7
-		{ 2,3,1, 0,2,1, 1,4,0, 0,4,5, 4,6,5 },//v2,v3,v7,v4,v5
+		{ 0,1,2, 0,4,3, 2,5,4, 0,2,4 },//v1,v2,v3,v7
+		{ 2,1,0,  3,4,5, 3,5,6, 3,6,7 }, //v0,v7,v6,v5 --12c(19)
+
+		//Ambiguous cases
+		{ 2,3,1, 1,3,5, 1,4,0, 1,5,4 },//v1,v2,v3,v4,v6,v7 --3c
+		{ 3,5,4, 3,4,0, 0,4,1, 1,2,4, 2,4,6 },//v3,v2,v4,v5,v7 --6c (16)
+		{ 0,1,2, 0,2,3, 0,3,5, 5,3,4,  6,8,7 },//v0,v3,v2,v7,v5 -- 7c (17)
+		{ 3,2,0, 1,2,0,  4,7,5, 7,6,5 }, //v1,v5,v3,v7 --10c (18)
 	};
 
 };

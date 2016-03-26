@@ -55,7 +55,7 @@ public:
 
 		_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/World/grass_tile.png");
 
-		int size = 0;
+		int size = 2;
 
 		for (int y = -size; y <= size; y++)
 			for (int x = -size; x <= size; x++)
@@ -69,9 +69,9 @@ public:
 				this->AddElement(new Element3D(tm));
 				_textured_models.push_back(tm);
 
-				TexturedModel* tm1 = new TexturedModel(chunk->GetDebugModel(), _texture);
-				this->AddElement(new Element3D(tm1));
-				_textured_models.push_back(tm1);
+				//TexturedModel* tm1 = new TexturedModel(chunk->GetDebugModel(), _texture);
+				//this->AddElement(new Element3D(tm1));
+				//_textured_models.push_back(tm1);
 			}
 	}
 
