@@ -3,6 +3,14 @@
 
 void MarchingCube::GenerateParts()
 {
+	//Ambiguous cases
+	RotateAndSetData(15, 0, 1, 1, 1, 1, 0, 1, 1);
+	RotateAndSetData(16, 0, 0, 1, 1, 1, 1, 0, 1);
+	RotateAndSetData(17, 1, 0, 1, 1, 0, 1, 0, 1);
+	RotateAndSetData(18, 0, 1, 0, 1, 0, 1, 0, 1);
+	RotateAndSetData(19, 1, 0, 0, 0, 0, 1, 1, 1);
+	RotateAndSetData(20, 1, 0, 1, 0, 0, 1, 0, 1);
+
 	SetAllData(1, 1, 0, 0, 0, 0, 0, 0, 0);
 	SetAllData(2, 1, 1, 0, 0, 0, 0, 0, 0);
 	SetAllData(3, 1, 0, 0, 0, 0, 1, 0, 0);
@@ -17,13 +25,6 @@ void MarchingCube::GenerateParts()
 	SetAllData(12, 0, 1, 1, 1, 1, 0, 0, 0);
 	SetAllData(13, 1, 0, 1, 0, 0, 1, 0, 1);
 	SetAllData(14, 0, 1, 1, 1, 0, 0, 0, 1);
-
-	//Ambiguous cases
-	RotateAndSetData(15, 0, 1, 1, 1, 1, 0, 1, 1);
-	RotateAndSetData(16, 0, 0, 1, 1, 1, 1, 0, 1);
-	RotateAndSetData(17, 1, 0, 1, 1, 0, 1, 0, 1);
-	RotateAndSetData(18, 0, 1, 0, 1, 0, 1, 0, 1);
-	RotateAndSetData(19, 1, 0, 0, 0, 0, 1, 1, 1);
 }
 
 
