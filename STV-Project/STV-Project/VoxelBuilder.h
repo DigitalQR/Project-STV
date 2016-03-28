@@ -4,6 +4,7 @@
 #include "BlockGlossary.h"
 #include "TerrainTools.h"
 #include <array>
+#include <iostream>
 
 using namespace std;
 
@@ -200,6 +201,12 @@ protected:
 
 	void SetData(ModelData& model_data, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7)
 	{
+		if (model_parts[v0][v1][v2][v3][v4][v5][v6][v7].verts.size() != 0) 
+		{
+			cout << v0 << v1 << v2 << v3 << v4 << v5 << v6 << v7 << endl;
+			return;
+		}
+
 		model_parts[v0][v1][v2][v3][v4][v5][v6][v7] = model_data;
 	}
 

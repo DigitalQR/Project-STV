@@ -62,6 +62,7 @@ public:
 	}
 
 private:
+	bool _fps_camera = true;
 	vec3 _position;
 	vec3 _offset;
 

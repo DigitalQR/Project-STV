@@ -55,7 +55,7 @@ public:
 
 		_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/World/grass_tile.png");
 
-		int size = 2;
+		int size = 3;
 
 		for (int y = -size; y <= size; y++)
 			for (int x = -size; x <= size; x++)

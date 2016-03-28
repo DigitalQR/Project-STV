@@ -16,6 +16,19 @@ Camera::~Camera()
 
 void Camera::buildViewMatrix() 
 {
+	if (_fps_camera)
+	{
+		vec3 direction = vec3(
+			sin(_offset.y),
+			tan(_offset.x),
+			cos(_offset.y)
+			);
+
+		_view_matrix = glm::lookAt(
+			_position, _position + direction, vec3(0, 1, 0)
+			);
+		return;
+	}
 	vec3 actual_position = _position - _offset;
 
 	_view_matrix = glm::lookAt(
