@@ -1,7 +1,7 @@
 #pragma once
 #include "Dependencies\glm\glm.hpp"
 #include <vector>
-
+#include <iostream>
 
 using namespace std;
 using namespace glm;
@@ -82,47 +82,65 @@ struct ModelData
 		normals.clear();
 		normals.resize(verts.size(), 0);
 		
-		
 		//Work out all normals for faces
-		for (unsigned int i = 0; i < indices.size(); )
+		for (unsigned int i = 0; i < indices.size(); i+=3)
 		{
-			unsigned int index0 = indices[i++] * 3;
-			unsigned int index1 = indices[i++] * 3;
-			unsigned int index2 = indices[i++] * 3;
+			unsigned int i0 = indices[i] * 3;
+			unsigned int i1 = indices[i + 1] * 3;
+			unsigned int i2 = indices[i + 2] * 3;
 
-			vec3 vert0(verts[index0], verts[index0 + 1], verts[index0 + 2]);
-			vec3 vert1(verts[index1], verts[index1 + 1], verts[index1 + 2]);
-			vec3 vert2(verts[index2], verts[index2 + 1], verts[index2 + 2]);
+			vec3 a(verts[i0], verts[i0 + 1], verts[i0 + 2]);
+			vec3 b(verts[i1], verts[i1 + 1], verts[i1 + 2]);
+			vec3 c(verts[i2], verts[i2 + 1], verts[i2 + 2]);
 
-			vec3 norm = glm::cross(vert2 - vert1 , vert0 - vert1);
+			vec3 norm(0, 0, 0);
+			norm = glm::cross(b - a, c - a);
+			
+			normals[i0] += norm.x;
+			normals[i0 + 1] += norm.y;
+			normals[i0 + 2] += norm.z;
 
-			normals[index0] += norm.x;
-			normals[index1] += norm.x;
-			normals[index2] += norm.x;
+			normals[i1] += norm.x;
+			normals[i1 + 1] += norm.y;
+			normals[i1 + 2] += norm.z;
 
-			normals[index0 + 1] += norm.x;
-			normals[index1 + 1] += norm.y;
-			normals[index2 + 1] += norm.y;
-
-			normals[index0 + 2] += norm.z;
-			normals[index1 + 2] += norm.z;
-			normals[index2 + 2] += norm.z;
+			normals[i2] += norm.x;
+			normals[i2 + 1] += norm.y;
+			normals[i2 + 2] += norm.z;
 
 		}
 
 		//Normalize
 		for (unsigned int i = 0; i < normals.size(); i += 3)
 		{
-			if (normals[i] != 0 && normals[i+1] != 0 && normals[i+2] != 0)
-			{
-				//vec3 norm = glm::normalize(vec3(normals[i], normals[i + 1], normals[i + 2]));
-				//normals[i] = norm.x;
-				//normals[i + 1] = norm.y;
-				//normals[i + 2] = norm.z;
-			}
+			vec3 norm = glm::normalize(vec3(normals[i], normals[i + 1], normals[i + 2]));
+			normals[i] = norm.x;
+			normals[i + 1] = norm.y;
+			normals[i + 2] = norm.z;
 			
 		}	
 		
+	}
+
+	void BuildUVs() 
+	{
+		//Reset uvs
+		uvs.clear();
+		uvs.resize(verts.size()*2/3, 0);
+
+		unsigned int uv_i = 0;
+
+		for (unsigned int i = 0; i < verts.size(); i+=3)
+		{
+			float x = verts[i];
+			float y = verts[i+1];
+			float z = verts[i+2];
+
+			uvs[uv_i] = x + 0.5f;
+			uvs[uv_i+1] = y - z;
+
+			uv_i += 2;
+		}
 	}
 
 	void Flip()

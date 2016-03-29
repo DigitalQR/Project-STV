@@ -204,6 +204,7 @@ protected:
 			return;
 		
 		model_data.BuildNormals();
+		model_data.BuildUVs();
 		model_parts[v0][v1][v2][v3][v4][v5][v6][v7] = model_data;
 	}
 

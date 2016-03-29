@@ -12,14 +12,14 @@ void main()
 	colour = texture(texture0_sampler, pass_uv_coords);
 	
 	vec3 normal = pass_normal;
-	normal += 1;
-	normal /= sqrt(3);
+	//normal += 1;
+	//normal /= sqrt(3);
 
-	float bias = 0.85;
+	float bias = 0.7;
 	colour.xyz *= bias + normalize(normal)*(1.0-bias)*2;
-	
+	colour.xyz = normal;
+
 	if(colour.a == 0)
 		discard;
 
-	colour.xyz = pass_normal;
 }
