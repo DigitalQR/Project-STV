@@ -129,15 +129,56 @@ struct ModelData
 		uvs.resize(verts.size()*2/3, 0);
 
 		unsigned int uv_i = 0;
-
+		
 		for (unsigned int i = 0; i < verts.size(); i+=3)
 		{
 			float x = verts[i];
-			float y = verts[i+1];
-			float z = verts[i+2];
+			float y = verts[i + 1];
+			float z = verts[i + 2];
 
-			uvs[uv_i] = x + 0.5f;
-			uvs[uv_i+1] = y - z;
+			float xn = normals[i];
+			float yn = normals[i + 1];
+			float zn = normals[i + 2];
+
+			uvs[uv_i] = x;
+			uvs[uv_i + 1] = z;
+
+			if (yn == 0)
+			{
+				if (zn != 0)
+				{
+					uvs[uv_i] = x;
+					uvs[uv_i + 1] = y;
+				}
+				if (xn != 0)
+				{
+					uvs[uv_i] = z;
+					uvs[uv_i + 1] = y;
+				}
+			}
+
+			/*
+			//X
+			if ((abs(xn) > abs(yn) && abs(xn) > abs(zn)) || abs(yn)==abs(zn))
+			{
+				uvs[uv_i] = z * -sign(xn);
+				uvs[uv_i + 1] = y - x + 0.5f;
+			}
+			//Y
+			else if ((abs(yn) > abs(xn) && abs(yn) > abs(zn)) || abs(xn) == abs(zn))
+			{
+				uvs[uv_i] = x * -sign(yn);
+				uvs[uv_i + 1] = z - y + 0.5f;
+			}
+			//Z
+			else if ((abs(zn) > abs(xn) && abs(zn) > abs(yn)) || abs(xn) == abs(yn))
+			{
+				uvs[uv_i] = x * -sign(zn);
+				uvs[uv_i + 1] = y - z + 0.5f;
+			}
+			*/
+			//uvs[uv_i] = x + 0.5f;
+			//uvs[uv_i + 1] = y - z;
 
 			uv_i += 2;
 		}

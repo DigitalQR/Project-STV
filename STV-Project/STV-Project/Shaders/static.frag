@@ -11,13 +11,10 @@ void main()
 {
 	colour = texture(texture0_sampler, pass_uv_coords);
 	
-	vec3 normal = pass_normal;
-	//normal += 1;
-	//normal /= sqrt(3);
+	float normal = abs(pass_normal.x + pass_normal.y + pass_normal.z)/3;
 
-	float bias = 0.7;
-	colour.xyz *= bias + normalize(normal)*(1.0-bias)*2;
-	colour.xyz = normal;
+	float bias = 0.8;
+	colour.xyz *= bias + normal*(1.0-bias)*2;
 
 	if(colour.a == 0)
 		discard;
