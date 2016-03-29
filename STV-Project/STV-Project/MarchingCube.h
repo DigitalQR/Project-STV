@@ -15,7 +15,7 @@ public:
 		{
 			_case_normals.push_back(values);
 			for (float& f : _case_normals[_case_normals.size() - 1])
-				f -= 0.5f;
+				f = 0;
 
 			_case_uvs.push_back(vector<float>{0, 0});
 		}

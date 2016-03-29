@@ -38,14 +38,8 @@ public:
 		return VoxelMesh::GetBlockAt(x,y,z);
 	}
 
-	Model* GetDebugModel() 
-	{
-		return _debug_model;
-	}
-
 protected:
 	virtual void Generate();
-	void GenerateDebugModel();
 
 	float CosineInterpolate(float a, float b, float blend)
 	{
@@ -66,7 +60,5 @@ protected:
 
 private:
 	Terrain* _parent;
-	Model* _debug_model;
-
 
 };

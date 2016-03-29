@@ -11,7 +11,6 @@ Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
 
 Chunk::~Chunk()
 {
-	delete _debug_model;
 }
 
 void Chunk::BuildTerrain()
@@ -67,47 +66,6 @@ void Chunk::BuildTerrain()
 	cout << "\tBuilding.. ";
 	BuildModel();
 	cout << "done." << endl;
-	if(_DEBUG) GenerateDebugModel();
-}
-
-void Chunk::GenerateDebugModel()
-{
-	vector<float> verts{};
-	vector<float> uvs{};
-	vector<float> normals{};
-	vector<unsigned int> indices{};
-
-	unsigned int index_track = 0; 
-	const Vectori offset = MESH_SIZE * MESH_OFFSET;
-
-	for (int x = 0; x < MESH_SIZE.x; x++)
-		for (int y = 0; y < MESH_SIZE.y; y++)
-			for (int z = 0; z < MESH_SIZE.z; z++)
-			{
-				if (GetBlockAt(x, y, z) != BLOCK_AIR) {
-					if (GetBlockAt(x + 1, y, z) == BLOCK_AIR)
-						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 1, 0, 0, verts, uvs, normals, indices, index_track);
-
-					if (GetBlockAt(x - 1, y, z) == BLOCK_AIR)
-						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, -1, 0, 0, verts, uvs, normals, indices, index_track);
-
-					if (GetBlockAt(x, y + 1, z) == BLOCK_AIR)
-						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, 1, 0, verts, uvs, normals, indices, index_track);
-
-					if (GetBlockAt(x, y - 1, z) == BLOCK_AIR)
-						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, -1, 0, verts, uvs, normals, indices, index_track);
-
-					if (GetBlockAt(x, y, z + 1) == BLOCK_AIR)
-						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, 0, 1, verts, uvs, normals, indices, index_track);
-
-					if (GetBlockAt(x, y, z - 1) == BLOCK_AIR)
-						AddDebugPanel(x + offset.x, y + offset.y, z + offset.z, 0, 0, -1, verts, uvs, normals, indices, index_track);
-				}
-			}
-
-
-	_debug_model = GameManager::getMain()->model_loader->CreateModel(verts, uvs, normals, indices);
-	_debug_model->polygon_mode = GL_LINE;
 }
 
 void Chunk::Generate()

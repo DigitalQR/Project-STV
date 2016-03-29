@@ -25,6 +25,20 @@ void MarchingCube::GenerateParts()
 	SetAllData(12, 0, 1, 1, 1, 1, 0, 0, 0);
 	SetAllData(13, 1, 0, 1, 0, 0, 1, 0, 1);
 	SetAllData(14, 0, 1, 1, 1, 0, 0, 0, 1);
+	
+		
+	ModelData test = GetData(1,1,1,1,0,0,0,0);
+	cout << test.normals.size() / 3 << " " << test.verts.size() / 3 << endl;
+
+	for (unsigned int f : test.indices)
+		cout << f << ", ";
+	cout << endl;
+	for (float f : test.verts)
+		cout << f << ", ";
+	cout << endl;
+	for (float f : test.normals)
+		cout << f << ", ";
+	cout << endl;
 }
 
 

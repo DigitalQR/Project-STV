@@ -14,7 +14,19 @@ out vec3 pass_normal;
 void main()
 {
 	pass_uv_coords = in_uv_coords;
-	pass_normal = in_normal;
+
+	vec3 norm = in_normal;
+		
+	if(norm.x < 0){
+		norm.x *= -1;
+		}
+	if(norm.y < 0){
+		norm.y *= -1;
+		}
+	if(norm.z < 0){
+		norm.z *= -1;
+		}
+	pass_normal = norm;
 
 	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(in_position, 1.0);
 }

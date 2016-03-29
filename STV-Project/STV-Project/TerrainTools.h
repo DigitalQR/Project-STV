@@ -1,9 +1,11 @@
 #pragma once
-
-
+#include "Dependencies\glm\glm.hpp"
 #include <vector>
 
+
 using namespace std;
+using namespace glm;
+
 
 struct Vectori {
 	Vectori(int x, int y, int z) : x(x), y(y), z(z) {};
@@ -19,6 +21,7 @@ struct Vectori {
 		return Vectori(a.x*b.x, a.y*b.y, a.z*b.z);
 	}
 };
+
 
 struct ModelData
 {
@@ -36,19 +39,19 @@ struct ModelData
 	void operator=(ModelData& b)
 	{
 		verts.clear();
-		verts.resize(b.verts.size());
+		verts.resize(0);
 		verts.insert(verts.begin(), b.verts.begin(), b.verts.end());
 
 		uvs.clear();
-		uvs.resize(b.uvs.size());
+		uvs.resize(0);
 		uvs.insert(uvs.begin(), b.uvs.begin(), b.uvs.end());
 
 		normals.clear();
-		normals.resize(b.normals.size());
+		normals.resize(0);
 		normals.insert(normals.begin(), b.normals.begin(), b.normals.end());
 
 		indices.clear();
-		indices.resize(b.indices.size());
+		indices.resize(0);
 		indices.insert(indices.begin(), b.indices.begin(), b.indices.end());
 	}
 
@@ -73,11 +76,58 @@ struct ModelData
 		}
 	}
 
+	void BuildNormals() 
+	{
+		//Reset normals
+		normals.clear();
+		normals.resize(verts.size(), 0);
+		
+		
+		//Work out all normals for faces
+		for (unsigned int i = 0; i < indices.size(); )
+		{
+			unsigned int index0 = indices[i++] * 3;
+			unsigned int index1 = indices[i++] * 3;
+			unsigned int index2 = indices[i++] * 3;
+
+			vec3 vert0(verts[index0], verts[index0 + 1], verts[index0 + 2]);
+			vec3 vert1(verts[index1], verts[index1 + 1], verts[index1 + 2]);
+			vec3 vert2(verts[index2], verts[index2 + 1], verts[index2 + 2]);
+
+			vec3 norm = glm::cross(vert2 - vert1 , vert0 - vert1);
+
+			normals[index0] += norm.x;
+			normals[index1] += norm.x;
+			normals[index2] += norm.x;
+
+			normals[index0 + 1] += norm.x;
+			normals[index1 + 1] += norm.y;
+			normals[index2 + 1] += norm.y;
+
+			normals[index0 + 2] += norm.z;
+			normals[index1 + 2] += norm.z;
+			normals[index2 + 2] += norm.z;
+
+		}
+
+		//Normalize
+		for (unsigned int i = 0; i < normals.size(); i += 3)
+		{
+			if (normals[i] != 0 && normals[i+1] != 0 && normals[i+2] != 0)
+			{
+				//vec3 norm = glm::normalize(vec3(normals[i], normals[i + 1], normals[i + 2]));
+				//normals[i] = norm.x;
+				//normals[i + 1] = norm.y;
+				//normals[i + 2] = norm.z;
+			}
+			
+		}	
+		
+	}
+
 	void Flip()
 	{
 		reverse(indices.begin(), indices.end());
-		for (float& f : normals)
-			f *= -1;
 	}
 
 	bool isEmpty()
@@ -125,9 +175,6 @@ struct ModelData
 		float temp_x;
 		float temp_y;
 		float temp_z;
-		float temp_xn;
-		float temp_yn;
-		float temp_zn;
 
 		for (unsigned int i = 0; i < verts.size(); i += 3) {
 			for (unsigned int t = x; t != 0; t--)
@@ -135,48 +182,30 @@ struct ModelData
 				temp_x = verts[i];
 				temp_y = verts[i + 1];
 				temp_z = verts[i + 2];
-				temp_xn = normals[i];
-				temp_yn = normals[i + 1];
-				temp_zn = normals[i + 2];
 
 				verts[i] = temp_x;
 				verts[i + 1] = -temp_z;
 				verts[i + 2] = temp_y;
-				normals[i] = temp_xn;
-				normals[i + 1] = -temp_zn;
-				normals[i + 2] = temp_yn;
 			}
 			for (unsigned int t = y; t != 0; t--)
 			{
 				temp_x = verts[i];
 				temp_y = verts[i + 1];
 				temp_z = verts[i + 2];
-				temp_xn = normals[i];
-				temp_yn = normals[i + 1];
-				temp_zn = normals[i + 2];
 
 				verts[i] = temp_z;
 				verts[i + 1] = temp_y;
 				verts[i + 2] = -temp_x;
-				normals[i] = temp_zn;
-				normals[i + 1] = temp_yn;
-				normals[i + 2] = -temp_xn;
 			}
 			for (unsigned int t = z; t != 0; t--)
 			{
 				temp_x = verts[i];
 				temp_y = verts[i + 1];
 				temp_z = verts[i + 2];
-				temp_xn = normals[i];
-				temp_yn = normals[i + 1];
-				temp_zn = normals[i + 2];
 
 				verts[i] = temp_y;
 				verts[i + 1] = -temp_x;
 				verts[i + 2] = temp_z;
-				normals[i] = temp_yn;
-				normals[i + 1] = -temp_xn;
-				normals[i + 2] = temp_zn;
 			}
 		}
 
