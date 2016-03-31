@@ -153,6 +153,7 @@
     <ClInclude Include="TestRotationComponent.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VoxelBuilder.h" />
     <ClInclude Include="VoxelMesh.h" />

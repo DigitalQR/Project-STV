@@ -2,10 +2,11 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Keyboard.h"
+#include "Timer.h"
 
 #include <vector>
 #include <thread>
-#include <chrono>
+
 
 void RenderScene()
 {
@@ -83,11 +84,6 @@ void GameManager::GameInit()
 	voxel_builder = new MarchingCube;
 }
 
-void Test()
-{
-	cout << "Test Thread" << endl;
-}
-
 void GameManager::MainLoop()
 {
 	running = true;
@@ -104,16 +100,19 @@ void GameManager::SetCurrentScene(Scene* scene)
 	scene->AttachScene();
 }
 
+
+
 void GameManager::LogicLoop() 
 {
 	cout << "Starting 'Logic Loop'" << endl; 
-	float sleep_time = 1000.0f / (UPS*1.0f);
+	const float SLEEP_TIME = 1000.0f / (UPS*1.0f);
+	Timer timer;
 
 	while (running)
 	{
+		timer.start();
 		LogicUpdate();
-
-		this_thread::sleep_for(chrono::milliseconds((int)(sleep_time)));
+		timer.HoldUntilExceeded(SLEEP_TIME);
 	}
 	cout << "Finshed 'Logic Loop'" << endl;
 }
@@ -122,6 +121,8 @@ void GameManager::LogicUpdate()
 {
 	GameManager::getMain()->GetCurrentScene()->LogicUpdate();
 }
+
+
 
 void GameManager::VisualLoop() 
 {

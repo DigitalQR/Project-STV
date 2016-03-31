@@ -52,6 +52,9 @@
     <Filter Include="Core\Engine\Terrain\Building\Core">
       <UniqueIdentifier>{f663cafd-7719-48bb-bdfe-d9d4cea2a392}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Core\Tools">
+      <UniqueIdentifier>{fec2cebc-9dc4-48a4-bbf1-c00d8abeec5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="VoxelBuilder.h">
       <Filter>Core\Engine\Terrain\Building\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Core\Engine\Core\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
