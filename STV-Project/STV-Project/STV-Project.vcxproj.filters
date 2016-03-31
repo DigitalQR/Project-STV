@@ -144,6 +144,9 @@
     <ClInclude Include="Timer.h">
       <Filter>Core\Engine\Core\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="StatisticCounter.h">
+      <Filter>Core\Engine\Core\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

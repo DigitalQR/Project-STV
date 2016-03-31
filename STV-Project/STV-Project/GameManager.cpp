@@ -107,13 +107,16 @@ void GameManager::LogicLoop()
 	cout << "Starting 'Logic Loop'" << endl; 
 	const float SLEEP_TIME = 1000.0f / (UPS*1.0f);
 	Timer timer;
+	update_counter.StartCounter();
 
 	while (running)
 	{
 		timer.start();
 		LogicUpdate();
+		update_counter.Increment();
 		timer.HoldUntilExceeded(SLEEP_TIME);
 	}
+	update_counter.StopCounter();
 	cout << "Finshed 'Logic Loop'" << endl;
 }
 

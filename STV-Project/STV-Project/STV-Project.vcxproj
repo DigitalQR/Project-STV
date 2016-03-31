@@ -147,6 +147,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />
+    <ClInclude Include="StatisticCounter.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainTools.h" />
     <ClInclude Include="TestEntity.h" />

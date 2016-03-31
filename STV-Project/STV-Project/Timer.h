@@ -18,7 +18,7 @@ public:
 	{
 		while (true) 
 		{
-			if (GetElapsedTime() >= sleep_ms)
+			if (GetElapsedTime() > sleep_ms)
 				break;
 		}
 	}

@@ -8,6 +8,7 @@
 #include "TextureLoader.h"
 #include "MarchingCube.h"
 #include "Scene.h"
+#include "StatisticCounter.h"
 
 #include <iostream>
 #include <list>
@@ -33,6 +34,8 @@ public:
 	TextureLoader* texture_loader;
 	MarchingCube* voxel_builder;
 
+	StatisticCounter update_counter;
+
 	/**
 	Generates a singleton
 
@@ -50,7 +53,7 @@ public:
 
 private:
 	Scene* _current_scene;
-	const unsigned int UPS = 60;
+	const unsigned int UPS = 30;
 	bool running = false;
 
 	void GLInit();
