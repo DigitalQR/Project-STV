@@ -25,6 +25,9 @@ public:
 	*/
 	void MainLoop();
 
+	void LogicUpdate();
+	void VisualUpdate();
+
 	MasterRenderer* master_renderer;
 	ModelLoader* model_loader;
 	TextureLoader* texture_loader;
@@ -47,9 +50,14 @@ public:
 
 private:
 	Scene* _current_scene;
+	const unsigned int UPS = 60;
+	bool running = false;
 
 	void GLInit();
 	void GameInit();
+
+	void LogicLoop();
+	void VisualLoop();
 };
 
 

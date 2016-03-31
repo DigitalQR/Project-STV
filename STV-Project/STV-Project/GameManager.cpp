@@ -2,12 +2,14 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Keyboard.h"
-#include <vector>
 
+#include <vector>
+#include <thread>
+#include <chrono>
 
 void RenderScene()
 {
-	GameManager::getMain()->GetCurrentScene()->VisualUpdate();
+	GameManager::getMain()->VisualUpdate();
 	GameManager::getMain()->master_renderer->Render();
 }
 
@@ -81,11 +83,18 @@ void GameManager::GameInit()
 	voxel_builder = new MarchingCube;
 }
 
+void Test()
+{
+	cout << "Test Thread" << endl;
+}
+
 void GameManager::MainLoop()
 {
-	cout << "Starting 'glutMainLoop'" << endl;
-	glutMainLoop();
-	cout << "Finshed 'glutMainLoop'" << endl;
+	running = true;
+	thread logic_thread(&GameManager::LogicLoop, this);
+	logic_thread.detach();
+	VisualLoop();
+	running = false;
 }
 
 void GameManager::SetCurrentScene(Scene* scene)
@@ -93,4 +102,35 @@ void GameManager::SetCurrentScene(Scene* scene)
 	master_renderer->ClearAllRenderQueues();
 	_current_scene = scene;
 	scene->AttachScene();
+}
+
+void GameManager::LogicLoop() 
+{
+	cout << "Starting 'Logic Loop'" << endl; 
+	float sleep_time = 1000.0f / (UPS*1.0f);
+
+	while (running)
+	{
+		LogicUpdate();
+
+		this_thread::sleep_for(chrono::milliseconds((int)(sleep_time)));
+	}
+	cout << "Finshed 'Logic Loop'" << endl;
+}
+
+void GameManager::LogicUpdate() 
+{
+	GameManager::getMain()->GetCurrentScene()->LogicUpdate();
+}
+
+void GameManager::VisualLoop() 
+{
+	cout << "Starting 'Visual Loop'" << endl;
+	glutMainLoop();
+	cout << "Finshed 'Visual Loop'" << endl;
+}
+
+void GameManager::VisualUpdate() 
+{
+	GameManager::getMain()->GetCurrentScene()->VisualUpdate();
 }
