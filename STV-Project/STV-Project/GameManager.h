@@ -36,7 +36,7 @@ public:
 	}
 	float GetDynamicLERPTime()
 	{
-		return update_timer.GetElapsedTime() / UPDATE_SLEEP;
+		return (update_timer.GetElapsedTime()*1.0f) / (UPDATE_SLEEP * 1.0f);
 	}
 
 	void LogicUpdate();

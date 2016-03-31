@@ -8,7 +8,7 @@
 class TestRotationComponent : public Component
 {
 public:
-	~TestRotationComponent() 
+	~TestRotationComponent()
 	{
 		cout << "TTTTTTEEEEEEEEEESSSSSSSSSSTTTTTTTTTTTTTT" << endl;
 	}
@@ -19,7 +19,7 @@ public:
 	}
 
 
-	void LogicUpdate() 
+	void LogicUpdate()
 	{
 		vec3 direction = Camera::getMain()->getForward();
 		direction.y = 0;
@@ -58,28 +58,42 @@ public:
 			Camera::getMain()->rotation -= vec3(sensitivity, 0.0f, 0.0f);
 	};
 
-	void VisualUpdate() 
+	void VisualUpdate()
 	{
 		/*
 		if (Keyboard::isKeyDown('a'))
-			parent->rotation += vec3(0.0f, 0.05f, 0.0f);
+		parent->rotation += vec3(0.0f, 0.05f, 0.0f);
 
 		if (Keyboard::isKeyDown('d'))
-			parent->rotation -= vec3(0.0f, 0.05f, 0.0f);
+		parent->rotation -= vec3(0.0f, 0.05f, 0.0f);
 
 		if (Keyboard::isKeyDown('w'))
-			parent->location -= vec3(0.0f, 0.5f, 0.0f);
+		parent->location -= vec3(0.0f, 0.5f, 0.0f);
 
 		if (Keyboard::isKeyDown('s'))
-			parent->location += vec3(0.0f, 0.5f, 0.0f);
+		parent->location += vec3(0.0f, 0.5f, 0.0f);
 
 		if (Keyboard::isKeyDown('q'))
-			parent->location -= vec3(0.0f, 0.0f, 0.5f);
+		parent->location -= vec3(0.0f, 0.0f, 0.5f);
 
 		if (Keyboard::isKeyDown('e'))
-			parent->location += vec3(0.0f, 0.0f, 0.5f);
-			*/
+		parent->location += vec3(0.0f, 0.0f, 0.5f);
+		*/
 
 	};
+};
+
+
+class ActualRotationComponent : public Component
+{
+public:
+
+
+	void LogicUpdate()
+	{
+		parent->rotation += vec3(0,0.01,0);
+		parent->location += vec3(0.001, 0, 0);
+	}
+
 };
 

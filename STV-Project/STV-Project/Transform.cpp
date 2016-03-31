@@ -41,13 +41,13 @@ void Transform::Init(vec3& loc, vec3& rot, float scl)
 vec3 Transform::getLERPLocation()
 {
 	float LERP = GameManager::getMain()->GetLERPTime();
-	return _last_location * LERP + location * (1.0f - LERP);
+	return _last_location * (1.0f - LERP) + location * LERP;
 }
 
 float LERPAngle(float a, float b) 
 {
 	float LERP = GameManager::getMain()->GetLERPTime();
-	return tan(atan(a) * LERP + atan(b) * (1.0f - LERP));
+	return tan(atan(a) * (1.0f - LERP) + atan(b) * LERP);
 }
 
 vec3 Transform::getLERPRotation()
@@ -62,7 +62,7 @@ vec3 Transform::getLERPRotation()
 float Transform::getLERPScale()
 {
 	float LERP = GameManager::getMain()->GetLERPTime();
-	return _last_scale * LERP + scale * (1.0f - LERP);
+	return _last_scale * (1.0f - LERP) + scale * LERP;
 }
 
 mat4& Transform::getModelMatrix() 

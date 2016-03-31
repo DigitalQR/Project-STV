@@ -126,6 +126,7 @@ void GameManager::LogicLoop()
 
 void GameManager::LogicUpdate() 
 {
+	Camera::getMain()->TransformUpdate();
 	GameManager::getMain()->GetCurrentScene()->LogicUpdate();
 }
 
@@ -141,6 +142,6 @@ void GameManager::VisualLoop()
 void GameManager::VisualUpdate() 
 {
 	LERP_time = GetDynamicLERPTime();
-	Camera::getMain()->TransformUpdate();
+
 	GameManager::getMain()->GetCurrentScene()->VisualUpdate();
 }

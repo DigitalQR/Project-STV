@@ -16,14 +16,20 @@ void Start()
 {
 	GameManager::getMain();
 
-	
+
 	TestEntity* te = new TestEntity2;
 	te->ReadyUp();
 	te->AddComponent(new TestRotationComponent());
 
+	TestEntity* te1 = new TestEntity;
+	te1->ReadyUp();
+	te1->location = vec3(0, 90, 0);
+	te1->AddComponent(new ActualRotationComponent());
+
 
 	Scene scene;
 	scene.AddToScene(te);
+	scene.AddToScene(te1);
 	GameManager::getMain()->SetCurrentScene(&scene);
 
 	GameManager::getMain()->MainLoop();

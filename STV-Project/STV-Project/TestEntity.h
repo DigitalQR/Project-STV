@@ -9,17 +9,20 @@ public:
 	{
 	}
 
+	vector<Model*> models;
+
 	virtual void ReadyUp() 
 	{
-		//map<string, Model*> models = OBJLoader::LoadOBJ("Res/Creatures/Player/T-Pose.obj");
-		//_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/Creatures/Player/stv_charpal.png");
+		map<string, Model*> models = OBJLoader::LoadOBJ("Res/Creatures/Player/T-Pose.obj");
+		_texture = GameManager::getMain()->texture_loader->LoadPNG("Res/Creatures/Player/stv_charpal.png");
 
-		//for (map<string, Model*>::iterator it = models.begin(); it != models.end(); it++)
-		//{
-		//	TexturedModel* tm = new TexturedModel(it->second, _texture);
-		//	_textured_models.push_back(tm);
-		//	this->AddElement(new Element3D(tm));
-		//}
+		for (map<string, Model*>::iterator it = models.begin(); it != models.end(); it++)
+		{
+			this->models.push_back(it->second);
+			TexturedModel* tm = new TexturedModel(it->second, _texture);
+			_textured_models.push_back(tm);
+			this->AddElement(new Element3D(tm));
+		}
 	}
 
 
@@ -27,8 +30,11 @@ public:
 	{
 		for (TexturedModel* tm : _textured_models)
 		{
-			//delete tm->model;
 			delete tm;
+		}
+		for (Model* model : models) 
+		{
+			delete model;
 		}
 	}
 
