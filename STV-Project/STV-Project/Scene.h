@@ -21,8 +21,11 @@ public:
 
 	void LogicUpdate() 
 	{
-		for (Entity* entity : _entities)
+		for (Entity* entity : _entities) 
+		{
+			entity->TransformUpdate();
 			entity->LogicUpdate();
+		}
 	}
 
 	void AddContentForRender() 

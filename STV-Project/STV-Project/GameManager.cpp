@@ -91,6 +91,12 @@ void GameManager::MainLoop()
 	logic_thread.detach();
 	VisualLoop();
 	running = false;
+
+	while (true) 
+	{
+		if (!logic_running)
+			break;
+	}
 }
 
 void GameManager::SetCurrentScene(Scene* scene)
@@ -104,20 +110,18 @@ void GameManager::SetCurrentScene(Scene* scene)
 
 void GameManager::LogicLoop() 
 {
-	cout << "Starting 'Logic Loop'" << endl; 
-	const float SLEEP_TIME = 1000.0f / (UPS*1.0f);
-	Timer timer;
-	update_counter.StartCounter();
+	logic_running = true;
+	cout << "Starting 'Logic Loop'" << endl;
 
 	while (running)
 	{
-		timer.start();
+		update_timer.start();
 		LogicUpdate();
-		update_counter.Increment();
-		timer.HoldUntilExceeded(SLEEP_TIME);
+		update_timer.HoldUntilExceeded(UPDATE_SLEEP);
 	}
-	update_counter.StopCounter();
-	cout << "Finshed 'Logic Loop'" << endl;
+
+	cout << "Finshed 'Logic Loop'" << endl; 
+	logic_running = false;
 }
 
 void GameManager::LogicUpdate() 
@@ -136,5 +140,7 @@ void GameManager::VisualLoop()
 
 void GameManager::VisualUpdate() 
 {
+	LERP_time = GetDynamicLERPTime();
+	Camera::getMain()->TransformUpdate();
 	GameManager::getMain()->GetCurrentScene()->VisualUpdate();
 }

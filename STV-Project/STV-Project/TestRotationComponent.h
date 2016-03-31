@@ -15,48 +15,47 @@ public:
 	void Start()
 	{
 		cout << "START" << endl;
-		Camera::getMain()->setOffset(vec3(0, 0, 0));
+		Camera::getMain()->location = vec3(0, 70, 0);
 	}
 
 
 	void LogicUpdate() 
 	{
-		vec3 direction = vec3(
-			sin(Camera::getMain()->getOffset().y),
-			0,
-			cos(Camera::getMain()->getOffset().y)
-			);
+		vec3 direction = Camera::getMain()->getForward();
+		direction.y = 0;
+		float speed = 0.4f;
+		float sensitivity = 0.1f;
 
 		if (Keyboard::isKeyDown('a'))
-			Camera::getMain()->setPosition(Camera::getMain()->getPosition() - cross(direction, vec3(0, 1, 0))*0.2f);
+			Camera::getMain()->location -= cross(direction, vec3(0, 1, 0))*speed;
 
 		if (Keyboard::isKeyDown('d'))
-			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + cross(direction, vec3(0, 1, 0))*0.2f);
+			Camera::getMain()->location += cross(direction, vec3(0, 1, 0))*speed;
 
 		if (Keyboard::isKeyDown('w'))
-			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + direction*0.2f);
+			Camera::getMain()->location += direction*speed;
 
 		if (Keyboard::isKeyDown('s'))
-			Camera::getMain()->setPosition(Camera::getMain()->getPosition() - direction*0.2f);
+			Camera::getMain()->location -= direction*speed;
 
 		if (Keyboard::isKeyDown('e'))
-			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.0f, 0.2f, 0.0f));
+			Camera::getMain()->location += vec3(0, 1, 0)*speed;
 
 		if (Keyboard::isKeyDown('q'))
-			Camera::getMain()->setPosition(Camera::getMain()->getPosition() + vec3(0.0f, -0.2f, 0.0f));
+			Camera::getMain()->location -= vec3(0, 1, 0)*speed;
 
 
 		if (Keyboard::isKeyDown('j'))
-			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.0f, 0.05f, 0.0f));
+			Camera::getMain()->rotation += vec3(0.0f, sensitivity, 0.0f);
 
 		if (Keyboard::isKeyDown('l'))
-			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.0f, -0.05f, 0.0f));
+			Camera::getMain()->rotation -= vec3(0.0f, sensitivity, 0.0f);
 
 		if (Keyboard::isKeyDown('i'))
-			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(0.05f, 0.0f, 0.0f));
+			Camera::getMain()->rotation += vec3(sensitivity, 0.0f, 0.0f);
 
 		if (Keyboard::isKeyDown('k'))
-			Camera::getMain()->setOffset(Camera::getMain()->getOffset() + vec3(-0.05f, 0.0f, 0.0f));		
+			Camera::getMain()->rotation -= vec3(sensitivity, 0.0f, 0.0f);
 	};
 
 	void VisualUpdate() 

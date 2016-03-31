@@ -1,5 +1,6 @@
 #pragma once
 #include "MemoryListener.h"
+#include "Transform.h"
 #include "Dependencies\glm\vec3.hpp"
 #include "Dependencies\glm\mat4x4.hpp"
 #include "Dependencies\glm\gtc\matrix_transform.hpp"
@@ -9,7 +10,7 @@
 
 using namespace glm;
 
-class Camera
+class Camera : public Transform
 {
 public:
 	Camera();
@@ -19,24 +20,6 @@ public:
 	{
 		if (fov > 0 && fov <= 300)
 			_FoV = fov;
-	}
-
-	void setPosition(vec3& location)
-	{
-		_position = location;
-	}
-	vec3& getPosition()
-	{
-		return _position;
-	}
-
-	void setOffset(vec3& offset)
-	{
-		_offset = offset;
-	}
-	vec3& getOffset()
-	{
-		return _offset;
 	}
 
 	/**
@@ -62,9 +45,6 @@ public:
 	}
 
 private:
-	bool _fps_camera = true;
-	vec3 _position;
-	vec3 _offset;
 
 	//Projection Matrix
 	float _last_aspect_ratio = 1;

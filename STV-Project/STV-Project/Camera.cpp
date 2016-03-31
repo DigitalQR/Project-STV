@@ -5,8 +5,6 @@ using namespace std;
 
 Camera::Camera()
 {
-	_position = vec3(0, 70, 0);
-	_offset = vec3(0, -10, -50);
 }
 
 Camera::~Camera()
@@ -16,24 +14,20 @@ Camera::~Camera()
 
 void Camera::buildViewMatrix() 
 {
-	if (_fps_camera)
-	{
-		vec3 direction = vec3(
-			sin(_offset.y),
-			tan(_offset.x),
-			cos(_offset.y)
-			);
+	vec3 rotation = getLERPRotation();
 
-		_view_matrix = glm::lookAt(
-			_position, _position + direction, vec3(0, 1, 0)
-			);
-		return;
-	}
-	vec3 actual_position = _position - _offset;
+	vec3 direction = vec3(
+		sin(rotation.y),
+		tan(rotation.x),
+		cos(rotation.y)
+		);
+
+	vec3 lerp_location = getLERPLocation();
 
 	_view_matrix = glm::lookAt(
-		actual_position, _position, vec3(0, 1, 0)
-	); 
+		lerp_location, lerp_location + direction, vec3(0, 1, 0)
+		);
+	
 }
 
 void Camera::rebuildProjectionMatrix()

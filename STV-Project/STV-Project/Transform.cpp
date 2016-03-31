@@ -1,4 +1,5 @@
 #include "Transform.h"
+#include "GameManager.h"
 #include "Dependencies\glm\gtx\transform.hpp"
 
 Transform::Transform()
@@ -37,9 +38,31 @@ void Transform::Init(vec3& loc, vec3& rot, float scl)
 	_last_scale = scl;
 }
 
-vec3 Transform::getLERPLocation() 
+vec3 Transform::getLERPLocation()
 {
-	return location;
+	float LERP = GameManager::getMain()->GetLERPTime();
+	return _last_location * LERP + location * (1.0f - LERP);
+}
+
+float LERPAngle(float a, float b) 
+{
+	float LERP = GameManager::getMain()->GetLERPTime();
+	return tan(atan(a) * LERP + atan(b) * (1.0f - LERP));
+}
+
+vec3 Transform::getLERPRotation()
+{
+	return vec3(
+		LERPAngle(_last_rotation.x, rotation.x),
+		LERPAngle(_last_rotation.y, rotation.y),
+		LERPAngle(_last_rotation.z, rotation.z)
+		);
+}
+
+float Transform::getLERPScale()
+{
+	float LERP = GameManager::getMain()->GetLERPTime();
+	return _last_scale * LERP + scale * (1.0f - LERP);
 }
 
 mat4& Transform::getModelMatrix() 
@@ -53,7 +76,11 @@ mat4& Transform::getModelMatrix()
 		_model_matrix = mat4(1.0);
 	}
 
-	_model_matrix = glm::translate(_model_matrix, getLERPLocation());
+	vec3 location = getLERPLocation();
+	vec3 rotation = getLERPRotation();
+	float scale = getLERPScale();
+
+	_model_matrix = glm::translate(_model_matrix, location);
 	_model_matrix = glm::scale(_model_matrix, vec3(scale, scale, scale));
 
 	_model_matrix = glm::translate(_model_matrix, pivot);
@@ -63,4 +90,11 @@ mat4& Transform::getModelMatrix()
 	_model_matrix = glm::translate(_model_matrix, -pivot);
 
 	return _model_matrix;
+}
+
+void Transform::TransformUpdate()
+{
+	_last_location = location;
+	_last_rotation = rotation;
+	_last_scale = scale;
 }

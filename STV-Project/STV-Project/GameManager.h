@@ -9,6 +9,7 @@
 #include "MarchingCube.h"
 #include "Scene.h"
 #include "StatisticCounter.h"
+#include "Timer.h"
 
 #include <iostream>
 #include <list>
@@ -26,6 +27,18 @@ public:
 	*/
 	void MainLoop();
 
+	Timer update_timer;
+	float LERP_time = 0;
+
+	float GetLERPTime()
+	{
+		return LERP_time;
+	}
+	float GetDynamicLERPTime()
+	{
+		return update_timer.GetElapsedTime() / UPDATE_SLEEP;
+	}
+
 	void LogicUpdate();
 	void VisualUpdate();
 
@@ -33,8 +46,6 @@ public:
 	ModelLoader* model_loader;
 	TextureLoader* texture_loader;
 	MarchingCube* voxel_builder;
-
-	StatisticCounter update_counter;
 
 	/**
 	Generates a singleton
@@ -53,8 +64,9 @@ public:
 
 private:
 	Scene* _current_scene;
-	const unsigned int UPS = 30;
+	const unsigned int UPDATE_SLEEP = 1000/30;
 	bool running = false;
+	bool logic_running = false;
 
 	void GLInit();
 	void GameInit();

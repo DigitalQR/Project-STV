@@ -30,6 +30,11 @@ public:
 		return temp;
 	}
 
+	bool isRunning() 
+	{
+		return running;
+	}
+
 private:
 	unsigned int count = 0;
 	Timer timer;
