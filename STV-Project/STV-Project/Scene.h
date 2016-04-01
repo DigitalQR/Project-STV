@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Terrain.h"
 #include <list>
 
 using namespace std;
@@ -11,12 +12,16 @@ public:
 	{
 		for (Entity* entity : _entities)
 			delete entity;
+
+		delete _terrain;
 	};
 
 	void VisualUpdate() 
-	{
+	{	
 		for (Entity* entity : _entities)
 			entity->VisualUpdate();
+
+		_terrain->VisualUpdate();
 	}
 
 	void LogicUpdate() 
@@ -40,6 +45,11 @@ public:
 		entity->Start();
 	}
 
+	void SetTerrain(Terrain* terrain) 
+	{
+		_terrain = terrain;
+	}
+
 	void AttachScene() 
 	{
 		for (Entity* entity : _entities)
@@ -48,6 +58,7 @@ public:
 
 private:
 	list<Entity*> _entities;
+	Terrain* _terrain;
 
 };
 

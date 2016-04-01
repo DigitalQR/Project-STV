@@ -6,7 +6,7 @@
 Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
 	VoxelMesh(Vectori(CHUNK_SIZE, CHUNK_MAX_HEIGHT, CHUNK_SIZE), Vectori(x, 0, z))
 {
-
+	BuildTerrain();
 }
 
 Chunk::~Chunk()

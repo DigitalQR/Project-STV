@@ -24,6 +24,7 @@ public:
 	{
 		glUseProgram(_program);
 	};
+
 	virtual void PrepareModel(TexturedModel* textured_model)
 	{
 		glBindVertexArray(textured_model->model->getVAO());
@@ -36,7 +37,14 @@ public:
 	{
 		render_queue.AddToRenderQueue(e);
 	};
+
+	void RemoveFromRender(Element3D* e)
+	{
+		render_queue.RemoveFromRenderQueue(e);
+	};
+
 	void Render();
+
 	void ClearRenderQueue() 
 	{
 		render_queue.queue.clear();

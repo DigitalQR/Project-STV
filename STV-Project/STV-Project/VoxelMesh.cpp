@@ -17,7 +17,10 @@ VoxelMesh::VoxelMesh(Vectori& mesh_size, Vectori& mesh_offset) :
 
 VoxelMesh::~VoxelMesh()
 {
-	delete _model;
+
+	delete _texture_model->model;
+	delete _texture_model;
+	delete _element;
 }
 
 void VoxelMesh::SetBlockAt(int x, int y, int z, block_id block) 
@@ -47,5 +50,7 @@ void VoxelMesh::BuildModel()
 				GameManager::getMain()->voxel_builder->BuildFaces(x + offset.x, y + offset.y, z + offset.z, states, model_data);
 			}
 
-	_model = GameManager::getMain()->model_loader->CreateModel(model_data.verts, model_data.uvs, model_data.normals, model_data.indices);
+	Model* model = GameManager::getMain()->model_loader->CreateModel(model_data.verts, model_data.uvs, model_data.normals, model_data.indices);
+	_texture_model = new TexturedModel(model, (GLuint)0);
+	_element = new Element3D(_texture_model);
 }

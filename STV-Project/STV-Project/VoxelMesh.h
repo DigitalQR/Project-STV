@@ -1,9 +1,10 @@
 #pragma once
 #include "MemoryListener.h"
 #include "BlockGlossary.h"
-#include "Model.h"
+#include "TexturedModel.h"
 #include "ModelLoader.h"
 #include "TerrainTools.h"
+#include "Element3D.h"
 
 #include <array>
 #include <vector>
@@ -28,9 +29,10 @@ public:
 		return _blocks[x][y][z];
 	}
 
-	Model* GetTerrainModel() { return _model; }
+	Element3D* GetElement() { return _element; };
 
 private:
-	Model* _model;
+	TexturedModel* _texture_model;
+	Element3D* _element;
 	vector<vector<vector<block_id>>> _blocks{ BLOCK_AIR };
 };

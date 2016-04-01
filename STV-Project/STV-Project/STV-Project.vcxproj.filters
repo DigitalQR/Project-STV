@@ -55,6 +55,9 @@
     <Filter Include="Core\Engine\Core\Tools">
       <UniqueIdentifier>{fec2cebc-9dc4-48a4-bbf1-c00d8abeec5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Terrain\Tools">
+      <UniqueIdentifier>{bff950dc-00bf-499c-9544-71614890007e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -123,20 +126,8 @@
     <ClInclude Include="Terrain.h">
       <Filter>Core\Engine\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="Chunk.h">
-      <Filter>Core\Engine\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="VoxelMesh.h">
-      <Filter>Core\Engine\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainTools.h">
-      <Filter>Core\Engine\Terrain\Core</Filter>
-    </ClInclude>
     <ClInclude Include="MarchingCube.h">
       <Filter>Core\Engine\Terrain\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockGlossary.h">
-      <Filter>Core\Engine\Terrain\Core</Filter>
     </ClInclude>
     <ClInclude Include="VoxelBuilder.h">
       <Filter>Core\Engine\Terrain\Building\Core</Filter>
@@ -146,6 +137,18 @@
     </ClInclude>
     <ClInclude Include="StatisticCounter.h">
       <Filter>Core\Engine\Core\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTools.h">
+      <Filter>Core\Engine\Terrain\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockGlossary.h">
+      <Filter>Core\Engine\Terrain\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="VoxelMesh.h">
+      <Filter>Core\Engine\Terrain\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,14 +191,14 @@
     <ClCompile Include="Terrain.cpp">
       <Filter>Core\Engine\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="Chunk.cpp">
-      <Filter>Core\Engine\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="VoxelMesh.cpp">
-      <Filter>Core\Engine\Terrain</Filter>
-    </ClCompile>
     <ClCompile Include="MarchingCube.cpp">
       <Filter>Core\Engine\Terrain\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="VoxelMesh.cpp">
+      <Filter>Core\Engine\Terrain\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

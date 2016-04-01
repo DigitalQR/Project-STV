@@ -10,6 +10,9 @@
 using namespace std;
 
 
+class Terrain;
+
+
 #define CHUNK_SIZE 16
 #define CHUNK_MAX_HEIGHT 128
 #define CHUNK_CAVE_SIZE 54
