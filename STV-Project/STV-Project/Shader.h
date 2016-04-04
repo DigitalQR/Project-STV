@@ -47,7 +47,7 @@ public:
 
 	void ClearRenderQueue() 
 	{
-		render_queue.queue.clear();
+		render_queue.Clear();
 	}
 
 protected:

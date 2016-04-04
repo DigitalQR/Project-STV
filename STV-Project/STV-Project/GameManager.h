@@ -63,7 +63,7 @@ public:
 	Scene* GetCurrentScene() { return _current_scene; }
 
 private:
-	Scene* _current_scene;
+	Scene* _current_scene = nullptr;
 	const unsigned int UPDATE_SLEEP = 1000/30;
 	bool running = false;
 	bool logic_running = false;

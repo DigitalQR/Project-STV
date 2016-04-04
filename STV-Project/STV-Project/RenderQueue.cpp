@@ -7,8 +7,18 @@ RenderQueue::~RenderQueue()
 	cout << "\tDeleting render queue." << endl;
 	for (map<const TexturedModel*, list<Element3D*>*>::iterator it = queue.begin(); it != queue.end(); it++)
 	{
-		delete queue[it->first];
+		delete it->second;
 	}
+	cout << "\tDone." << endl;
+}
+
+void RenderQueue::Clear() 
+{
+	for (map<const TexturedModel*, list<Element3D*>*>::iterator it = queue.begin(); it != queue.end(); it++)
+	{
+		delete it->second;
+	}
+	queue.clear();
 }
 
 void RenderQueue::AddToRenderQueue(Element3D* e)
@@ -40,6 +50,7 @@ void RenderQueue::RemoveFromRenderQueue(Element3D* e)
 		if (q->size() == 1)
 		{
 			queue.erase(e->textured_model);
+			//delete q;
 		}
 		//Remove item in queue
 		else

@@ -15,57 +15,8 @@ Chunk::~Chunk()
 
 void Chunk::BuildTerrain()
 {
-	cout << "\tGenerating.. ";
 	Generate();
-	cout << "done." << endl;
-
-	/*
-	//TEST//////////////////////
-	for (int x = 0; x < MESH_SIZE.x; x++)
-		for (int z = 0; z < MESH_SIZE.z; z++) 
-		{
-			SetBlockAt(x, CHUNK_MAX_HEIGHT - 1, z, BLOCK_GRASS);
-			SetBlockAt(x, 0, z, BLOCK_GRASS);
-		}
-
-	SetBlockAt(2, 64, 1, BLOCK_GRASS);
-	SetBlockAt(2, 64, 2, BLOCK_GRASS);
-	SetBlockAt(2, 64, 1, BLOCK_GRASS);
-	SetBlockAt(2, 65, 1, BLOCK_GRASS);
-
-
-	SetBlockAt(2, 30, 1, BLOCK_GRASS);
-	SetBlockAt(1, 31, 2, BLOCK_GRASS);
-	SetBlockAt(2, 31, 2, BLOCK_GRASS);
-	SetBlockAt(1, 31, 1, BLOCK_GRASS);
-	SetBlockAt(1, 30, 2, BLOCK_GRASS);
-
-
-	SetBlockAt(1, 40, 2, BLOCK_GRASS);
-
-	/*
-	SetBlockAt(8, 34, 8, BLOCK_GRASS);
-	SetBlockAt(8, 34, 9, BLOCK_GRASS);
-	SetBlockAt(9, 34, 8, BLOCK_GRASS);
-	SetBlockAt(9, 33, 8, BLOCK_GRASS);
-	SetBlockAt(9, 33, 9, BLOCK_GRASS);
-
-	SetBlockAt(9, 37, 8, BLOCK_GRASS);
-	SetBlockAt(9, 37, 9, BLOCK_GRASS);
-	SetBlockAt(8, 37, 9, BLOCK_GRASS);
-	SetBlockAt(8, 36, 8, BLOCK_GRASS);
-	SetBlockAt(8, 36, 9, BLOCK_GRASS);
-
-	SetBlockAt(8, 28, 9, BLOCK_GRASS);
-	SetBlockAt(9, 28, 9, BLOCK_GRASS);
-	SetBlockAt(9, 28, 8, BLOCK_GRASS);
-	SetBlockAt(8, 27, 8, BLOCK_GRASS);
-	SetBlockAt(9, 27, 8, BLOCK_GRASS);*/
-	///////////////////////////*/
-
-	cout << "\tBuilding.. ";
-	BuildModel();
-	cout << "done." << endl;
+	ConstructModel();
 }
 
 void Chunk::Generate()

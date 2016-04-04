@@ -13,7 +13,8 @@ public:
 		for (Entity* entity : _entities)
 			delete entity;
 
-		delete _terrain;
+		if(_terrain != nullptr) 
+			delete _terrain;
 	};
 
 	void VisualUpdate() 
@@ -21,7 +22,8 @@ public:
 		for (Entity* entity : _entities)
 			entity->VisualUpdate();
 
-		_terrain->VisualUpdate();
+		if (_terrain != nullptr)
+			_terrain->VisualUpdate();
 	}
 
 	void LogicUpdate() 
@@ -52,13 +54,20 @@ public:
 
 	void AttachScene() 
 	{
+		if(_terrain != nullptr) _terrain->StartChunkLoading();
 		for (Entity* entity : _entities)
 			entity->AddElementsForRender();
 	}
 
+	void DettachScene() 
+	{
+		if (_terrain != nullptr) 
+			_terrain->StopChunkLoading();
+	}
+
 private:
 	list<Entity*> _entities;
-	Terrain* _terrain;
+	Terrain* _terrain = nullptr;
 
 };
 

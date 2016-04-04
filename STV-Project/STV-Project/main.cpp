@@ -26,13 +26,14 @@ void Start()
 
 	Terrain* terrain = new Terrain(2787);
 
-	Scene scene;
-	scene.AddToScene(te1);
-	scene.SetTerrain(terrain);
-	GameManager::getMain()->SetCurrentScene(&scene);
+	Scene* scene = new Scene();
+	scene->AddToScene(te1);
+	scene->SetTerrain(terrain);
+	GameManager::getMain()->SetCurrentScene(scene);
 
 	GameManager::getMain()->MainLoop();
-
+	GameManager::getMain()->SetCurrentScene(nullptr);
+	delete scene;
 	delete GameManager::getMain();
 }
 

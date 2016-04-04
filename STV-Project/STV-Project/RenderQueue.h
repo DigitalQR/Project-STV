@@ -12,6 +12,7 @@ public:
 	~RenderQueue();
 	void AddToRenderQueue(Element3D* e);
 	void RemoveFromRenderQueue(Element3D* e);
+	void Clear();
 	map<const TexturedModel*, list<Element3D*>*> queue;
 
 };

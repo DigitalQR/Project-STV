@@ -21,6 +21,7 @@ public:
 	~VoxelMesh();
 
 	virtual void BuildModel();
+	virtual void ConstructModel();
 
 	virtual void SetBlockAt(int x, int y, int z, block_id block);
 
@@ -32,7 +33,8 @@ public:
 	Element3D* GetElement() { return _element; };
 
 private:
-	TexturedModel* _texture_model;
-	Element3D* _element;
+	ModelData* _model_data = nullptr;
+	TexturedModel* _texture_model = nullptr;
+	Element3D* _element = nullptr;
 	vector<vector<vector<block_id>>> _blocks{ BLOCK_AIR };
 };

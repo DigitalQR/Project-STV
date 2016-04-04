@@ -59,13 +59,14 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-	cout << endl  << "======" << endl << "Cleaning up.." << endl;
+	cout << endl  << "======" << endl << "Cleaning up GameManager.." << endl;
 	delete model_loader;
 	delete master_renderer;
 	delete texture_loader;
 	delete voxel_builder;
 	delete Camera::getMain();
 	delete Keyboard::getMain();
+	cout << "GameManager finished." << endl << "======" << endl;
 }
 
 void GameManager::GLInit()
@@ -101,9 +102,11 @@ void GameManager::MainLoop()
 
 void GameManager::SetCurrentScene(Scene* scene)
 {
+	if (_current_scene != nullptr) _current_scene->DettachScene();
 	master_renderer->ClearAllRenderQueues();
+
 	_current_scene = scene;
-	scene->AttachScene();
+	if(scene != nullptr) scene->AttachScene();
 }
 
 
@@ -111,7 +114,7 @@ void GameManager::SetCurrentScene(Scene* scene)
 void GameManager::LogicLoop() 
 {
 	logic_running = true;
-	cout << "Starting 'Logic Loop'" << endl;
+	cout << "Starting 'Logic Loop'\n";
 
 	while (running)
 	{
@@ -120,7 +123,7 @@ void GameManager::LogicLoop()
 		update_timer.HoldUntilExceeded(UPDATE_SLEEP);
 	}
 
-	cout << "Finshed 'Logic Loop'" << endl; 
+	cout << "Finshed 'Logic Loop'\n"; 
 	logic_running = false;
 }
 
@@ -134,9 +137,9 @@ void GameManager::LogicUpdate()
 
 void GameManager::VisualLoop() 
 {
-	cout << "Starting 'Visual Loop'" << endl;
+	cout << "Starting 'Visual Loop'\n";
 	glutMainLoop();
-	cout << "Finshed 'Visual Loop'" << endl;
+	cout << "Finshed 'Visual Loop'\n";
 }
 
 void GameManager::VisualUpdate() 
