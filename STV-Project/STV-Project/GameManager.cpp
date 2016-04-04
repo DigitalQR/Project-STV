@@ -95,8 +95,14 @@ void GameManager::MainLoop()
 
 	while (true) 
 	{
-		if (!logic_running)
+		if (!logic_running) 
+		{
 			break;
+		}
+		else 
+		{
+			cout << "";
+		}
 	}
 }
 
@@ -144,7 +150,6 @@ void GameManager::VisualLoop()
 
 void GameManager::VisualUpdate() 
 {
-	LERP_time = GetDynamicLERPTime();
-
 	GameManager::getMain()->GetCurrentScene()->VisualUpdate();
+	LERP_time = GetDynamicLERPTime();
 }

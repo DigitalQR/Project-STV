@@ -15,7 +15,13 @@ Terrain::~Terrain()
 	while (true)
 	{
 		if (!_chunk_loader->active)
+		{
 			break;
+		}
+		else 
+		{
+			cout << "";
+		}
 	}
 	
 	for (Chunk* chunk : _active_chunks)
