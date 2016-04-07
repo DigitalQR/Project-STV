@@ -16,10 +16,18 @@ public:
 
 	void HoldUntilExceeded(float sleep_ms) 
 	{
+		bool throw_away = 0;
+
 		while (true) 
 		{
 			if (GetElapsedTime() > sleep_ms)
+			{
 				break;
+			}
+			else 
+			{
+				throw_away = 0;
+			}
 		}
 	}
 

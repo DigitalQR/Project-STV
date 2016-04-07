@@ -32,6 +32,14 @@ public:
 
 	Element3D* GetElement() { return _element; };
 
+	bool IsEmptyFlagSet() 
+	{
+		return empty_flag;
+	}
+
+protected:
+	bool empty_flag = true;
+
 private:
 	ModelData* _model_data = nullptr;
 	TexturedModel* _texture_model = nullptr;

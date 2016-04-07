@@ -13,10 +13,13 @@ using namespace std;
 class Terrain;
 
 
-#define CHUNK_SIZE 16
-#define CHUNK_MAX_HEIGHT 128
-#define CHUNK_CAVE_SIZE 54
-#define CHUNK_SURFACE_HEIGHT 32
+#define CHUNK_SIZE_X 16
+#define CHUNK_SIZE_Y 128
+#define CHUNK_SIZE_Z 16
+
+#define GEN_CAVE_SIZE 54
+#define GEN_SURFACE_HEIGHT 32
+#define GEN_MAX_HEIGHT 128
 
 class Chunk : public VoxelMesh
 {
@@ -32,7 +35,7 @@ public:
 				return BLOCK_AIR;
 			}
 			float cave_chance = GetCaveChance(x, y, z);
-			if (cave_chance <= CHUNK_CAVE_SIZE)
+			if (cave_chance <= GEN_CAVE_SIZE)
 				return BLOCK_AIR;
 
 			return BLOCK_UNKNOWN;

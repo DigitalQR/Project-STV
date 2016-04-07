@@ -4,7 +4,7 @@
 
 
 Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
-	VoxelMesh(Vectori(CHUNK_SIZE, CHUNK_MAX_HEIGHT, CHUNK_SIZE), Vectori(x, 0, z))
+	VoxelMesh(Vectori(CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z), Vectori(x, 0, z))
 {
 	BuildTerrain();
 }
@@ -21,15 +21,15 @@ void Chunk::BuildTerrain()
 
 void Chunk::Generate()
 {
-	for (int x = 0; x < CHUNK_SIZE; x++)
-		for (int z = 0; z < CHUNK_SIZE; z++)
+	for (int x = 0; x < CHUNK_SIZE_X; x++)
+		for (int z = 0; z < CHUNK_SIZE_Z; z++)
 		{
 			int height = GetHeight(x,z);
 
 			for (int y = height; y >= 0; y--){
 				int cave_noise = GetCaveChance(x, y, z);
 
-				if (CHUNK_CAVE_SIZE < cave_noise)
+				if (GEN_CAVE_SIZE  < cave_noise)
 					SetBlockAt(x, y, z, BLOCK_GRASS);
 			}
 
@@ -38,16 +38,16 @@ void Chunk::Generate()
 
 int Chunk::GetHeight(int x, int z)
 {
-	x += MESH_OFFSET.x * CHUNK_SIZE;
-	z += MESH_OFFSET.z * CHUNK_SIZE;
-	return floorf(GetSmoothNoise(x, z, 100.0f, 50) + CHUNK_MAX_HEIGHT / 2);
+	x += MESH_OFFSET.x * CHUNK_SIZE_X;
+	z += MESH_OFFSET.z * CHUNK_SIZE_Z;
+	return floorf(GetSmoothNoise(x, z, 100.0f, 50) + GEN_SURFACE_HEIGHT / 2);
 }
 
 int Chunk::GetCaveChance(int x, int y, int z)
 {
-	x += MESH_OFFSET.x * CHUNK_SIZE;
-	z += MESH_OFFSET.z * CHUNK_SIZE;
-	return floorf(GetSmoothNoise(x, y, z, 100.0f, 30) + CHUNK_MAX_HEIGHT / 2);
+	x += MESH_OFFSET.x * CHUNK_SIZE_X;
+	z += MESH_OFFSET.z * CHUNK_SIZE_Z;
+	return floorf(GetSmoothNoise(x, y, z, 100.0f, 30) + GEN_MAX_HEIGHT / 2);
 }
 
 float Chunk::GetRawNoise(int x, int y, int z, float frequency)
@@ -55,7 +55,7 @@ float Chunk::GetRawNoise(int x, int y, int z, float frequency)
 	srand(_parent->GetSeed() + (x * frequency * 1.1 + y* frequency * 1.0 + z *frequency * 1.2));
 	rand(); //Throw away
 
-	float value = rand() % CHUNK_SURFACE_HEIGHT - CHUNK_SURFACE_HEIGHT / 2;
+	float value = rand() % GEN_SURFACE_HEIGHT - GEN_SURFACE_HEIGHT / 2;
 	return value;
 }
 

@@ -30,20 +30,26 @@ VoxelMesh::~VoxelMesh()
 void VoxelMesh::SetBlockAt(int x, int y, int z, block_id block) 
 {
 	_blocks[x][y][z] = block;
+	if(block != BLOCK_AIR) empty_flag = false;
 }
 
 void VoxelMesh::BuildModel()
 {
+	if (empty_flag)
+		return;
+
 	Model* model = GameManager::getMain()->model_loader->CreateModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->indices);
 	_texture_model = new TexturedModel(model, (GLuint)0);
 	_element = new Element3D(_texture_model);
-
-	delete _model_data;
-	_model_data = nullptr;
 }
 
 void VoxelMesh::ConstructModel()
 {
+	if (empty_flag)
+		return;
+
+	if (_model_data != nullptr)
+		delete _model_data;
 	_model_data = new ModelData();
 
 	const Vectori offset = MESH_SIZE * MESH_OFFSET;
