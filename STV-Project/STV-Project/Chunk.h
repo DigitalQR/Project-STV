@@ -19,30 +19,16 @@ class Terrain;
 
 #define GEN_CAVE_SIZE 54
 #define GEN_SURFACE_HEIGHT 32
+#define GEN_SURFACE_START 32
 #define GEN_MAX_HEIGHT 128
 
 class Chunk : public VoxelMesh
 {
 public:
-	Chunk(Terrain* parent, int x, int z);
+	Chunk(Terrain* parent, int x, int y, int z);
 	virtual void BuildTerrain();
-	~Chunk();
 
-	block_id GetBlockAt(int x, int y, int z)
-	{
-		if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z) {
-			if (y > GetHeight(x, z)) {
-				return BLOCK_AIR;
-			}
-			float cave_chance = GetCaveChance(x, y, z);
-			if (cave_chance <= GEN_CAVE_SIZE)
-				return BLOCK_AIR;
-
-			return BLOCK_UNKNOWN;
-		}
-
-		return VoxelMesh::GetBlockAt(x,y,z);
-	}
+	block_id GetBlockAt(int x, int y, int z);
 
 protected:
 	virtual void Generate();

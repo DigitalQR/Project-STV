@@ -150,6 +150,9 @@
     <ClInclude Include="VoxelMesh.h">
       <Filter>Core\Engine\Terrain\Core</Filter>
     </ClInclude>
+    <ClInclude Include="ChunkLoader.h">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -198,6 +201,9 @@
       <Filter>Core\Engine\Terrain\Core</Filter>
     </ClCompile>
     <ClCompile Include="VoxelMesh.cpp">
+      <Filter>Core\Engine\Terrain\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkLoader.cpp">
       <Filter>Core\Engine\Terrain\Core</Filter>
     </ClCompile>
   </ItemGroup>

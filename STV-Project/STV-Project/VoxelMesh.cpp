@@ -17,14 +17,15 @@ VoxelMesh::VoxelMesh(Vectori& mesh_size, Vectori& mesh_offset) :
 
 VoxelMesh::~VoxelMesh()
 {
+	if (_model_data != nullptr)
+		delete _model_data;
+
 	if (_element != nullptr)
 	{
 		delete _texture_model->model;
 		delete _texture_model;
 		delete _element;
 	}
-	if (_model_data != nullptr)
-		delete _model_data;
 }
 
 void VoxelMesh::SetBlockAt(int x, int y, int z, block_id block) 

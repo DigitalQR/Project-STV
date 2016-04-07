@@ -3,14 +3,26 @@
 #include "Dependencies\glew\glew.h"
 
 
-Chunk::Chunk(Terrain* terrain, int x, int z) : _parent(terrain),
-	VoxelMesh(Vectori(CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z), Vectori(x, 0, z))
+Chunk::Chunk(Terrain* terrain, int x, int y, int z) : _parent(terrain),
+	VoxelMesh(Vectori(CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z), Vectori(x, y, z))
 {
 	BuildTerrain();
 }
 
-Chunk::~Chunk()
+block_id Chunk::GetBlockAt(int x, int y, int z)
 {
+	if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z) {
+		if (y > GetHeight(x, z)) {
+			return BLOCK_AIR;
+		}
+		float cave_chance = GetCaveChance(x, y, z);
+		if (cave_chance <= GEN_CAVE_SIZE)
+			return BLOCK_AIR;
+
+		return BLOCK_UNKNOWN;
+	}
+
+	return VoxelMesh::GetBlockAt(x, y, z);
 }
 
 void Chunk::BuildTerrain()
@@ -55,7 +67,7 @@ float Chunk::GetRawNoise(int x, int y, int z, float frequency)
 	srand(_parent->GetSeed() + (x * frequency * 1.1 + y* frequency * 1.0 + z *frequency * 1.2));
 	rand(); //Throw away
 
-	float value = rand() % GEN_SURFACE_HEIGHT - GEN_SURFACE_HEIGHT / 2;
+	float value = GEN_SURFACE_START + rand() % GEN_SURFACE_HEIGHT - GEN_SURFACE_HEIGHT / 2;
 	return value;
 }
 

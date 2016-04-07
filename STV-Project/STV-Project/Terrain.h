@@ -1,45 +1,17 @@
 #pragma once
 #include "MemoryListener.h"
-#include "Chunk.h"
+#include "ChunkLoader.h"
 #include "Entity.h"
 #include "Shader.h"
 
 #include "Dependencies\glm\common.hpp"
 #include "Dependencies\glew\glew.h"
-#include <thread>
 
 
 using namespace glm;
 
+
 class Chunk;
-class Terrain;
-
-
-class ChunkLoader
-{
-public:
-	bool running = true;
-	bool active = true;
-
-	ChunkLoader(Terrain* terrain) : _terrain(terrain)
-	{
-	}
-
-	void Start()
-	{
-		thread load_thread(&ChunkLoader::loading, this);
-		load_thread.detach();
-	}
-
-protected:
-	void loading();
-
-	void AddChunk(Chunk* chunk);
-
-
-private:
-	Terrain* _terrain;
-};
 
 
 class Terrain

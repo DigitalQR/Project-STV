@@ -1,4 +1,5 @@
 #include "Terrain.h"
+#include "Chunk.h"
 #include "GameManager.h"
 
 Terrain::Terrain(unsigned int seed) : _SEED(seed)
@@ -24,9 +25,8 @@ Terrain::~Terrain()
 		}
 	}
 	
-	for (Chunk* chunk : _active_chunks)
-		delete chunk;
-
+	_active_chunks.clear();
+	_rendered_chunks.clear();
 	delete _chunk_loader;
 	cout << " done." << endl;
 }
@@ -41,42 +41,11 @@ void Terrain::StopChunkLoading()
 	_chunk_loader->running = false;
 }
 
-
 void Terrain::AddChunk(Chunk* chunk)
 {
 	_active_chunks.push_back(chunk);
 	chunk_flag++;
 }
-
-void ChunkLoader::loading() 
-{
-	_terrain->AddChunk(new Chunk(_terrain, 0, 0));
-	for (int r = 1; r < 100; r++) 
-	{
-		if (!running)
-			break;
-
-		for (int d = 0; d < r*2; d++)
-		{
-			if (!running)
-				break;
-			AddChunk(new Chunk(_terrain, -r + d, r));
-			AddChunk(new Chunk(_terrain, r - d, -r));
-			AddChunk(new Chunk(_terrain, -r, -r + d));
-			AddChunk(new Chunk(_terrain, r, r - d));
-		}
-	}
-	active = false;
-}
-
-void ChunkLoader::AddChunk(Chunk* chunk)
-{
-	if (running)
-		_terrain->AddChunk(chunk);
-	else 
-		delete chunk;
-}
-
 
 void Terrain::VisualUpdate() 
 {
@@ -92,6 +61,9 @@ void Terrain::UpdateRenderedChunks(vector<Chunk*> active_chunks)
 	//Remove
 	for (Chunk* current_chunk : _rendered_chunks)
 	{
+		if (current_chunk->IsEmptyFlagSet())
+			continue;
+
 		bool in = false;
 		for (Chunk* active_chunk : active_chunks)
 		{
@@ -112,6 +84,9 @@ void Terrain::UpdateRenderedChunks(vector<Chunk*> active_chunks)
 	//Add
 	for (Chunk* current_chunk : active_chunks)
 	{
+		if (current_chunk->IsEmptyFlagSet())
+			continue;
+
 		bool in = false;
 		for (Chunk* rendered_chunk : _rendered_chunks)
 		{
