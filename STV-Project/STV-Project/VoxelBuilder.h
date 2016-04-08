@@ -18,7 +18,7 @@ public:
 
 	virtual void GenerateParts() {};
 
-	void BuildFaces(int X, int Y, int Z, array<array<array<block_id, 2>, 2>, 2>& states, ModelData& model_data) 
+	void BuildFaces(int X, int Y, int Z, array<array<array<resource_id, 2>, 2>, 2>& states, ModelData& model_data)
 	{
 		unsigned int state_count = 0;
 		array<array<array<bool, 2>, 2>, 2> state_case{ 0 };
@@ -27,14 +27,14 @@ public:
 			for (int y = 0; y < 2; y++)
 				for (int z = 0; z < 2; z++)
 				{
-					if (states[x][y][z] != BLOCK_AIR)
+					if (IsSolid(states[x][y][z]))
 					{
 						state_count++;
 						state_case[x][y][z] = true;
 					}
 				}
 
-		if (state_count == 0)
+		if (state_count == 0 || state_count == 8)
 			return;
 
 		ModelData data = model_parts

@@ -23,11 +23,11 @@ public:
 	virtual void BuildModel();
 	virtual void ConstructModel();
 
-	virtual void SetBlockAt(int x, int y, int z, block_id block);
+	virtual void SetResourceAt(int x, int y, int z, resource_id block);
 
-	virtual block_id GetBlockAt(int x, int y, int z)
+	virtual resource_id GetResourceAt(int x, int y, int z)
 	{
-		return _blocks[x][y][z];
+		return _resources[x][y][z];
 	}
 
 	Element3D* GetElement() { return _element; };
@@ -50,5 +50,5 @@ private:
 	ModelData* _model_data = nullptr;
 	TexturedModel* _texture_model = nullptr;
 	Element3D* _element = nullptr;
-	vector<vector<vector<block_id>>> _blocks{ BLOCK_AIR };
+	vector<vector<vector<resource_id>>> _resources;
 };

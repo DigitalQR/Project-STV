@@ -9,7 +9,7 @@ Chunk::Chunk(Terrain* terrain, int x, int y, int z) : _parent(terrain),
 	Generate();
 }
 
-block_id Chunk::GetBlockAt(int x, int y, int z)
+resource_id Chunk::GetResourceAt(int x, int y, int z)
 {
 	if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z) 
 	{
@@ -33,14 +33,14 @@ block_id Chunk::GetBlockAt(int x, int y, int z)
 
 		Chunk& chunk = *_parent->GetChunkLoader()->GetChunk(new_chunk_coords.x, new_chunk_coords.y, new_chunk_coords.z);
 		
-		return chunk.GetBlockAt(
+		return chunk.GetResourceAt(
 			x + current_offset.x - new_offset.x,
 			y + current_offset.y - new_offset.y,
 			z + current_offset.z - new_offset.z
 			);
 	}
 
-	return VoxelMesh::GetBlockAt(x, y, z);
+	return VoxelMesh::GetResourceAt(x, y, z);
 }
 
 void Chunk::Generate()
@@ -58,7 +58,14 @@ void Chunk::Generate()
 					int cave_noise = GetCaveChance(x, y + height_offset, z);
 
 					if (GEN_CAVE_SIZE < cave_noise)
-						SetBlockAt(x, y, z, BLOCK_GRASS);
+					{
+						if(y == height + height_offset)
+							SetResourceAt(x, y, z, RES_GRASS);
+						else if(y >= height + height_offset - 4)
+							SetResourceAt(x, y, z, RES_DIRT);
+						else
+							SetResourceAt(x, y, z, RES_STONE);
+					}
 				}
 			//Height is above current chunk
 			else
@@ -66,7 +73,12 @@ void Chunk::Generate()
 					int cave_noise = GetCaveChance(x, y + height_offset, z);
 
 					if (GEN_CAVE_SIZE < cave_noise)
-						SetBlockAt(x, y, z, BLOCK_GRASS);
+						if (y == height + height_offset)
+							SetResourceAt(x, y, z, RES_GRASS);
+						else if (y >= height + height_offset - 4)
+							SetResourceAt(x, y, z, RES_DIRT);
+						else
+							SetResourceAt(x, y, z, RES_STONE);
 				}
 		}
 }

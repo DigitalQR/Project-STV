@@ -39,7 +39,7 @@ public:
 
 	Chunk(Terrain* parent, int x, int y, int z);
 
-	block_id GetBlockAt(int x, int y, int z);
+	resource_id GetResourceAt(int x, int y, int z);
 
 protected:
 	virtual void Generate();
