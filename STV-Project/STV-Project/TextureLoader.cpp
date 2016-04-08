@@ -17,6 +17,16 @@ TextureLoader::~TextureLoader()
 
 GLuint TextureLoader::LoadPNG(string file_path)
 {
+	return LoadPNG(file_path, GL_LINEAR_MIPMAP_NEAREST, GL_NEAREST);
+}
+
+GLuint TextureLoader::LoadLinearPNG(string file_path)
+{
+	return LoadPNG(file_path, GL_NEAREST_MIPMAP_NEAREST, GL_LINEAR);
+}
+
+GLuint TextureLoader::LoadPNG(string file_path, GLenum min_mode, GLenum mag_mode)
+{
 	cout << "Loading texture '" << &file_path[0] << "' ";
 	FREE_IMAGE_FORMAT format = FIF_UNKNOWN;
 	FIBITMAP* data(0);
@@ -67,8 +77,8 @@ GLuint TextureLoader::LoadPNG(string file_path)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_DECAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_DECAL);
 
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_mode);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_mode);
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

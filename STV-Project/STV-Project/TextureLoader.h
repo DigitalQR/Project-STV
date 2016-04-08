@@ -11,6 +11,8 @@ public:
 	TextureLoader();
 	~TextureLoader();
 	GLuint LoadPNG(string file_path);
+	GLuint LoadLinearPNG(string file_path);
+	GLuint LoadPNG(string file_path, GLenum min_mode, GLenum mag_mode);
 
 private:
 	vector<GLuint> _textures;

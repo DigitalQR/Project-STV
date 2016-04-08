@@ -17,7 +17,8 @@ void ChunkLoader::loading()
 	AddChunk(GetChunk(0, 3, 0));
 	AddChunk(GetChunk(0, 4, 0));
 
-	for (int r = 1; r < 100; r++)
+
+	for (int r = 1; r < 2; r++)
 	{
 		if (!running)
 			break;

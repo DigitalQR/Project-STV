@@ -15,7 +15,6 @@ public:
 	void PrepareInstance(Element3D* element);
 
 private:
-	const GLuint _UNIFORM_MODEL_MATRIX;
 	const GLuint _UNIFORM_VIEW_MATRIX;
 	const GLuint _UNIFORM_PROJECTION_MATRIX;
 };

@@ -14,7 +14,7 @@ out vec3 pass_normal;
 void main()
 {
 	pass_uv_coords = in_uv_coords;
-	pass_normal = in_normal;
 
+	pass_normal = (model_matrix * vec4(in_normal, 0.0)).xyz;
 	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(in_position, 1.0);
 }

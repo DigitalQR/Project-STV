@@ -9,9 +9,12 @@ out vec4 colour;
 
 void UseFakeLighting()
 {
-	float normal = abs(pass_normal.x + pass_normal.y + pass_normal.z)/3;
-	float bias = 0.8;
-	colour.xyz *= bias + normal*(1.0-bias)*2;
+	const vec3 light_direction = normalize(vec3(1,-1,1));
+	vec3 unit_normal = normalize(pass_normal);
+
+	float normal_dot_light = dot(unit_normal, -light_direction);
+	float brightness = max(0.2, normal_dot_light);
+	colour *= brightness;
 }
 
 void main()

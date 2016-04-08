@@ -4,7 +4,7 @@
 
 Terrain::Terrain(unsigned int seed) : _SEED(seed)
 {
-	_texture_atlas = GameManager::getMain()->texture_loader->LoadPNG("Res/tileset.png");
+	_texture_atlas = GameManager::getMain()->texture_loader->LoadLinearPNG("Res/tileset.png");
 	_terrain_shader = GameManager::getMain()->master_renderer->terrain_shader;
 }
 

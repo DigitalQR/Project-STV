@@ -2,7 +2,6 @@
 #include "Camera.h"
 
 TerrainShader::TerrainShader() : Shader("terrain"),
-_UNIFORM_MODEL_MATRIX(glGetUniformLocation(_program, "model_matrix")),
 _UNIFORM_VIEW_MATRIX(glGetUniformLocation(_program, "view_matrix")),
 _UNIFORM_PROJECTION_MATRIX(glGetUniformLocation(_program, "projection_matrix"))
 {
@@ -30,6 +29,5 @@ void TerrainShader::PrepareModel(TexturedModel* textured_model)
 void TerrainShader::PrepareInstance(Element3D* element)
 {
 	Shader::PrepareInstance(element);
-	glUniformMatrix4fv(_UNIFORM_MODEL_MATRIX, 1, GL_FALSE, &element->getModelMatrix()[0][0]);
 }
 
