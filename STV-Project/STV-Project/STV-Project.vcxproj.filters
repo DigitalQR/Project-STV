@@ -153,6 +153,7 @@
     <ClInclude Include="ChunkLoader.h">
       <Filter>Core\Engine\Terrain\Core</Filter>
     </ClInclude>
+    <ClInclude Include="TerrainShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -206,12 +207,19 @@
     <ClCompile Include="ChunkLoader.cpp">
       <Filter>Core\Engine\Terrain\Core</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\static.frag">
       <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </None>
     <None Include="Shaders\static.vert">
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+    </None>
+    <None Include="terrain.frag">
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+    </None>
+    <None Include="terrain.vert">
       <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
     </None>
   </ItemGroup>

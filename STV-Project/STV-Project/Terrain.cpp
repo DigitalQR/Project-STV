@@ -5,7 +5,7 @@
 Terrain::Terrain(unsigned int seed) : _SEED(seed)
 {
 	_texture_atlas = GameManager::getMain()->texture_loader->LoadPNG("Res/World/grass_tile.png");
-	_terrain_shader = GameManager::getMain()->master_renderer->static_shader;
+	_terrain_shader = GameManager::getMain()->master_renderer->terrain_shader;
 }
 
 Terrain::~Terrain()

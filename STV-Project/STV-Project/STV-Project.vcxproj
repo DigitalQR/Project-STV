@@ -150,6 +150,7 @@
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="StatisticCounter.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TerrainShader.h" />
     <ClInclude Include="TerrainTools.h" />
     <ClInclude Include="TestEntity.h" />
     <ClInclude Include="TestRotationComponent.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VoxelMesh.cpp" />
@@ -182,6 +184,8 @@
   <ItemGroup>
     <None Include="Shaders\static.frag" />
     <None Include="Shaders\static.vert" />
+    <None Include="terrain.frag" />
+    <None Include="terrain.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

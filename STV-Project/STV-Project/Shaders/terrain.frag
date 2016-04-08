@@ -21,4 +21,5 @@ void main()
 		discard;
 	
 	UseFakeLighting();
+	colour.xyz = colour.zxy;
 }
