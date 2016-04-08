@@ -47,7 +47,7 @@ void VoxelMesh::BuildModel()
 	if (GetEmptyModelFlag())
 		return;
 	
-	Model* model = GameManager::getMain()->model_loader->CreateModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->indices);
+	Model* model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
 	_texture_model = new TexturedModel(model, (GLuint)0);
 	_element = new Element3D(_texture_model);
 }

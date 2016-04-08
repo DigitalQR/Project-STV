@@ -29,9 +29,10 @@ struct ModelData
 	vector<float> uvs;
 	vector<float> normals;
 	vector<unsigned int> indices;
+	vector<unsigned int> texture_ids;
 
-	ModelData(vector<float> verts, vector<float> uvs, vector<float> normals, vector<unsigned int> indices) :
-		verts(verts), uvs(uvs), normals(normals), indices(indices) {};
+	ModelData(vector<float> verts, vector<float> uvs, vector<float> normals, vector<unsigned int> texture_ids, vector<unsigned int> indices) :
+		verts(verts), uvs(uvs), normals(normals), indices(indices), texture_ids(texture_ids) {};
 
 	ModelData() {};
 
@@ -41,6 +42,7 @@ struct ModelData
 		uvs.clear();
 		normals.clear();
 		indices.clear();
+		texture_ids.clear();
 	}
 
 	void operator=(ModelData& b)
@@ -60,6 +62,10 @@ struct ModelData
 		indices.clear();
 		indices.resize(0);
 		indices.insert(indices.begin(), b.indices.begin(), b.indices.end());
+
+		texture_ids.clear();
+		texture_ids.resize(0);
+		texture_ids.insert(texture_ids.begin(), b.texture_ids.begin(), b.texture_ids.end());
 	}
 
 	void operator+=(ModelData& b)
@@ -68,6 +74,7 @@ struct ModelData
 		verts.insert(verts.end(), b.verts.begin(), b.verts.end());
 		normals.insert(normals.end(), b.normals.begin(), b.normals.end());
 		uvs.insert(uvs.end(), b.uvs.begin(), b.uvs.end());
+		texture_ids.insert(texture_ids.end(), b.texture_ids.begin(), b.texture_ids.end());
 
 		for (unsigned int index : b.indices)
 			indices.push_back(index + end_index);
@@ -80,6 +87,40 @@ struct ModelData
 			verts[i] += b.x;
 			verts[i + 1] += b.y;
 			verts[i + 2] += b.z;
+		}
+	}
+
+	void ReplaceTextureIDs(resource_id v0, resource_id v1, resource_id v2, resource_id v3, resource_id v4, resource_id v5, resource_id v6, resource_id v7) 
+	{
+		for (unsigned int& id : texture_ids) 
+		{
+			switch (id) 
+			{
+			case 0:
+				id = (unsigned int)v0;
+				break;
+			case 1:
+				id = (unsigned int)v1;
+				break;
+			case 2:
+				id = (unsigned int)v2;
+				break;
+			case 3:
+				id = (unsigned int)v3;
+				break;
+			case 4:
+				id = (unsigned int)v4;
+				break;
+			case 5:
+				id = (unsigned int)v5;
+				break;
+			case 6:
+				id = (unsigned int)v6;
+				break;
+			case 7:
+				id = (unsigned int)v7;
+				break;
+			};
 		}
 	}
 
@@ -164,29 +205,6 @@ struct ModelData
 				}
 			}
 
-			/*
-			//X
-			if ((abs(xn) > abs(yn) && abs(xn) > abs(zn)) || abs(yn)==abs(zn))
-			{
-				uvs[uv_i] = z * -sign(xn);
-				uvs[uv_i + 1] = y - x + 0.5f;
-			}
-			//Y
-			else if ((abs(yn) > abs(xn) && abs(yn) > abs(zn)) || abs(xn) == abs(zn))
-			{
-				uvs[uv_i] = x * -sign(yn);
-				uvs[uv_i + 1] = z - y + 0.5f;
-			}
-			//Z
-			else if ((abs(zn) > abs(xn) && abs(zn) > abs(yn)) || abs(xn) == abs(yn))
-			{
-				uvs[uv_i] = x * -sign(zn);
-				uvs[uv_i + 1] = y - z + 0.5f;
-			}
-			*/
-			//uvs[uv_i] = x + 0.5f;
-			//uvs[uv_i + 1] = y - z;
-
 			uv_i += 2;
 		}
 	}
@@ -194,40 +212,68 @@ struct ModelData
 	void Flip()
 	{
 		reverse(indices.begin(), indices.end());
+
+		for (unsigned int i = 0; i < texture_ids.size(); i++)
+		{
+			vec3 position;
+			unsigned int id = texture_ids[i];
+
+			switch (id)
+			{
+			case 0:
+				position = vec3(0, 0, 0);
+				break;
+			case 1:
+				position = vec3(1, 0, 0);
+				break;
+			case 2:
+				position = vec3(1, 0, 1);
+				break;
+			case 3:
+				position = vec3(0, 0, 1);
+				break;
+			case 4:
+				position = vec3(0, 1, 0);
+				break;
+			case 5:
+				position = vec3(1, 1, 0);
+				break;
+			case 6:
+				position = vec3(1, 1, 1);
+				break;
+			case 7:
+				position = vec3(0, 1, 1);
+				break;
+			};
+
+			vec3 direction(
+				verts[i * 3], verts[i * 3 + 1], verts[i * 3 + 2]);
+
+			direction -= position;
+			position += normalize(direction);
+			
+			if (position.x == 0 && position.y == 0 && position.z == 0)
+				texture_ids[i] = 0;
+			else if (position.x == 1 && position.y == 0 && position.z == 0)
+				texture_ids[i] = 1;
+			else if (position.x == 1 && position.y == 0 && position.z == 1)
+				texture_ids[i] = 2;
+			else if (position.x == 0 && position.y == 0 && position.z == 1)
+				texture_ids[i] = 3;
+			else if (position.x == 0 && position.y == 1 && position.z == 0)
+				texture_ids[i] = 4;
+			else if (position.x == 1 && position.y == 1 && position.z == 0)
+				texture_ids[i] = 5;
+			else if (position.x == 1 && position.y == 1 && position.z == 1)
+				texture_ids[i] = 6;
+			else if (position.x == 0 && position.y == 1 && position.z == 1)
+				texture_ids[i] = 7;
+		}
 	}
 
 	bool isEmpty()
 	{
 		return verts.size();
-	}
-
-	void Mirror(bool x, bool y, bool z, float pivot_x, float pivot_y, float pivot_z) 
-	{
-		for (unsigned int i = 0; i < verts.size(); i += 3) {
-			verts[i] -= pivot_x;
-			verts[i + 1] -= pivot_y;
-			verts[i + 2] -= pivot_z;
-		}
-
-		for (unsigned int i = 0; i < verts.size(); i += 3) 
-		{
-			if (x) verts[i] *= -1;
-			if (y) verts[i+1] *= -1;
-			if (z) verts[i+2] *= -1;
-		}
-
-		for (unsigned int i = 0; i < verts.size(); i += 3) {
-			verts[i] += pivot_x;
-			verts[i + 1] += pivot_y;
-			verts[i + 2] += pivot_z;
-		}
-
-		if (x)
-			Flip();
-		if (y)
-			Flip();
-		if (z)
-			Flip();
 	}
 
 	void Rotate(unsigned int x, unsigned int y, unsigned int z, float pivot_x, float pivot_y, float pivot_z)
@@ -279,6 +325,110 @@ struct ModelData
 			verts[i] += pivot_x;
 			verts[i + 1] += pivot_y;
 			verts[i + 2] += pivot_z;
+		}
+		
+
+		for (unsigned int i = 0; i < texture_ids.size(); i++)
+		{
+			unsigned int x_track = x;
+			unsigned int y_track = y;
+			unsigned int z_track = z;
+
+			while (x_track != 0)
+			{
+				switch (texture_ids[i])
+				{
+				case 0:
+					texture_ids[i] = 4;
+					break;
+				case 1:
+					texture_ids[i] = 5;
+					break;
+				case 2:
+					texture_ids[i] = 1;
+					break;
+				case 3:
+					texture_ids[i] = 0;
+					break;
+				case 4:
+					texture_ids[i] = 7;
+					break;
+				case 5:
+					texture_ids[i] = 6;
+					break;
+				case 6:
+					texture_ids[i] = 2;
+					break;
+				case 7:
+					texture_ids[i] = 3;
+					break;
+				};
+				x_track--;
+			}
+
+			while (y_track != 0)
+			{
+				switch (texture_ids[i])
+				{
+				case 0:
+					texture_ids[i] = 3;
+					break;
+				case 1:
+					texture_ids[i] = 0;
+					break;
+				case 2:
+					texture_ids[i] = 1;
+					break;
+				case 3:
+					texture_ids[i] = 2;
+					break;
+				case 4:
+					texture_ids[i] = 7;
+					break;
+				case 5:
+					texture_ids[i] = 4;
+					break;
+				case 6:
+					texture_ids[i] = 5;
+					break;
+				case 7:
+					texture_ids[i] = 6;
+					break;
+				};
+				y_track--;
+			}
+
+			while (z_track != 0)
+			{
+				switch (texture_ids[i])
+				{
+				case 0:
+					texture_ids[i] = 4;
+					break;
+				case 1:
+					texture_ids[i] = 0;
+					break;
+				case 2:
+					texture_ids[i] = 3;
+					break;
+				case 3:
+					texture_ids[i] = 7;
+					break;
+				case 4:
+					texture_ids[i] = 5;
+					break;
+				case 5:
+					texture_ids[i] = 1;
+					break;
+				case 6:
+					texture_ids[i] = 2;
+					break;
+				case 7:
+					texture_ids[i] = 6;
+					break;
+				};
+				z_track--;
+			}
 		}
 	}
 };

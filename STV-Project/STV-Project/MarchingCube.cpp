@@ -25,12 +25,13 @@ void MarchingCube::GenerateParts()
 	SetAllData(12, 0, 1, 1, 1, 1, 0, 0, 0);
 	SetAllData(13, 1, 0, 1, 0, 0, 1, 0, 1);
 	SetAllData(14, 0, 1, 1, 1, 0, 0, 0, 1);
+
 }
 
 
 void MarchingCube::SetAllData(unsigned int state_case, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7)
 {
-	ModelData model_data = ModelData(_case_vertices[state_case], _case_uvs[state_case], _case_normals[state_case], _case_indices[state_case]);
+	ModelData model_data = ModelData(_case_vertices[state_case], _case_uvs[state_case], _case_normals[state_case], _case_texture_ids[state_case], _case_indices[state_case]);
 
 	for (int xr = 0; xr < 7; xr++)
 		for (int yr = 0; yr < 7; yr++)
@@ -46,7 +47,7 @@ void MarchingCube::SetAllData(unsigned int state_case, bool v0, bool v1, bool v2
 
 void MarchingCube::RotateAndSetData(unsigned int state_case, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7) 
 {
-	ModelData model_data = ModelData(_case_vertices[state_case], _case_uvs[state_case], _case_normals[state_case], _case_indices[state_case]);
+	ModelData model_data = ModelData(_case_vertices[state_case], _case_uvs[state_case], _case_normals[state_case], _case_texture_ids[state_case], _case_indices[state_case]);
 
 	for (int xr = 0; xr < 7; xr++)
 		for (int yr = 0; yr < 7; yr++)

@@ -37,10 +37,12 @@ public:
 		if (state_count == 0 || state_count == 8)
 			return;
 
-		ModelData data = model_parts
-			[state_case[0][0][0]][state_case[1][0][0]][state_case[1][0][1]][state_case[0][0][1]]
-			[state_case[0][1][0]][state_case[1][1][0]][state_case[1][1][1]][state_case[0][1][1]];
-
+		ModelData data = GetData(
+			state_case[0][0][0], state_case[1][0][0], state_case[1][0][1], state_case[0][0][1],
+			state_case[0][1][0], state_case[1][1][0], state_case[1][1][1], state_case[0][1][1]);
+				
+		data.ReplaceTextureIDs(states[0][0][0], states[1][0][0], states[1][0][1], states[0][0][1],
+								states[0][1][0], states[1][1][0], states[1][1][1], states[0][1][1]);
 		data += Vectori(X, Y, Z);
 		model_data += data;
 	};

@@ -11,14 +11,20 @@ ChunkLoader::~ChunkLoader()
 
 void ChunkLoader::loading()
 {
+	AddChunk(GetChunk(0, -5, 0));
+	AddChunk(GetChunk(0, -4, 0));
+	AddChunk(GetChunk(0, -3, 0));
+	AddChunk(GetChunk(0, -2, 0));
+	AddChunk(GetChunk(0, -1, 0));
 	AddChunk(GetChunk(0, 0, 0));
 	AddChunk(GetChunk(0, 1, 0));
 	AddChunk(GetChunk(0, 2, 0));
 	AddChunk(GetChunk(0, 3, 0));
 	AddChunk(GetChunk(0, 4, 0));
+	AddChunk(GetChunk(0, 5, 0));
 
 
-	for (int r = 1; r < 2; r++)
+	for (int r = 1; r < 3; r++)
 	{
 		if (!running)
 			break;
@@ -28,7 +34,7 @@ void ChunkLoader::loading()
 			if (!running)
 				break;
 
-			for (int y = 0; y < 5; y++)
+			for (int y = -5; y < 6; y++)
 			{
 				AddChunk(GetChunk(-r + d, y, r));
 				AddChunk(GetChunk(r - d, y, -r));
