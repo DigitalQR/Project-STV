@@ -31,12 +31,15 @@ VoxelMesh::~VoxelMesh()
 void VoxelMesh::SetBlockAt(int x, int y, int z, block_id block) 
 {
 	_blocks[x][y][z] = block;
-	if(block != BLOCK_AIR) empty_flag = false;
+	if (block != BLOCK_AIR)
+		full_gen_track++;
+	else
+		full_gen_track--;
 }
 
 void VoxelMesh::BuildModel()
 {
-	if (empty_flag)
+	if (IsEmptyFlagSet())
 		return;
 	
 	Model* model = GameManager::getMain()->model_loader->CreateModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->indices);
@@ -46,7 +49,7 @@ void VoxelMesh::BuildModel()
 
 void VoxelMesh::ConstructModel()
 {
-	if (empty_flag)
+	if (IsEmptyFlagSet())
 		return;
 
 	if (_model_data != nullptr)

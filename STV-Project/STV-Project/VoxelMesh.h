@@ -34,11 +34,11 @@ public:
 
 	bool IsEmptyFlagSet() 
 	{
-		return empty_flag;
+		return full_gen_track == 0 || full_gen_track == MESH_SIZE.x * MESH_SIZE.y * MESH_SIZE.z;
 	}
 
 protected:
-	bool empty_flag = true;
+	unsigned int full_gen_track = 0;
 
 private:
 	ModelData* _model_data = nullptr;
