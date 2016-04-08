@@ -18,8 +18,8 @@ class Terrain;
 #define CHUNK_SIZE_Z 25
 
 #define GEN_CAVE_SIZE 54
-#define GEN_SURFACE_HEIGHT 32
-#define GEN_SURFACE_START 32
+#define GEN_SURFACE_HEIGHT 40
+#define GEN_SURFACE_START 0
 #define GEN_MAX_HEIGHT 128
 
 class Chunk : public VoxelMesh

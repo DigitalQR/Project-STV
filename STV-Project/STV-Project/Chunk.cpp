@@ -52,6 +52,7 @@ void Chunk::Generate()
 		{
 			int height = GetHeight(x,z) - height_offset;
 
+			//Height ends in current chunk or is above
 			if(height < MESH_SIZE.y)
 				for (int y = height; y >= 0; y--){
 					int cave_noise = GetCaveChance(x, y + height_offset, z);
@@ -59,7 +60,14 @@ void Chunk::Generate()
 					if (GEN_CAVE_SIZE < cave_noise)
 						SetBlockAt(x, y, z, BLOCK_GRASS);
 				}
+			//Height is above current chunk
+			else
+				for (int y = 0; y < MESH_SIZE.y; y++) {
+					int cave_noise = GetCaveChance(x, y + height_offset, z);
 
+					if (GEN_CAVE_SIZE < cave_noise)
+						SetBlockAt(x, y, z, BLOCK_GRASS);
+				}
 		}
 }
 

@@ -32,13 +32,19 @@ public:
 
 	Element3D* GetElement() { return _element; };
 
-	bool IsEmptyFlagSet() 
+	bool GetGenFlag() 
 	{
 		return full_gen_track == 0 || full_gen_track == MESH_SIZE.x * MESH_SIZE.y * MESH_SIZE.z;
 	}
 
+	bool GetEmptyModelFlag() 
+	{
+		return empty_model_flag;
+	}
+
 protected:
 	unsigned int full_gen_track = 0;
+	bool empty_model_flag = false;
 
 private:
 	ModelData* _model_data = nullptr;

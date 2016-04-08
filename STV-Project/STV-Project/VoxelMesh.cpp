@@ -39,7 +39,7 @@ void VoxelMesh::SetBlockAt(int x, int y, int z, block_id block)
 
 void VoxelMesh::BuildModel()
 {
-	if (IsEmptyFlagSet())
+	if (GetEmptyModelFlag())
 		return;
 	
 	Model* model = GameManager::getMain()->model_loader->CreateModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->indices);
@@ -49,9 +49,6 @@ void VoxelMesh::BuildModel()
 
 void VoxelMesh::ConstructModel()
 {
-	if (IsEmptyFlagSet())
-		return;
-
 	if (_model_data != nullptr)
 		_model_data->Clear();
 	else
@@ -74,4 +71,6 @@ void VoxelMesh::ConstructModel()
 				states[1][1][1] = GetBlockAt(x + 1, y + 1, z + 1);
 				GameManager::getMain()->voxel_builder->BuildFaces(x + offset.x, y + offset.y, z + offset.z, states, *_model_data);
 			}
+
+	empty_model_flag = !(bool)(_model_data->verts.size());
 }

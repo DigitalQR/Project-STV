@@ -61,7 +61,7 @@ void Terrain::UpdateRenderedChunks(vector<Chunk*> active_chunks)
 	//Remove
 	for (Chunk* current_chunk : _rendered_chunks)
 	{
-		if (current_chunk->IsEmptyFlagSet())
+		if (current_chunk->GetEmptyModelFlag())
 			continue;
 
 		bool in = false;
@@ -84,7 +84,7 @@ void Terrain::UpdateRenderedChunks(vector<Chunk*> active_chunks)
 	//Add
 	for (Chunk* current_chunk : active_chunks)
 	{
-		if (current_chunk->IsEmptyFlagSet())
+		if (current_chunk->GetEmptyModelFlag())
 			continue;
 
 		bool in = false;
