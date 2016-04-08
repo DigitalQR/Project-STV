@@ -50,37 +50,38 @@ void Chunk::Generate()
 	for (int x = 0; x < CHUNK_SIZE_X; x++)
 		for (int z = 0; z < CHUNK_SIZE_Z; z++)
 		{
-			int height = GetHeight(x,z) - height_offset;
+			int height = GetHeight(x,z);
 
 			//Height ends in current chunk or is above
-			if(height < MESH_SIZE.y)
-				for (int y = height; y >= 0; y--){
-					int cave_noise = GetCaveChance(x, y + height_offset, z);
-
-					if (GEN_CAVE_SIZE < cave_noise)
-					{
-						if(y == height + height_offset)
-							SetResourceAt(x, y, z, RES_GRASS);
-						else if(y >= height + height_offset - 4)
-							SetResourceAt(x, y, z, RES_DIRT);
-						else
-							SetResourceAt(x, y, z, RES_STONE);
-					}
-				}
+			if(height - height_offset < MESH_SIZE.y)
+				for (int y = height - height_offset; y >= 0; y--)
+					GeneratePoint(height, x, y, z);
+				
 			//Height is above current chunk
 			else
-				for (int y = 0; y < MESH_SIZE.y; y++) {
-					int cave_noise = GetCaveChance(x, y + height_offset, z);
-
-					if (GEN_CAVE_SIZE < cave_noise)
-						if (y == height + height_offset)
-							SetResourceAt(x, y, z, RES_GRASS);
-						else if (y >= height + height_offset - 4)
-							SetResourceAt(x, y, z, RES_DIRT);
-						else
-							SetResourceAt(x, y, z, RES_STONE);
-				}
+				for (int y = 0; y < MESH_SIZE.y; y++)
+					GeneratePoint(height, x, y, z);
+				
 		}
+}
+
+void Chunk::GeneratePoint(int height, int x, int y, int z) 
+{
+	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
+	int cave_noise = GetCaveChance(x, y, z);
+	int patch_noise = Get3DChance(x, y, z, 90.0f, 10);
+
+	if (GEN_CAVE_SIZE < cave_noise)
+	{
+		if (50 >= patch_noise)
+			SetResourceAt(x, y, z, RES_DIRT);
+		else if (y + height_offset == height)
+			SetResourceAt(x, y, z, RES_GRASS);
+		else if (y + height_offset >= height - 3)
+			SetResourceAt(x, y, z, RES_DIRT);
+		else
+			SetResourceAt(x, y, z, RES_STONE);
+	}
 }
 
 int Chunk::GetHeight(int x, int z)
@@ -92,9 +93,15 @@ int Chunk::GetHeight(int x, int z)
 
 int Chunk::GetCaveChance(int x, int y, int z)
 {
+	return Get3DChance(x,y,z, 100.0f, 30);
+}
+
+int Chunk::Get3DChance(int x, int y, int z, float frequency, int smoothness) 
+{
 	x += MESH_OFFSET.x * CHUNK_SIZE_X;
+	y += MESH_OFFSET.y * CHUNK_SIZE_Y;
 	z += MESH_OFFSET.z * CHUNK_SIZE_Z;
-	return floorf(GetSmoothNoise(x, y, z, 100.0f, 30) + GEN_MAX_HEIGHT / 2);
+	return floorf(GetSmoothNoise(x, y, z, frequency, smoothness) + GEN_MAX_HEIGHT / 2);
 }
 
 float Chunk::GetRawNoise(int x, int y, int z, float frequency)

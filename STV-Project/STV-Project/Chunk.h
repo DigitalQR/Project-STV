@@ -38,6 +38,7 @@ public:
 
 
 	Chunk(Terrain* parent, int x, int y, int z);
+	void GeneratePoint(int height, int x, int y, int z);
 
 	resource_id GetResourceAt(int x, int y, int z);
 
@@ -53,6 +54,7 @@ protected:
 
 	int GetHeight(int x, int y);
 	int GetCaveChance(int x, int y, int z);
+	int Get3DChance(int x, int y, int z, float frequency, int smoothness);
 	float GetRawNoise(int x, int y, int z, float frequency);
 	float GetNoise(int x, int y, int z, float frequency, int smoothness);
 	float GetNoise(int x, int y, float frequency, int smoothness);
