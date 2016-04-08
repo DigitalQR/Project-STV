@@ -11,7 +11,12 @@ ChunkLoader::~ChunkLoader()
 
 void ChunkLoader::loading()
 {
-	_terrain->AddChunk(GetChunk(0, 0, 0));
+	AddChunk(GetChunk(0, 0, 0));
+	AddChunk(GetChunk(0, 1, 0));
+	AddChunk(GetChunk(0, 2, 0));
+	AddChunk(GetChunk(0, 3, 0));
+	AddChunk(GetChunk(0, 4, 0));
+
 	for (int r = 1; r < 100; r++)
 	{
 		if (!running)
@@ -21,10 +26,14 @@ void ChunkLoader::loading()
 		{
 			if (!running)
 				break;
-			AddChunk(GetChunk(-r + d, 0, r));
-			AddChunk(GetChunk(r - d, 0, -r));
-			AddChunk(GetChunk(-r, 0, -r + d));
-			AddChunk(GetChunk(r, 0, r - d));
+
+			for (int y = 0; y < 5; y++)
+			{
+				AddChunk(GetChunk(-r + d, y, r));
+				AddChunk(GetChunk(r - d, y, -r));
+				AddChunk(GetChunk(-r, y, -r + d));
+				AddChunk(GetChunk(r, y, r - d));
+			}
 		}
 	}
 	active = false;
@@ -33,7 +42,10 @@ void ChunkLoader::loading()
 void ChunkLoader::AddChunk(Chunk* chunk)
 {
 	if (running)
+	{
+		chunk->ConstructModel();
 		_terrain->AddChunk(chunk);
+	}
 }
 
 Chunk* ChunkLoader::GetChunk(int x, int y, int z)
@@ -48,6 +60,7 @@ Chunk* ChunkLoader::GetChunk(int x, int y, int z)
 				return chunk;
 			}
 	}
+	
 
 	//Search all
 	for (Chunk* chunk : _generated_list)

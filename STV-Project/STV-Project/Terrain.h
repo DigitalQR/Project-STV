@@ -30,6 +30,10 @@ public:
 	void StartChunkLoading();
 	void StopChunkLoading();
 
+	ChunkLoader* GetChunkLoader() {
+		return _chunk_loader;
+	}
+
 protected:
 	unsigned int chunk_flag = 0;
 	unsigned int render_flag = 0;

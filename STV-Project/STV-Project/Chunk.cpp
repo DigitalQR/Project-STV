@@ -6,44 +6,59 @@
 Chunk::Chunk(Terrain* terrain, int x, int y, int z) : _parent(terrain),
 	VoxelMesh(Vectori(CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z), Vectori(x, y, z))
 {
-	BuildTerrain();
+	Generate();
 }
 
 block_id Chunk::GetBlockAt(int x, int y, int z)
 {
-	if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z) {
-		if (y > GetHeight(x, z)) {
-			return BLOCK_AIR;
-		}
-		float cave_chance = GetCaveChance(x, y, z);
-		if (cave_chance <= GEN_CAVE_SIZE)
-			return BLOCK_AIR;
+	if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z) 
+	{
+		const Vectori current_offset(
+			MESH_OFFSET.x * MESH_SIZE.x,
+			MESH_OFFSET.y * MESH_SIZE.y,
+			MESH_OFFSET.z * MESH_SIZE.z
+			);
 
-		return BLOCK_UNKNOWN;
+		const Vectori new_chunk_coords = GetChunkCoordsOf(
+			x + current_offset.x,
+			y + current_offset.y,
+			z + current_offset.z
+			);
+
+		const Vectori new_offset(
+			new_chunk_coords.x * MESH_SIZE.x,
+			new_chunk_coords.y * MESH_SIZE.y,
+			new_chunk_coords.z * MESH_SIZE.z
+			);
+
+		Chunk& chunk = *_parent->GetChunkLoader()->GetChunk(new_chunk_coords.x, new_chunk_coords.y, new_chunk_coords.z);
+		
+		return chunk.GetBlockAt(
+			x + current_offset.x - new_offset.x,
+			y + current_offset.y - new_offset.y,
+			z + current_offset.z - new_offset.z
+			);
 	}
 
 	return VoxelMesh::GetBlockAt(x, y, z);
 }
 
-void Chunk::BuildTerrain()
-{
-	Generate();
-	ConstructModel();
-}
-
 void Chunk::Generate()
 {
+	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
+
 	for (int x = 0; x < CHUNK_SIZE_X; x++)
 		for (int z = 0; z < CHUNK_SIZE_Z; z++)
 		{
-			int height = GetHeight(x,z);
+			int height = GetHeight(x,z) - height_offset;
 
-			for (int y = height; y >= 0; y--){
-				int cave_noise = GetCaveChance(x, y, z);
+			if(height < MESH_SIZE.y)
+				for (int y = height; y >= 0; y--){
+					int cave_noise = GetCaveChance(x, y + height_offset, z);
 
-				if (GEN_CAVE_SIZE  < cave_noise)
-					SetBlockAt(x, y, z, BLOCK_GRASS);
-			}
+					if (GEN_CAVE_SIZE < cave_noise)
+						SetBlockAt(x, y, z, BLOCK_GRASS);
+				}
 
 		}
 }

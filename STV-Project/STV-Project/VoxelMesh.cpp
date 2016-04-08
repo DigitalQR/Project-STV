@@ -38,7 +38,7 @@ void VoxelMesh::BuildModel()
 {
 	if (empty_flag)
 		return;
-
+	
 	Model* model = GameManager::getMain()->model_loader->CreateModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->indices);
 	_texture_model = new TexturedModel(model, (GLuint)0);
 	_element = new Element3D(_texture_model);
@@ -50,8 +50,9 @@ void VoxelMesh::ConstructModel()
 		return;
 
 	if (_model_data != nullptr)
-		delete _model_data;
-	_model_data = new ModelData();
+		_model_data->Clear();
+	else
+		_model_data = new ModelData();
 
 	const Vectori offset = MESH_SIZE * MESH_OFFSET;
 	array<array<array<block_id, 2>, 2>, 2> states;

@@ -35,6 +35,13 @@ struct ModelData
 
 	ModelData() {};
 
+	void Clear() 
+	{
+		verts.clear();
+		uvs.clear();
+		normals.clear();
+		indices.clear();
+	}
 
 	void operator=(ModelData& b)
 	{
