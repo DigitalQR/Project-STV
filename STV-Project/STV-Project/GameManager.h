@@ -63,6 +63,8 @@ public:
 	Scene* GetCurrentScene() { return _current_scene; }
 
 	vec3 sky_colour;
+	vec3 sunlight_colour;
+	vec3 sunlight_direction;
 	vec3 fog_colour;
 	float fog_density;
 	float fog_gradient;

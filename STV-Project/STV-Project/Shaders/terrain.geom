@@ -7,6 +7,8 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 mat4 vp_matrix = projection_matrix * view_matrix;
 
+uniform vec3 sunlight_direction;
+
 uniform float fog_density;
 uniform float fog_gradient;
 
@@ -30,9 +32,9 @@ out VertexDataPass
 } vertex_out;
 
 
-void CalculateFakeBrightness(int index)
+void CalculateDirectionalBrightness(int index)
 {
-	const vec3 light_direction = normalize(vec3(1,-1,1));
+	vec3 light_direction = normalize(sunlight_direction);
 	vec3 unit_normal = normalize(vertex_in[index].normal);
 
 	float normal_dot_light = dot(unit_normal, -light_direction);
@@ -59,7 +61,7 @@ void main()
 		vertex_out.texture_ids.x = vertex_in[0].texture_id;
 		vertex_out.texture_ids.y = vertex_in[1].texture_id;
 		vertex_out.texture_ids.z = vertex_in[2].texture_id;
-		CalculateFakeBrightness(i);
+		CalculateDirectionalBrightness(i);
 		CalculateFogFactor(i);
 
 		switch(int(mod(i,3)))

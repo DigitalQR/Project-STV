@@ -16,6 +16,7 @@ const int VERTICAL_IDS = 8;
 uniform sampler2D texture0_sampler;
 
 uniform vec3 fog_colour;
+uniform vec3 sunlight_colour;
 
 out vec4 colour;
 
@@ -77,6 +78,6 @@ void main()
 	if(colour.a == 0)
 		discard;
 
-	colour.xyz *= vertex_data.brightness;
+	colour.xyz *= vertex_data.brightness * sunlight_colour;
 	colour.xyz = mix(fog_colour, colour.xyz, vertex_data.fog_factor);
 }

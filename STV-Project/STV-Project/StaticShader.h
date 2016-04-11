@@ -21,5 +21,7 @@ private:
 	const GLuint _UNIFORM_FOG_COLOUR;
 	const GLuint _UNIFORM_FOG_DENSITY;
 	const GLuint _UNIFORM_FOG_GRADIENT;
+	const GLuint _UNIFORM_SUNLIGHT_COLOUR;
+	const GLuint _UNIFORM_SUNLIGHT_DIRECTION;
 };
 

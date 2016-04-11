@@ -7,12 +7,14 @@ in float fog_factor;
 uniform sampler2D texture0_sampler;
 
 uniform vec3 fog_colour;
+uniform vec3 sunlight_direction;
+uniform vec3 sunlight_colour;
 
 out vec4 colour;
 
-void UseFakeLighting()
+void CalculateDirectionalBrightness()
 {
-	const vec3 light_direction = normalize(vec3(1,-1,1));
+	vec3 light_direction = normalize(sunlight_direction);
 	vec3 unit_normal = normalize(pass_normal);
 
 	float normal_dot_light = dot(unit_normal, -light_direction);
@@ -26,6 +28,7 @@ void main()
 	if(colour.a == 0)
 		discard;
 	
-	UseFakeLighting();
+	CalculateDirectionalBrightness();
+	colour.xyz *= sunlight_colour;
 	colour.xyz = mix(fog_colour, colour.xyz, fog_factor);
 }
