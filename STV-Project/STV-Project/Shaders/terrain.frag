@@ -1,24 +1,20 @@
 #version 330 core
 
-in vec2 pass_uv_coords;
-in vec3 pass_normal;
-
-in vec3 texture_ratio;
-in float pass_fake_brightness;
-flat in float pass_id;
+in VertexDataPass
+{
+	vec2 uv_coord;
+	vec3 normal;
+	vec3 texture_ratio;
+	float brightness;
+	flat vec3 texture_ids;
+} vertex_data;
 
 const int HORIZONTAL_IDS = 8;
 const int VERTICAL_IDS = 8;
-
 uniform sampler2D texture0_sampler;
 
 out vec4 colour;
 
-
-void UseFakeLighting()
-{
-	colour *= pass_fake_brightness;
-}
 
 vec2 CorrectUVs(vec2 uvs)
 {
@@ -45,7 +41,7 @@ vec2 CorrectUVs(vec2 uvs)
 }
 
 
-vec4 GetTexture(float id, vec2 uv_coords)
+vec4 GetTexture(uint id, vec2 uv_coords)
 {
 	vec2 step = vec2(
 		1.0/HORIZONTAL_IDS,
@@ -57,7 +53,7 @@ vec4 GetTexture(float id, vec2 uv_coords)
 	uv_coords.y/=VERTICAL_IDS;
 	
 	uv_coords.x += step.x * mod(id, HORIZONTAL_IDS);
-	uv_coords.y += step.y * floor(id/VERTICAL_IDS);
+	uv_coords.y += step.y * floor(float(id)/VERTICAL_IDS);
 	//Texture is upsidedown
 	uv_coords.y = 1.0 - uv_coords.y;
 	
@@ -67,17 +63,15 @@ vec4 GetTexture(float id, vec2 uv_coords)
 
 void main()
 {
-	vec2 corrected_uvs = CorrectUVs(pass_uv_coords);
-	vec3 correct_ratio = normalize(texture_ratio);
-		
-	colour = GetTexture(pass_id, corrected_uvs);
+	vec2 uvs = CorrectUVs(vertex_data.uv_coord);
 
-	//colour = GetTexture(1, corrected_uvs) * correct_ratio.x +
-	//GetTexture(1, corrected_uvs) * correct_ratio.y +
-	//GetTexture(1, corrected_uvs) * correct_ratio.z;
+	colour = 
+		GetTexture(uint(vertex_data.texture_ids.x), uvs) * vertex_data.texture_ratio.x +
+		GetTexture(uint(vertex_data.texture_ids.y), uvs) * vertex_data.texture_ratio.y +
+		GetTexture(uint(vertex_data.texture_ids.z), uvs) * vertex_data.texture_ratio.z;
 
 	if(colour.a == 0)
 		discard;
-	
-	UseFakeLighting();
+
+	colour.xyz *= vertex_data.brightness;
 }

@@ -58,6 +58,9 @@
     <Filter Include="Core\Engine\Terrain\Tools">
       <UniqueIdentifier>{bff950dc-00bf-499c-9544-71614890007e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Visual\Rendering\Shaders\Source">
+      <UniqueIdentifier>{e89aee57-e419-412b-92dd-e30009459665}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -214,17 +217,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\static.frag">
-      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
-    </None>
-    <None Include="Shaders\static.vert">
-      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
-    </None>
     <None Include="Shaders\terrain.frag">
-      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
     </None>
     <None Include="Shaders\terrain.vert">
-      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
+    </None>
+    <None Include="Shaders\static.vert">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
+    </None>
+    <None Include="Shaders\static.frag">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
+    </None>
+    <None Include="Shaders\terrain.geom">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
     </None>
   </ItemGroup>
 </Project>
