@@ -3,6 +3,7 @@
 #include <thread>
 #include <vector>
 #include <array>
+#include "TerrainTools.h"
 
 using namespace std;
 
@@ -37,11 +38,16 @@ protected:
 
 	void AddChunk(Chunk* chunk);
 
+	bool LoadChunk(int x, int y, int z);
+
 
 private:
 	Terrain* _terrain;
 	array<Chunk*, 64> _chunk_cache{ nullptr };
 	vector<Chunk*> _generated_list;
+	vector<Vectori> _active_chunk_coords;
 
 	void UpdateCache(Chunk* new_front);
+
+	vector<Vectori> GenerateOffsets(int view_distance);
 };

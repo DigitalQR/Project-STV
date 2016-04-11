@@ -16,7 +16,7 @@ public:
 	TimeProfile(float start, float end, vec3 colour, vec3 sky_colour) :
 		start(start), end(end), colour(colour), sky_colour(sky_colour)
 	{
-		LERP_start = start + (end-start) * 0.7f;
+		LERP_start = start + (end-start) * 0.5f;
 	}
 
 	void SetColours(float time) 
@@ -90,7 +90,7 @@ public:
 	void LogicUpdate() 
 	{
 		GameManager::getMain()->sunlight_direction = vec3(cos(_time_track), -0.5, sin(_time_track));
-		_time_track += _time_step;
+		_time_track += _time_step * time_scale;
 
 		if (_time_track >= 2 * PI)
 			_time_track -= 2 * PI;
@@ -111,13 +111,13 @@ public:
 	}
 
 private:
-	const float _cycle_duration_mins = 0.5f;
+	const float _cycle_duration_mins = 5.0f;
 	const float _time_step = ((2 * PI) * 0.033333333f) / (_cycle_duration_mins * 60.0f);
 	float _time_track = 0;
 
 	TimeProfile* sunrise = new TimeProfile(0.0f, 0.1f, vec3(1.0f, 0.79f, 0.05f), vec3(1.0f, 0.79f, 0.05f));
 	TimeProfile* day = new TimeProfile(0.1f, 0.45f, vec3(1.0f, 1.0f, 1.0f), vec3(0.53f, 0.81f, 0.98f));
-	TimeProfile* sunset = new TimeProfile(0.45f, 0.55f, vec3(0.89f, 0.38f, 0.4f), vec3(0.89f, 0.38f, 0.4f));
+	TimeProfile* sunset = new TimeProfile(0.45f, 0.55f, vec3(0.89f, 0.38f, 0.4f), vec3(1.0f, 0.79f, 0.05f));
 	TimeProfile* moonrise = new TimeProfile(0.55f, 0.65f, vec3(0.38f, 0.1f, 0.89f), vec3(0.3f, 0.1f, 0.6f));
 	TimeProfile* night = new TimeProfile(0.65f, 1.0f, vec3(0.38f, 0.2f, 0.99f), vec3(0.1f, 0.1f, 0.5f));
 

@@ -47,6 +47,7 @@ void Chunk::Generate()
 {
 	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
 
+	
 	for (int x = 0; x < CHUNK_SIZE_X; x++)
 		for (int z = 0; z < CHUNK_SIZE_Z; z++)
 		{

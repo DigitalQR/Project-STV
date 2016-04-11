@@ -77,7 +77,7 @@ void GameManager::GLInit()
 
 	fog_colour = vec3(224.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
 	fog_density = 0.01f;
-	fog_gradient = 2;
+	fog_gradient = 4;
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

@@ -178,6 +178,7 @@
     <ClCompile Include="StaticShader.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainShader.cpp" />
+    <ClCompile Include="TerrainTools.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VoxelMesh.cpp" />

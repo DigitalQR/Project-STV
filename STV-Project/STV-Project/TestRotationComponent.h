@@ -15,7 +15,7 @@ public:
 	void Start()
 	{
 		cout << "START" << endl;
-		Camera::getMain()->location = vec3(0, 70, 0);
+		Camera::getMain()->location = vec3(0, 20, 0);
 	}
 
 

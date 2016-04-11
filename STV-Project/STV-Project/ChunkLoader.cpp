@@ -1,48 +1,65 @@
 #include "ChunkLoader.h"
 #include "Terrain.h"
 #include "Chunk.h"
-
+#include "Camera.h"
 
 ChunkLoader::~ChunkLoader()
 {
 	for (Chunk* chunk : _generated_list)
 		delete chunk;
+
+}
+
+bool ChunkLoader::LoadChunk(int x, int y, int z) 
+{
+	//Check chunk is not already active
+	for (Vectori chunk : _active_chunk_coords)
+		if (chunk.x == x && chunk.y == y && chunk.z == z)
+			return false;
+
+	AddChunk(GetChunk(x, y, z));
+	_active_chunk_coords.push_back(Vectori(x, y, z));
+	return true;
 }
 
 void ChunkLoader::loading()
 {
-	AddChunk(GetChunk(0, -5, 0));
-	AddChunk(GetChunk(0, -4, 0));
-	AddChunk(GetChunk(0, -3, 0));
-	AddChunk(GetChunk(0, -2, 0));
-	AddChunk(GetChunk(0, -1, 0));
-	AddChunk(GetChunk(0, 0, 0));
-	AddChunk(GetChunk(0, 1, 0));
-	AddChunk(GetChunk(0, 2, 0));
-	AddChunk(GetChunk(0, 3, 0));
-	AddChunk(GetChunk(0, 4, 0));
-	AddChunk(GetChunk(0, 5, 0));
+	Vectori current_location(-1000000000, -1000000001, -100000043);
+	uint task_flag;
 
 
-	for (int r = 1; r < 3; r++)
+
+	vector<Vectori> offsets = GenerateOffsets(2);
+
+	while (running)
 	{
-		if (!running)
-			break;
+		vec3& player_location = Camera::getMain()->location;
+		Vectori new_coords = Chunk::GetChunkCoordsOf(floor(player_location.x), floor(player_location.y), floor(player_location.z));
 
-		for (int d = 0; d < r * 2; d++)
+		if (current_location != new_coords) 
 		{
-			if (!running)
-				break;
-
-			for (int y = -5; y < 6; y++)
-			{
-				AddChunk(GetChunk(-r + d, y, r));
-				AddChunk(GetChunk(r - d, y, -r));
-				AddChunk(GetChunk(-r, y, -r + d));
-				AddChunk(GetChunk(r, y, r - d));
-			}
+			current_location = new_coords;
+			task_flag = 0;
 		}
+		
+		while (task_flag < offsets.size())
+		{
+			Vectori offset = offsets[task_flag];
+			if (LoadChunk(
+				new_coords.x + offset.x,
+				new_coords.y + offset.y,
+				new_coords.z + offset.z
+				)) 
+			{
+				task_flag++;
+				break;
+			}
+
+			task_flag++;
+		}
+
 	}
+
 	active = false;
 }
 
@@ -98,4 +115,69 @@ void ChunkLoader::UpdateCache(Chunk* new_front)
 		if (previous_value == nullptr || previous_value == _chunk_cache[i])
 			break;
 	}
+}
+
+vector<Vectori> ChunkLoader::GenerateOffsets(int view_distance) 
+{
+	vector<Vectori> offsets;
+	offsets.push_back(Vectori(0, 0, 0));
+
+	for (int i = 1; i <= view_distance; i++)
+	{
+		//Adjacent
+		offsets.push_back(Vectori(i, 0, 0));
+		offsets.push_back(Vectori(-i, 0, 0));
+		offsets.push_back(Vectori(0, 0, i));
+		offsets.push_back(Vectori(0, 0, -i));
+		offsets.push_back(Vectori(0, i, 0));
+		offsets.push_back(Vectori(0, -i, 0));
+	
+		//Lines
+		for (int n = 1; n <= i; n++)
+		{
+			offsets.push_back(Vectori(i, n, 0));
+			offsets.push_back(Vectori(i, -n, 0));
+			offsets.push_back(Vectori(-i, n, 0));
+			offsets.push_back(Vectori(-i, -n, 0));
+			offsets.push_back(Vectori(i, 0, n));
+			offsets.push_back(Vectori(i, 0, -n));
+			offsets.push_back(Vectori(-i, 0, n));
+			offsets.push_back(Vectori(-i, 0, -n));
+
+			offsets.push_back(Vectori(n, i, 0));
+			offsets.push_back(Vectori(-n, i, 0));
+			offsets.push_back(Vectori(n, -i, 0));
+			offsets.push_back(Vectori(-n, -i, 0));
+			offsets.push_back(Vectori(0, i, n));
+			offsets.push_back(Vectori(0, i, -n));
+			offsets.push_back(Vectori(0, -i, n));
+			offsets.push_back(Vectori(0, -i, -n));
+
+			offsets.push_back(Vectori(n, 0, i));
+			offsets.push_back(Vectori(-n, 0, i));
+			offsets.push_back(Vectori(n, 0, -i));
+			offsets.push_back(Vectori(-n, 0, -i));
+			offsets.push_back(Vectori(0, n, i));
+			offsets.push_back(Vectori(0, -n, i));
+			offsets.push_back(Vectori(0, n, -i));
+			offsets.push_back(Vectori(0, -n, -i));
+		}
+		
+		//Corners
+		for (int nx = 1; nx <= i; nx++)
+			for (int ny = 1; ny <= i; ny++)
+				for (int nz = 1; nz <= i; nz++)
+			{
+				offsets.push_back(Vectori(nx, nz, ny));
+				offsets.push_back(Vectori(-nx, nz, ny));
+				offsets.push_back(Vectori(nx, -nz, ny));
+				offsets.push_back(Vectori(-nx, -nz, ny));
+				offsets.push_back(Vectori(nx, nz, -ny));
+				offsets.push_back(Vectori(-nx, nz, -ny));
+				offsets.push_back(Vectori(nx, -nz, -ny));
+				offsets.push_back(Vectori(-nx, -nz, -ny));
+			}
+	}
+
+	return offsets;
 }
