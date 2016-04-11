@@ -68,17 +68,18 @@ void Chunk::Generate()
 void Chunk::GeneratePoint(int height, int x, int y, int z) 
 {
 	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
-	int cave_noise = GetCaveChance(x, y, z);
-	int patch_noise = Get3DChance(x, y, z, 90.0f, 10);
+	
 
-	if (GEN_CAVE_SIZE < cave_noise)
+	if (GEN_CAVE_SIZE < GetCaveChance(x, y, z))
 	{
-		if (50 >= patch_noise)
-			SetResourceAt(x, y, z, RES_DIRT);
-		else if (y + height_offset == height)
+		if (y + height_offset == height)
 			SetResourceAt(x, y, z, RES_GRASS);
 		else if (y + height_offset >= height - 3)
 			SetResourceAt(x, y, z, RES_DIRT);
+		
+		//Add patches of dirt in stone
+		else if (50 >= Get3DChance(x, y, z, 90.0f, 10))
+				SetResourceAt(x, y, z, RES_DIRT);
 		else
 			SetResourceAt(x, y, z, RES_STONE);
 	}

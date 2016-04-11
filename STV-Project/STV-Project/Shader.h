@@ -16,7 +16,7 @@ class Shader
 {
 public:
 	Shader(string name);
-	void Init(string name, string vertex_source, string fragment_source);
+	void Init(string name, string vertex_source, string fragment_source, string geometry_source);
 	~Shader();
 	string name;
 

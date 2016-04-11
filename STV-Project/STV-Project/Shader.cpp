@@ -2,15 +2,33 @@
 #include <fstream>
 #include <vector>
 
+bool DoesFileExist(string file_name)
+{
+	ifstream file(file_name, ios::in);
+
+	//Chech if file is accessable
+	if (!file.good())
+	{
+		return false;
+	}
+	file.close();
+	return true;
+}
+
 Shader::Shader(string name)
 {
 	//Load vertex/fragment shader
 	string vertex_code = Shader::ReadShader("Shaders/" + name + ".vert");
 	string frag_code = Shader::ReadShader("Shaders/" + name + ".frag");
-	Init(name, vertex_code, frag_code);
+	string geometry_code = "";
+		
+	if (DoesFileExist("Shaders/" + name + ".geom"))
+		geometry_code = Shader::ReadShader("Shaders/" + name + ".geom");
+	
+	Init(name, vertex_code, frag_code, geometry_code);
 }
 
-void Shader::Init(string name, string vertex_source, string fragment_source)
+void Shader::Init(string name, string vertex_source, string fragment_source, string geometry_source)
 {
 	Shader::name = name;
 	cout << "Creating shader for '" << name.c_str() << "'" << endl;
@@ -18,6 +36,10 @@ void Shader::Init(string name, string vertex_source, string fragment_source)
 	//Compile vertex/fragment shader
 	GLuint vertex_shader = Shader::CreateShader(GL_VERTEX_SHADER, vertex_source, name + ".vert");
 	GLuint frag_shader = Shader::CreateShader(GL_FRAGMENT_SHADER, fragment_source, name + ".frag");
+	GLuint geom_shader; 
+	
+	if(geometry_source != "")
+		geom_shader = Shader::CreateShader(GL_GEOMETRY_SHADER, geometry_source, name + ".geom");
 
 	int link_result = 0;
 
@@ -25,6 +47,8 @@ void Shader::Init(string name, string vertex_source, string fragment_source)
 	GLuint program = glCreateProgram();
 	glAttachShader(program, vertex_shader);
 	glAttachShader(program, frag_shader);
+	if (geometry_source != "")
+		glAttachShader(program, geom_shader);
 
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
