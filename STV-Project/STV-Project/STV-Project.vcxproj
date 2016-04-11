@@ -134,6 +134,7 @@
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="ChunkLoader.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DayCycleController.h" />
     <ClInclude Include="Element3D.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />

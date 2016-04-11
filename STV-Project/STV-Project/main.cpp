@@ -8,6 +8,7 @@
 
 #include "TestEntity.h"
 #include "TestRotationComponent.h"
+#include "DayCycleController.h"
 #include "Scene.h"
 
 using namespace std;
@@ -25,9 +26,12 @@ void Start()
 	te1->AddComponent(new ActualRotationComponent());
 
 	Terrain* terrain = new Terrain(2787);
+	Entity* day_cycle_controller = new Entity();
+	day_cycle_controller->AddComponent(new DayCycleController());
 
 	Scene* scene = new Scene();
 	scene->AddToScene(te1);
+	scene->AddToScene(day_cycle_controller);
 	scene->SetTerrain(terrain);
 	GameManager::getMain()->SetCurrentScene(scene);
 

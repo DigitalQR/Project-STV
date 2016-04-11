@@ -61,6 +61,9 @@
     <Filter Include="Core\Engine\Visual\Rendering\Shaders\Source">
       <UniqueIdentifier>{e89aee57-e419-412b-92dd-e30009459665}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Game\Visual">
+      <UniqueIdentifier>{7f0b74c7-6c8e-4c14-ab52-2e158a11b048}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="TerrainShader.h">
       <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="DayCycleController.h">
+      <Filter>Core\Game\Visual</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
