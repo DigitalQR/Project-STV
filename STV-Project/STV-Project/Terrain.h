@@ -28,6 +28,7 @@ public:
 
 	void AddChunk(Chunk* chunk);
 	void RemoveChunk(Chunk* chunk);
+	void DeleteChunk(Chunk* chunk);
 
 	void StartChunkLoading();
 	void StopChunkLoading();
@@ -50,4 +51,5 @@ private:
 	const unsigned int _SEED;
 	list<Chunk*> _active_chunks;
 	list<Chunk*> _rendered_chunks;
+	list<Chunk*> _chunks_to_delete;
 };

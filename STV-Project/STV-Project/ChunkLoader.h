@@ -3,6 +3,7 @@
 #include <thread>
 #include <vector>
 #include <array>
+#include <list>
 #include "TerrainTools.h"
 
 using namespace std;
@@ -15,8 +16,8 @@ class Chunk;
 class ChunkLoader
 {
 public:
-	const unsigned int view_distance = 6;
-	const unsigned int unload_distance = 12;
+	const unsigned int view_distance = 7;
+	const unsigned int unload_distance = 10;
 	bool running = true;
 	bool active = true;
 
@@ -39,6 +40,7 @@ protected:
 	void loading();
 
 	void AddChunk(Chunk* chunk);
+	void DeleteChunk(Chunk* chunk);
 
 	bool LoadChunk(int x, int y, int z);
 
@@ -46,8 +48,8 @@ protected:
 private:
 	Terrain* _terrain;
 	array<Chunk*, 64> _chunk_cache{ nullptr };
-	vector<Chunk*> _generated_list;
-	vector<Vectori> _active_chunk_coords;
+	list<Chunk*> _generated_list;
+	list<Vectori> _active_chunk_coords;
 
 	void UpdateCache(Chunk* new_front);
 

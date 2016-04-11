@@ -27,8 +27,6 @@ void ChunkLoader::loading()
 	Vectori current_location(-1000000000, -1000000001, -100000043);
 	uint task_flag;
 
-
-
 	vector<Vectori> offsets = GenerateOffsets(view_distance);
 
 	while (running)
@@ -40,6 +38,23 @@ void ChunkLoader::loading()
 		{
 			current_location = new_coords;
 			task_flag = 0;
+
+			//Unload all from view that are too far away
+			list<Chunk*> chunks = _generated_list;
+			for(Chunk* chunk: chunks)
+			{
+				Vectori difference(
+					abs(chunk->MESH_OFFSET.x - new_coords.x),
+					abs(chunk->MESH_OFFSET.y - new_coords.y),
+					abs(chunk->MESH_OFFSET.z - new_coords.z)
+						);
+				
+				//Chunk outside view
+				if (difference.x > unload_distance || difference.y > unload_distance || difference.z > unload_distance)
+				{
+					DeleteChunk(chunk);
+				}
+			}
 		}
 		
 		//Select chunks to load
@@ -58,14 +73,6 @@ void ChunkLoader::loading()
 
 			task_flag++;
 		}
-
-		//After finished loading cleanup, if possible
-		if (task_flag >= offsets.size()) 
-		{
-
-			task_flag++;
-		}
-
 	}
 
 	active = false;
@@ -77,6 +84,23 @@ void ChunkLoader::AddChunk(Chunk* chunk)
 	{
 		chunk->ConstructModel();
 		_terrain->AddChunk(chunk);
+	}
+}
+
+void ChunkLoader::DeleteChunk(Chunk* chunk)
+{
+	if (running)
+	{
+
+		for (Vectori coords : _active_chunk_coords)
+			if (coords.x == chunk->MESH_OFFSET.x && coords.y == chunk->MESH_OFFSET.y && coords.z == chunk->MESH_OFFSET.z)
+			{
+				_active_chunk_coords.remove(coords);
+				break;
+			}
+		_generated_list.remove(chunk);
+		
+		_terrain->DeleteChunk(chunk);
 	}
 }
 

@@ -53,14 +53,33 @@ void Terrain::RemoveChunk(Chunk* chunk)
 	chunk_flag++;
 }
 
+void Terrain::DeleteChunk(Chunk* chunk) 
+{
+	_chunks_to_delete.push_back(chunk);
+	RemoveChunk(chunk);
+	chunk_flag++;
+}
+
 void Terrain::VisualUpdate() 
 {
+
 	if (chunk_flag != render_flag)
 	{
 		render_flag = chunk_flag;
+
+		list<Chunk*> delete_list = _chunks_to_delete;
 		UpdateRenderedChunks(GetActiveChunks());
+
+		//Delete chunks
+		for (Chunk* chunk : delete_list)
+		{
+			_chunks_to_delete.remove(chunk);
+			delete chunk;
+		}
 	}
 }
+
+
 
 void Terrain::UpdateRenderedChunks(list<Chunk*> active_chunks)
 {

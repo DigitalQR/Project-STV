@@ -31,6 +31,11 @@ struct Vectori {
 	{
 		return Vectori(a.x*b.x, a.y*b.y, a.z*b.z);
 	}
+
+	friend bool operator== (const Vectori& a, const Vectori& b)
+	{
+		return (a.x == b.x && a.y == b.y && a.z == b.z);
+	}
 };
 
 
