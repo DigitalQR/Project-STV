@@ -21,8 +21,10 @@ MasterRenderer::~MasterRenderer()
 
 void MasterRenderer::Render() 
 {
+	vec3& clear_colour = GameManager::getMain()->sky_colour;
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(clear_colour.x, clear_colour.y, clear_colour.z, 1.0);
 	Camera::getMain()->buildViewMatrix();
 
 	terrain_shader->Render();

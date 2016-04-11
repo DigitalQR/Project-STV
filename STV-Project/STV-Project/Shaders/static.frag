@@ -2,8 +2,11 @@
 
 in vec2 pass_uv_coords;
 in vec3 pass_normal;
+in float fog_factor;
 
 uniform sampler2D texture0_sampler;
+
+uniform vec3 fog_colour;
 
 out vec4 colour;
 
@@ -24,4 +27,5 @@ void main()
 		discard;
 	
 	UseFakeLighting();
+	colour.xyz = mix(fog_colour, colour.xyz, fog_factor);
 }

@@ -6,12 +6,16 @@ in VertexDataPass
 	vec3 normal;
 	vec3 texture_ratio;
 	float brightness;
+	float fog_factor;
 	flat vec3 texture_ids;
 } vertex_data;
+
 
 const int HORIZONTAL_IDS = 8;
 const int VERTICAL_IDS = 8;
 uniform sampler2D texture0_sampler;
+
+uniform vec3 fog_colour;
 
 out vec4 colour;
 
@@ -74,4 +78,5 @@ void main()
 		discard;
 
 	colour.xyz *= vertex_data.brightness;
+	colour.xyz = mix(fog_colour, colour.xyz, vertex_data.fog_factor);
 }

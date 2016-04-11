@@ -17,5 +17,8 @@ public:
 private:
 	const GLuint _UNIFORM_VIEW_MATRIX;
 	const GLuint _UNIFORM_PROJECTION_MATRIX;
+	const GLuint _UNIFORM_FOG_COLOUR;
+	const GLuint _UNIFORM_FOG_DENSITY;
+	const GLuint _UNIFORM_FOG_GRADIENT;
 };
 

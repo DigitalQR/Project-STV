@@ -71,6 +71,11 @@ GameManager::~GameManager()
 
 void GameManager::GLInit()
 {
+	sky_colour = vec3(135.0f / 255.0f, 206.0f / 255.0f, 250.0f / 255.0f);
+	fog_colour = vec3(224.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+	fog_density = 0.01f;
+	fog_gradient = 2;
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 

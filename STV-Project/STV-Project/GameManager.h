@@ -62,6 +62,11 @@ public:
 
 	Scene* GetCurrentScene() { return _current_scene; }
 
+	vec3 sky_colour;
+	vec3 fog_colour;
+	float fog_density;
+	float fog_gradient;
+
 private:
 	Scene* _current_scene = nullptr;
 	const unsigned int UPDATE_SLEEP = 1000/30;

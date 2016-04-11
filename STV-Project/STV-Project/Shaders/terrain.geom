@@ -7,6 +7,10 @@ uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 mat4 vp_matrix = projection_matrix * view_matrix;
 
+uniform float fog_density;
+uniform float fog_gradient;
+
+
 in VertexData
 {
 	vec2 uv_coord;
@@ -14,12 +18,14 @@ in VertexData
 	uint texture_id;
 } vertex_in[];
 
+
 out VertexDataPass
 {
 	vec2 uv_coord;
 	vec3 normal;
 	vec3 texture_ratio;
 	float brightness;
+	float fog_factor;
 	flat vec3 texture_ids;
 } vertex_out;
 
@@ -31,6 +37,14 @@ void CalculateFakeBrightness(int index)
 
 	float normal_dot_light = dot(unit_normal, -light_direction);
 	vertex_out.brightness = max(0.2, normal_dot_light);
+}
+
+
+void CalculateFogFactor(int index)
+{
+	float distance = length((view_matrix * gl_in[index].gl_Position).xyz);
+	vertex_out.fog_factor = exp( -pow( distance * fog_density, fog_gradient) );
+	clamp(vertex_out.fog_factor, 0.0, 1.0);
 }
 
 
@@ -46,6 +60,7 @@ void main()
 		vertex_out.texture_ids.y = vertex_in[1].texture_id;
 		vertex_out.texture_ids.z = vertex_in[2].texture_id;
 		CalculateFakeBrightness(i);
+		CalculateFogFactor(i);
 
 		switch(int(mod(i,3)))
 		{
