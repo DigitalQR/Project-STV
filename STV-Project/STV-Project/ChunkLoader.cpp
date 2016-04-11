@@ -29,7 +29,7 @@ void ChunkLoader::loading()
 
 
 
-	vector<Vectori> offsets = GenerateOffsets(2);
+	vector<Vectori> offsets = GenerateOffsets(view_distance);
 
 	while (running)
 	{
@@ -42,6 +42,7 @@ void ChunkLoader::loading()
 			task_flag = 0;
 		}
 		
+		//Select chunks to load
 		while (task_flag < offsets.size())
 		{
 			Vectori offset = offsets[task_flag];
@@ -54,6 +55,13 @@ void ChunkLoader::loading()
 				task_flag++;
 				break;
 			}
+
+			task_flag++;
+		}
+
+		//After finished loading cleanup, if possible
+		if (task_flag >= offsets.size()) 
+		{
 
 			task_flag++;
 		}

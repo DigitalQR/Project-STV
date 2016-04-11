@@ -3,6 +3,7 @@
 #include "ChunkLoader.h"
 #include "Entity.h"
 #include "Shader.h"
+#include <list>
 
 #include "Dependencies\glm\common.hpp"
 #include "Dependencies\glew\glew.h"
@@ -23,9 +24,10 @@ public:
 	unsigned int GetSeed() { return _SEED; }
 	
 	void VisualUpdate();
-	vector<Chunk*> GetActiveChunks() { return _active_chunks; }
+	list<Chunk*> GetActiveChunks() { return _active_chunks; }
 
 	void AddChunk(Chunk* chunk);
+	void RemoveChunk(Chunk* chunk);
 
 	void StartChunkLoading();
 	void StopChunkLoading();
@@ -38,7 +40,7 @@ protected:
 	unsigned int chunk_flag = 0;
 	unsigned int render_flag = 0;
 
-	void UpdateRenderedChunks(vector<Chunk*> active_chunks);
+	void UpdateRenderedChunks(list<Chunk*> active_chunks);
 
 private:
 	Shader* _terrain_shader;
@@ -46,6 +48,6 @@ private:
 	ChunkLoader* _chunk_loader = new ChunkLoader(this);
 
 	const unsigned int _SEED;
-	vector<Chunk*> _active_chunks;
-	vector<Chunk*> _rendered_chunks;	
+	list<Chunk*> _active_chunks;
+	list<Chunk*> _rendered_chunks;
 };

@@ -15,6 +15,8 @@ class Chunk;
 class ChunkLoader
 {
 public:
+	const unsigned int view_distance = 6;
+	const unsigned int unload_distance = 12;
 	bool running = true;
 	bool active = true;
 

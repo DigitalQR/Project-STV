@@ -47,6 +47,12 @@ void Terrain::AddChunk(Chunk* chunk)
 	chunk_flag++;
 }
 
+void Terrain::RemoveChunk(Chunk* chunk)
+{
+	_active_chunks.remove(chunk);
+	chunk_flag++;
+}
+
 void Terrain::VisualUpdate() 
 {
 	if (chunk_flag != render_flag)
@@ -56,7 +62,7 @@ void Terrain::VisualUpdate()
 	}
 }
 
-void Terrain::UpdateRenderedChunks(vector<Chunk*> active_chunks) 
+void Terrain::UpdateRenderedChunks(list<Chunk*> active_chunks)
 {
 	//Remove
 	for (Chunk* current_chunk : _rendered_chunks)
@@ -107,5 +113,6 @@ void Terrain::UpdateRenderedChunks(vector<Chunk*> active_chunks)
 
 	}
 
-	_rendered_chunks = active_chunks;
+	_rendered_chunks.clear();
+	copy(active_chunks.begin(), active_chunks.end(), back_inserter(_rendered_chunks));
 }
