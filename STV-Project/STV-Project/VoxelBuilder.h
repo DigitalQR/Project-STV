@@ -18,6 +18,29 @@ public:
 
 	virtual void GenerateParts() {};
 
+	int GetIndex(bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7) 
+	{
+		int i = 0;
+		if (v7)
+			i += 1;
+		if (v6)
+			i += 2;
+		if (v5)
+			i += 4;
+		if (v4)
+			i += 8;
+		if (v3)
+			i += 16;
+		if (v2)
+			i += 32;
+		if (v1)
+			i += 64;
+		if (v0)
+			i += 128;
+
+		return i;
+	}
+
 	void BuildFaces(int X, int Y, int Z, array<array<array<resource_id, 2>, 2>, 2>& states, ModelData& model_data)
 	{
 		unsigned int state_count = 0;
@@ -184,34 +207,28 @@ public:
 	}
 
 protected:
-	array<array<array<array<array<array<array<array<ModelData, 2>, 2>, 2>, 2>, 2>, 2>, 2>, 2> model_parts;
+	array<ModelData, 256> model_parts;
 
 	void SetDefaults()
 	{
-		for (bool v0 = false; !v0; v0 = true)
-			for (bool v1 = false; !v1; v1 = true)
-				for (bool v2 = false; !v2; v2 = true)
-					for (bool v3 = false; !v3; v3 = true)
-						for (bool v4 = false; !v4; v4 = true)
-							for (bool v5 = false; !v5; v5 = true)
-								for (bool v6 = false; !v6; v6 = true)
-									for (bool v7 = false; !v7; v7 = true)
-										model_parts[v0][v1][v2][v3][v4][v5][v6][v7] = ModelData();
-
+		for (int i = 0; i < 256; i++)
+			model_parts[i] = ModelData();
 	}
 
 	void SetData(ModelData& model_data, bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7)
 	{
-		if (model_parts[v0][v1][v2][v3][v4][v5][v6][v7].verts.size() != 0) 
+		int index = GetIndex(v0, v1, v2, v3, v4, v5, v6, v7);
+
+		if (model_parts[index].verts.size() != 0)
 			return;
 		
 		model_data.BuildNormals();
 		model_data.BuildUVs();
-		model_parts[v0][v1][v2][v3][v4][v5][v6][v7] = model_data;
+		model_parts[index] = model_data;
 	}
 
 	ModelData GetData(bool v0, bool v1, bool v2, bool v3, bool v4, bool v5, bool v6, bool v7)
 	{
-		return model_parts[v0][v1][v2][v3][v4][v5][v6][v7];
+		return model_parts[GetIndex(v0, v1, v2, v3, v4, v5, v6, v7)];
 	}
 };
