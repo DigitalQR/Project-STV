@@ -108,7 +108,7 @@ int Chunk::Get3DChance(int x, int y, int z, float frequency, int smoothness)
 
 float Chunk::GetRawNoise(int x, int y, int z, float frequency)
 {	
-	srand(_parent->GetSeed() + (x * frequency * 1.1 + y* frequency * 1.0 + z *frequency * 1.2));
+	srand(_parent->GetSeed() + (x * frequency * 1.2 + y* frequency * 1.0 + z *frequency * 1.2));
 	rand(); //Throw away
 
 	float value = GEN_SURFACE_START + rand() % GEN_SURFACE_HEIGHT - GEN_SURFACE_HEIGHT / 2;
