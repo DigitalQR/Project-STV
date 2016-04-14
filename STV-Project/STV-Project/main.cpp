@@ -1,6 +1,7 @@
 #include "MemoryListener.h"
 #include <iostream>
 
+#include "VoxelBuilder.h"
 #include "GameManager.h"
 #include "Model.h"
 #include "TexturedModel.h"
@@ -11,6 +12,7 @@
 #include "DayCycleController.h"
 #include "Scene.h"
 
+
 using namespace std;
 
 
@@ -18,12 +20,23 @@ void Start()
 {
 	GameManager::getMain();
 
+	cout << "Smooth mode? ";
+	bool state;
+	cin >> state;
+	GameManager::getMain()->voxel_builder->SetSmoothMode(state);
+	cout << state << endl;
+
+	cout << "Input seed: ";
+	int seed;
+	cin >> seed;
+	cout << seed << endl;
+
 	Entity* player = new Entity();
 	player->location = vec3(0, 40, 0);
 	player->AddComponent(new PlayerController());
 	player->AddComponent(new ResourcePlacer());
 
-	Terrain* terrain = new Terrain(2787);
+	Terrain* terrain = new Terrain(seed);
 	Entity* day_cycle_controller = new Entity();
 	day_cycle_controller->AddComponent(new DayCycleController());
 

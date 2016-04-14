@@ -53,8 +53,9 @@ void VoxelMesh::RebuildModel()
 		Model* old_model = _texture_model->model;
 		delete old_model;
 	}
-	catch (const exception& e) 
+	catch (exception& e) 
 	{
+		int i;
 		//Accessing non-existant model
 	}
 
@@ -119,7 +120,7 @@ void VoxelMesh::ConstructModel()
 	const float diagonal = 3;
 	const float max = 1 * 6 + in_plane_diagonal * 12 + diagonal * 8;
 
-	if(VoxelBuilder::SMOOTHMODE)
+	if(GameManager::getMain()->voxel_builder->IsSmoothMode())
 		for (int x = 0; x <= MESH_SIZE.x; x++)
 			for (int y = 0; y <= MESH_SIZE.y; y++)
 				for (int z = 0; z <= MESH_SIZE.z; z++) 

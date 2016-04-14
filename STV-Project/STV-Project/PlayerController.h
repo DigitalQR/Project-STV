@@ -61,8 +61,6 @@ public:
 			if (parent->rotation.x <= -PI / 2.0f)
 				parent->rotation.x = -PI / 2.0f;
 		}
-
-		cout << parent->rotation.x << endl;
 	};
 
 	void VisualUpdate() {};

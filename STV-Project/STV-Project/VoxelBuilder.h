@@ -10,7 +10,16 @@ using namespace std;
 class VoxelBuilder 
 {
 public:
-	static const bool SMOOTHMODE = true;
+
+	void SetSmoothMode(bool state) 
+	{
+		_smooth_mode = state;
+	}
+
+	bool IsSmoothMode() 
+	{
+		return _smooth_mode;
+	}
 
 	void Init() 
 	{
@@ -70,7 +79,7 @@ public:
 			states[0][1][0].resource, states[1][1][0].resource, states[1][1][1].resource, states[0][1][1].resource);
 
 
-		if (SMOOTHMODE)
+		if (IsSmoothMode())
 		{
 				data.Smooth(states[0][0][0], states[1][0][0], states[1][0][1], states[0][0][1],
 					states[0][1][0], states[1][1][0], states[1][1][1], states[0][1][1]);
@@ -245,4 +254,7 @@ protected:
 	{
 		return model_parts[GetIndex(v0, v1, v2, v3, v4, v5, v6, v7)];
 	}
+
+private:
+	bool _smooth_mode;
 };
