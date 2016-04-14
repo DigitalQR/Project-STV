@@ -105,48 +105,77 @@ void ModelData::BuildUVs()
 		float y = verts[i + 1];
 		float z = verts[i + 2];
 
-		float xn = normals[i];
-		float yn = normals[i + 1];
-		float zn = normals[i + 2];
+		const float xn = normals[i];
+		const float yn = normals[i + 1];
+		const float zn = normals[i + 2];
 
-		uvs[uv_i] = x;
-		uvs[uv_i + 1] = z;
+		const float xna = abs(xn);
+		const float yna = abs(yn);
+		const float zna = abs(zn);
 
-		if (yn == 0)
+
+		if (xna >= yna && xna >= zna)
 		{
-			if (zn != 0)
-			{
-				uvs[uv_i] = x;
-				uvs[uv_i + 1] = y;
-			}
-			if (xn != 0)
+			if (sign(xn) > 0)
 			{
 				uvs[uv_i] = z;
 				uvs[uv_i + 1] = y;
 			}
+			else
+			{
+				uvs[uv_i] = y;
+				uvs[uv_i + 1] = z;
+			}
 		}
-
+		else if (yna >= xna && yna >= zna)
+		{
+			if (sign(yn) > 0)
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = z;
+			}
+			else
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = z;
+			}
+		}
+		else if (zna >= xna && zna >= yna)
+		{
+			if (sign(zn) > 0)
+			{
+				uvs[uv_i] = y;
+				uvs[uv_i + 1] = x;
+			}
+			else
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = y;
+			}
+		}
 		uv_i += 2;
 	}
 }
 
-void CheckRatio(float& ratio) 
+void CheckRatio(float& ratio)
 {
-	const float bound = 0.15;
-	if (ratio < bound)
-		ratio = bound;
+	const float bound = 0.6;
+	if (ratio < -1.0f + bound)
+		ratio = -1.0f + bound;
 	else if (ratio > 1.0f - bound)
 		ratio = 1.0f - bound;
 }
 
-float InterpolateRatios(float ratio0, float ratio1, float p) 
+float InterpolateRatios(float ratio0, float ratio1, float p)
 {
+	CheckRatio(ratio0);
+	CheckRatio(ratio1);
 	return ratio0 * (1.0f - p) + ratio1 * (p);
 }
 
-void ModelData::Smooth(Resource v0, Resource v1, Resource v2, Resource v3, Resource v4, Resource v5, Resource v6, Resource v7) 
+void ModelData::Smooth(Resource v0, Resource v1, Resource v2, Resource v3, Resource v4, Resource v5, Resource v6, Resource v7)
 {
-	for (int i = 0; i < verts.size(); i+=3)
+	for (int i = 0; i < verts.size(); i += 3)
 	{
 		float& x = verts[i];
 		float& y = verts[i + 1];
@@ -236,7 +265,7 @@ void ModelData::Smooth(Resource v0, Resource v1, Resource v2, Resource v3, Resou
 				z += InterpolateRatios(z_ratio0, z_ratio1, x);
 			}
 		}
-	}	
+	}
 }
 
 void ModelData::Flip()

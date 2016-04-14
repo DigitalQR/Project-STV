@@ -13,9 +13,9 @@ using namespace std;
 class Terrain;
 
 
-#define CHUNK_SIZE_X 25
-#define CHUNK_SIZE_Y 25
-#define CHUNK_SIZE_Z 25
+#define CHUNK_SIZE_X 16
+#define CHUNK_SIZE_Y 16
+#define CHUNK_SIZE_Z 16
 
 #define GEN_CAVE_SIZE 60
 #define GEN_SURFACE_HEIGHT 50
