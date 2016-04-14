@@ -43,12 +43,6 @@ GLuint ModelLoader::StoreInVBO(GLuint attrib_number, int individual_data_size, v
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	ModelLoader::_vbos.push_back(vbo);
-	UpdateDataIn(vbo, attrib_number, individual_data_size, data, VBO_TYPE);
-	return vbo;
-}
-
-void ModelLoader::UpdateDataIn(GLuint vbo, GLuint attrib_number, int individual_data_size, vector<float> &data, const GLenum VBO_TYPE)
-{
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], VBO_TYPE);
 
@@ -57,6 +51,21 @@ void ModelLoader::UpdateDataIn(GLuint vbo, GLuint attrib_number, int individual_
 	glVertexAttribPointer(attrib_number, individual_data_size, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	return vbo;
+}
+
+void ModelLoader::UpdateDataIn(GLuint vao, GLuint vbo, GLuint attrib_number, int individual_data_size, vector<float> &data, const GLenum VBO_TYPE)
+{
+	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], VBO_TYPE);
+
+	//Attribute number in shader, number of data per vetex, data type, should the data be normalised, stride, offset
+	glEnableVertexAttribArray(attrib_number);
+	glVertexAttribPointer(attrib_number, individual_data_size, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 GLuint ModelLoader::StoreInVBO(GLuint attrib_number, int individual_data_size, vector<unsigned int>& data, const GLenum VBO_TYPE)
@@ -69,14 +78,14 @@ GLuint ModelLoader::StoreInVBO(GLuint attrib_number, int individual_data_size, v
 	return StoreInVBO(attrib_number, individual_data_size, temp, VBO_TYPE);
 }
 
-void ModelLoader::UpdateDataIn(GLuint vbo, GLuint attrib_number, int individual_data_size, vector<unsigned int> &data, const GLenum VBO_TYPE)
+void ModelLoader::UpdateDataIn(GLuint vao, GLuint vbo, GLuint attrib_number, int individual_data_size, vector<unsigned int> &data, const GLenum VBO_TYPE)
 {
 	vector<float> temp;
 	temp.resize(data.size());
 	for (int i = 0; i < data.size(); i++)
 		temp[i] = data[i];
 
-	UpdateDataIn(vbo, attrib_number, individual_data_size, temp, VBO_TYPE);
+	UpdateDataIn(vao, vbo, attrib_number, individual_data_size, temp, VBO_TYPE);
 }
 
 GLuint ModelLoader::BindIndicesBuffer(vector<unsigned int>& indices)
