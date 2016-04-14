@@ -1,6 +1,7 @@
 #include "Terrain.h"
 #include "Chunk.h"
 #include "GameManager.h"
+#include <set>
 
 Terrain::Terrain(unsigned int seed) : _SEED(seed)
 {
@@ -29,6 +30,86 @@ Terrain::~Terrain()
 	_rendered_chunks.clear();
 	delete _chunk_loader;
 	cout << " done." << endl;
+}
+
+void Terrain::PlaceResource(int x, int y, int z, resource_id resource, bool overwrite) 
+{
+	Vectori chunk_coords = Chunk::GetChunkCoordsOf(x, y, z);
+	x -= chunk_coords.x * CHUNK_SIZE_X;
+	y -= chunk_coords.y * CHUNK_SIZE_Y;
+	z -= chunk_coords.z * CHUNK_SIZE_Z;
+
+	Chunk* chunk = _chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y, chunk_coords.z);
+
+	cout << chunk_coords.x << "," << chunk_coords.y << "," << chunk_coords.z << endl;
+	cout << x << "," << y << "," << z << endl;
+
+	if (!overwrite)
+		if (IsSolid(chunk->GetResourceAt(x, y, z)))
+			return;
+
+	chunk->SetResourceAt(x, y, z, resource);
+	chunk->RebuildModel();
+
+	if (x == CHUNK_SIZE_X - 1)
+		_chunk_loader->GetChunk(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z)->RebuildModel();
+	if (y == CHUNK_SIZE_Y - 1)
+		_chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z)->RebuildModel();
+	if (z == CHUNK_SIZE_Z - 1)
+		_chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1)->RebuildModel();
+
+	if (x == 0)
+		_chunk_loader->GetChunk(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z)->RebuildModel();
+	if (y == 0)
+		_chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z)->RebuildModel();
+	if (z == 0)
+		_chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1)->RebuildModel();
+}
+
+
+void Terrain::PlaceResources(vector<Vectori>& coordinates, resource_id resource, bool overwrite) 
+{
+	set<Vectori> rebuild_chunks;
+
+	for (Vectori coords: coordinates)
+	{
+		int x = coords.x;
+		int y = coords.y;
+		int z = coords.z;
+
+		Vectori chunk_coords = Chunk::GetChunkCoordsOf(x, y, z);
+		x -= chunk_coords.x * CHUNK_SIZE_X;
+		y -= chunk_coords.y * CHUNK_SIZE_Y;
+		z -= chunk_coords.z * CHUNK_SIZE_Z;
+
+		Chunk* chunk = _chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y, chunk_coords.z);
+
+		if (!overwrite)
+			if (IsSolid(chunk->GetResourceAt(x, y, z)))
+				continue;
+
+		chunk->SetResourceAt(x, y, z, resource);
+		rebuild_chunks.insert(chunk_coords);
+
+		if (x == CHUNK_SIZE_X - 1)
+			rebuild_chunks.insert(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
+		if (y == CHUNK_SIZE_Y - 1)
+			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
+		if (z == CHUNK_SIZE_Z - 1)
+			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
+
+		if (x == 0)
+			rebuild_chunks.insert(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
+		if (y == 0)
+			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
+		if (z == 0)
+			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
+	}
+
+	for (Vectori chunk_coords: rebuild_chunks) 
+	{
+		_chunk_loader->GetChunk(chunk_coords.x, chunk_coords.y, chunk_coords.z)->RebuildModel();
+	}
 }
 
 void Terrain::StartChunkLoading()

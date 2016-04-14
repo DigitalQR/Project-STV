@@ -7,6 +7,7 @@
 #include "Terrain.h"
 
 #include "PlayerController.h"
+#include "ResourcePlacer.h"
 #include "DayCycleController.h"
 #include "Scene.h"
 
@@ -20,6 +21,7 @@ void Start()
 	Entity* player = new Entity();
 	player->location = vec3(0, 40, 0);
 	player->AddComponent(new PlayerController());
+	player->AddComponent(new ResourcePlacer());
 
 	Terrain* terrain = new Terrain(2787);
 	Entity* day_cycle_controller = new Entity();

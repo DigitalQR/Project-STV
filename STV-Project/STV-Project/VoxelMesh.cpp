@@ -1,5 +1,6 @@
 #include "VoxelMesh.h"
 #include "GameManager.h"
+#include <exception>
 
 VoxelMesh::VoxelMesh(Vectori& mesh_size, Vectori& mesh_offset) :
 	MESH_SIZE(mesh_size), MESH_OFFSET(mesh_offset)
@@ -40,6 +41,54 @@ void VoxelMesh::SetResourceAt(int x, int y, int z, Resource block)
 		full_gen_track++;
 	else
 		full_gen_track--;
+}
+
+void VoxelMesh::RebuildModel() 
+{
+	ConstructModel();
+
+	Model* model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
+	try 
+	{
+		Model* old_model = _texture_model->model;
+		delete old_model;
+	}
+	catch (const exception& e) 
+	{
+		//Accessing non-existant model
+	}
+
+	try
+	{
+		_texture_model->model = model;
+	}
+	catch (const runtime_error& e)
+	{
+		_texture_model = new TexturedModel(model, (GLuint)0);
+		if (_element == nullptr)
+			_element = new Element3D(_texture_model);
+	}
+	
+
+
+	//if (_element == nullptr) 
+	//{
+	//	BuildModel();
+	//	return;
+	//}
+
+	//ModelLoader& model_loader = *GameManager::getMain()->model_loader;
+	//vector<GLuint>& vbo = _texture_model->model->getVBOs();
+	//GLuint vao = _texture_model->model->getVAO();
+
+	//model_loader.UpdateDataIn(vao, vbo[0], 0, 3, _model_data->verts, GL_STATIC_DRAW);
+	//model_loader.UpdateDataIn(vao, vbo[1], 1, 2, _model_data->uvs, GL_STATIC_DRAW);
+	//model_loader.UpdateDataIn(vao, vbo[2], 2, 3, _model_data->normals, GL_STATIC_DRAW);
+	//model_loader.UpdateDataIn(vao, vbo[3], 3, 1, _model_data->texture_ids, GL_STATIC_DRAW);
+
+	//delete _model_data;
+	//_model_data = nullptr;
+
 }
 
 void VoxelMesh::BuildModel()

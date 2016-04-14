@@ -147,6 +147,7 @@
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RenderQueue.h" />
+    <ClInclude Include="ResourcePlacer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="StaticShader.h" />

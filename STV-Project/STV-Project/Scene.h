@@ -44,7 +44,6 @@ public:
 	void AddToScene(Entity* entity)
 	{
 		_entities.push_back(entity);
-		entity->Start();
 	}
 
 	void SetTerrain(Terrain* terrain) 
@@ -52,11 +51,19 @@ public:
 		_terrain = terrain;
 	}
 
+	Terrain* GetTerrain() 
+	{
+		return _terrain;
+	}
+
 	void AttachScene() 
 	{
 		if(_terrain != nullptr) _terrain->StartChunkLoading();
 		for (Entity* entity : _entities)
+		{
+			entity->Start();
 			entity->AddElementsForRender();
+		}
 	}
 
 	void DettachScene() 

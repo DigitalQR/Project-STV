@@ -27,6 +27,15 @@ struct Vectori {
 		return x != b.x || y != b.y || z != b.z;
 	}
 
+	friend bool operator< (const Vectori& a, const Vectori& b)
+	{
+		return a.x<b.x && a.y<b.y && a.z<b.z;
+	}
+	friend bool operator> (const Vectori& a, const Vectori& b)
+	{
+		return a.x>b.x && a.y>b.y && a.z>b.z;
+	}
+
 	friend Vectori operator* (const Vectori& a, const Vectori& b)
 	{
 		return Vectori(a.x*b.x, a.y*b.y, a.z*b.z);

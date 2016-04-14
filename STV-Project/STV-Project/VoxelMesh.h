@@ -21,6 +21,7 @@ public:
 	~VoxelMesh();
 
 	virtual void BuildModel();
+	virtual void RebuildModel();
 	virtual void ConstructModel();
 
 	virtual void SetResourceAt(int x, int y, int z, Resource block);

@@ -30,6 +30,9 @@ public:
 	void RemoveChunk(Chunk* chunk);
 	void DeleteChunk(Chunk* chunk);
 
+	void PlaceResource(int x, int y, int z, resource_id resource, bool overwrite);
+	void PlaceResources(vector<Vectori>& coordinates, resource_id resource, bool overwrite);
+
 	void StartChunkLoading();
 	void StopChunkLoading();
 
