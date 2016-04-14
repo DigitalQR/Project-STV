@@ -145,6 +145,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="OBJLoader.h" />
+    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
@@ -153,8 +154,6 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainShader.h" />
     <ClInclude Include="TerrainTools.h" />
-    <ClInclude Include="TestEntity.h" />
-    <ClInclude Include="TestRotationComponent.h" />
     <ClInclude Include="TexturedModel.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Timer.h" />

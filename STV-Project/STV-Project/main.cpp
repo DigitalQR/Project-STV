@@ -6,8 +6,7 @@
 #include "TexturedModel.h"
 #include "Terrain.h"
 
-#include "TestEntity.h"
-#include "TestRotationComponent.h"
+#include "PlayerController.h"
 #include "DayCycleController.h"
 #include "Scene.h"
 
@@ -18,19 +17,16 @@ void Start()
 {
 	GameManager::getMain();
 
-
-	TestEntity* te1 = new TestEntity;
-	te1->ReadyUp();
-	te1->location = vec3(0, 90, 0);
-	te1->AddComponent(new TestRotationComponent());
-	te1->AddComponent(new ActualRotationComponent());
+	Entity* player = new Entity();
+	player->location = vec3(0, 40, 0);
+	player->AddComponent(new PlayerController());
 
 	Terrain* terrain = new Terrain(2787);
 	Entity* day_cycle_controller = new Entity();
 	day_cycle_controller->AddComponent(new DayCycleController());
 
 	Scene* scene = new Scene();
-	scene->AddToScene(te1);
+	scene->AddToScene(player);
 	scene->AddToScene(day_cycle_controller);
 	scene->SetTerrain(terrain);
 	GameManager::getMain()->SetCurrentScene(scene);

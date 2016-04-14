@@ -18,7 +18,7 @@ public:
 
 	void setFoV(float fov) 
 	{
-		if (fov > 0 && fov <= 300)
+		if (fov > 0 && fov < 150)
 			_FoV = fov;
 	}
 
@@ -48,7 +48,7 @@ private:
 
 	//Projection Matrix
 	float _last_aspect_ratio = 1;
-	float _FoV = 70;
+	float _FoV = 80;
 	mat4 _projection_matrix;
 	mat4 _view_matrix;
 };

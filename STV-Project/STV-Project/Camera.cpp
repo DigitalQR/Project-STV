@@ -38,7 +38,7 @@ void Camera::rebuildProjectionMatrix()
 void Camera::rebuildProjectionMatrix(float aspect_ratio)
 {
 	_projection_matrix = glm::perspective(
-		_FoV, aspect_ratio, NEAR_CLIPPING_PLANE, FAR_CLIPPING_PLANE
+		_FoV * 3.141592f / 180.0f, aspect_ratio, NEAR_CLIPPING_PLANE, FAR_CLIPPING_PLANE
 		);
 	_last_aspect_ratio = aspect_ratio;
 }

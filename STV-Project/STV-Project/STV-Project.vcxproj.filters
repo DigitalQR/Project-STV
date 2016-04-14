@@ -64,6 +64,9 @@
     <Filter Include="Core\Game\Visual">
       <UniqueIdentifier>{7f0b74c7-6c8e-4c14-ab52-2e158a11b048}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Game\Control">
+      <UniqueIdentifier>{c0f73b10-f76f-4955-98b3-b25c73768a18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -105,9 +108,6 @@
     <ClInclude Include="TexturedModel.h">
       <Filter>Core\Engine\Visual\Rendering\Models</Filter>
     </ClInclude>
-    <ClInclude Include="TestRotationComponent.h">
-      <Filter>Core\Game</Filter>
-    </ClInclude>
     <ClInclude Include="ModelLoader.h">
       <Filter>Core\Engine\Visual\Rendering\Models\Loaders</Filter>
     </ClInclude>
@@ -119,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="Element3D.h">
       <Filter>Core\Engine\Visual\Rendering\Shaders\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="TestEntity.h">
-      <Filter>Core\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Core\Engine\Core</Filter>
@@ -164,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="DayCycleController.h">
       <Filter>Core\Game\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Core\Game\Control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
