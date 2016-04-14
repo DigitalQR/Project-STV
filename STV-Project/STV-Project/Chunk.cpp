@@ -46,7 +46,6 @@ resource_id Chunk::GetResourceAt(int x, int y, int z)
 void Chunk::Generate()
 {
 	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
-
 	
 	for (int x = 0; x < CHUNK_SIZE_X; x++)
 		for (int z = 0; z < CHUNK_SIZE_Z; z++)
@@ -90,7 +89,11 @@ int Chunk::GetHeight(int x, int z)
 {
 	x += MESH_OFFSET.x * CHUNK_SIZE_X;
 	z += MESH_OFFSET.z * CHUNK_SIZE_Z;
-	return floorf(GetSmoothNoise(x, z, 100.0f, 50) + GEN_SURFACE_HEIGHT / 2);
+
+	//Correct to be in height range
+	const float half_height = GEN_SURFACE_HEIGHT / 2.0f;
+
+	return GEN_SURFACE_START + floorf(GetSmoothNoise(x, z, 100.0f, 50) * half_height + half_height);
 }
 
 int Chunk::GetCaveChance(int x, int y, int z)
@@ -103,15 +106,33 @@ int Chunk::Get3DChance(int x, int y, int z, float frequency, int smoothness)
 	x += MESH_OFFSET.x * CHUNK_SIZE_X;
 	y += MESH_OFFSET.y * CHUNK_SIZE_Y;
 	z += MESH_OFFSET.z * CHUNK_SIZE_Z;
-	return floorf(GetSmoothNoise(x, y, z, frequency, smoothness) + GEN_MAX_HEIGHT / 2);
+
+	//Correct to be between 0-100
+	return floorf(GetSmoothNoise(x, y, z, frequency, smoothness)*50 + 50);
 }
 
-float Chunk::GetRawNoise(int x, int y, int z, float frequency)
-{	
-	srand(_parent->GetSeed() + (x * frequency * 1.2 + y* frequency * 1.0 + z *frequency * 1.2));
-	rand(); //Throw away
+float Chunk::MwC_Rand(int x, int y, int z, int seed)
+{
 
-	float value = GEN_SURFACE_START + rand() % GEN_SURFACE_HEIGHT - GEN_SURFACE_HEIGHT / 2;
+	srand(seed + x * 287673 + y * 73610 + z * 94782);
+	uint32_t w = rand();
+	w << 16;
+	w |= rand();
+	return float(w) / float(RAND_MAX);
+}
+
+
+float Chunk::GetRawNoise(int x, int y, int z, float frequency)
+{
+	const float x_freq = frequency;
+	const float y_freq = frequency;
+	const float z_freq = frequency;
+
+	x *= x_freq / 2;
+	y *= y_freq / 2;
+	z *= z_freq / 2;
+
+	const float value = (MwC_Rand(x, y, z, _parent->GetSeed()) - 0.5f)* 2.0f;
 	return value;
 }
 
@@ -165,7 +186,7 @@ float Chunk::GetNoise(int x, int y, int z, float frequency, int smoothness)
 
 
 float Chunk::GetSmoothNoise(int x, int y, float frequency, int smoothness)
-{
+{	
 	return GetNoise(x, y, frequency, smoothness) + GetNoise(x, y, frequency, smoothness / 2) / 4.0f + GetNoise(x, y, frequency, smoothness / 4) / 8.0f;
 }
 

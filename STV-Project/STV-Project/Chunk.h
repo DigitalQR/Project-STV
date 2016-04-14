@@ -17,7 +17,7 @@ class Terrain;
 #define CHUNK_SIZE_Y 25
 #define CHUNK_SIZE_Z 25
 
-#define GEN_CAVE_SIZE 54
+#define GEN_CAVE_SIZE 60
 #define GEN_SURFACE_HEIGHT 40
 #define GEN_SURFACE_START 0
 #define GEN_MAX_HEIGHT 128
@@ -52,16 +52,20 @@ protected:
 		return a * (1.0f - f) + b * f;
 	}
 
+	float Chunk::MwC_Rand(int x, int y, int z, int seed);
+	float GetRawNoise(int x, int y, int z, float frequency);
+
 	int GetHeight(int x, int y);
 	int GetCaveChance(int x, int y, int z);
 	int Get3DChance(int x, int y, int z, float frequency, int smoothness);
-	float GetRawNoise(int x, int y, int z, float frequency);
+
 	float GetNoise(int x, int y, int z, float frequency, int smoothness);
 	float GetNoise(int x, int y, float frequency, int smoothness);
 	float GetSmoothNoise(int x, int y, int z, float frequency, int smoothness);
 	float GetSmoothNoise(int x, int y, float frequency, int smoothness);	
 
 	void AddDebugPanel(int x, int y, int z, int x_point, int y_point, int z_point, vector<float>& verts, vector<float>& uvs, vector<float>& normals, vector<unsigned int>& indices, unsigned int& index_track);
+
 
 private:
 	Terrain* _parent;
