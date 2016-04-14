@@ -23,9 +23,9 @@ public:
 	virtual void BuildModel();
 	virtual void ConstructModel();
 
-	virtual void SetResourceAt(int x, int y, int z, resource_id block);
+	virtual void SetResourceAt(int x, int y, int z, Resource block);
 
-	virtual resource_id GetResourceAt(int x, int y, int z)
+	virtual Resource& GetResourceAt(int x, int y, int z)
 	{
 		return _resources[x][y][z];
 	}
@@ -50,5 +50,5 @@ private:
 	ModelData* _model_data = nullptr;
 	TexturedModel* _texture_model = nullptr;
 	Element3D* _element = nullptr;
-	vector<vector<vector<resource_id>>> _resources;
+	vector<vector<vector<Resource>>> _resources;
 };

@@ -9,7 +9,7 @@ Chunk::Chunk(Terrain* terrain, int x, int y, int z) : _parent(terrain),
 	Generate();
 }
 
-resource_id Chunk::GetResourceAt(int x, int y, int z)
+Resource& Chunk::GetResourceAt(int x, int y, int z)
 {
 	if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z) 
 	{

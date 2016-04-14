@@ -18,9 +18,8 @@ class Terrain;
 #define CHUNK_SIZE_Z 25
 
 #define GEN_CAVE_SIZE 60
-#define GEN_SURFACE_HEIGHT 40
+#define GEN_SURFACE_HEIGHT 50
 #define GEN_SURFACE_START 0
-#define GEN_MAX_HEIGHT 128
 
 class Chunk : public VoxelMesh
 {
@@ -40,7 +39,7 @@ public:
 	Chunk(Terrain* parent, int x, int y, int z);
 	void GeneratePoint(int height, int x, int y, int z);
 
-	resource_id GetResourceAt(int x, int y, int z);
+	Resource& GetResourceAt(int x, int y, int z);
 
 protected:
 	virtual void Generate();

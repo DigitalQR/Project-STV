@@ -33,7 +33,7 @@ VoxelMesh::~VoxelMesh()
 	}
 }
 
-void VoxelMesh::SetResourceAt(int x, int y, int z, resource_id block)
+void VoxelMesh::SetResourceAt(int x, int y, int z, Resource block)
 {
 	_resources[x][y][z] = block;
 	if (block != RES_AIR)
@@ -63,7 +63,88 @@ void VoxelMesh::ConstructModel()
 		_model_data = new ModelData();
 
 	const Vectori offset = MESH_SIZE * MESH_OFFSET;
-	array<array<array<resource_id, 2>, 2>, 2> states;
+	array<array<array<Resource, 2>, 2>, 2> states;
+
+	//Calcuate densities
+	const float in_plane_diagonal = 2;
+	const float diagonal = 3;
+	const float max = 1 * 6 + in_plane_diagonal * 12 + diagonal * 8;
+
+	if(VoxelBuilder::SMOOTHMODE)
+		for (int x = 0; x <= MESH_SIZE.x; x++)
+			for (int y = 0; y <= MESH_SIZE.y; y++)
+				for (int z = 0; z <= MESH_SIZE.z; z++) 
+				{
+					int count = 0;
+					Resource& resource = GetResourceAt(x, y, z);
+					bool state = IsSolid(resource);
+								
+
+					if (IsSolid(GetResourceAt(x + 1, y, z)) == state)
+						count++;
+					if (IsSolid(GetResourceAt(x - 1, y, z)) == state)
+						count++;
+					if (IsSolid(GetResourceAt(x, y + 1, z)) == state)
+						count++;
+					if (IsSolid(GetResourceAt(x, y - 1, z)) == state)
+						count++;
+					if (IsSolid(GetResourceAt(x, y, z + 1)) == state)
+						count++;
+					if (IsSolid(GetResourceAt(x, y, z - 1)) == state)
+						count++;
+
+
+					if (IsSolid(GetResourceAt(x - 1, y, z - 1)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y, z - 1)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x - 1, y, z + 1)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y, z + 1)) == state)
+						count+= in_plane_diagonal;
+
+					if (IsSolid(GetResourceAt(x, y - 1, z - 1)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x, y + 1, z - 1)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x, y - 1, z + 1)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x, y + 1, z + 1)) == state)
+						count+= in_plane_diagonal;
+
+					if (IsSolid(GetResourceAt(x - 1, y - 1, z)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y - 1, z)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x - 1, y + 1, z)) == state)
+						count+= in_plane_diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y + 1, z)) == state)
+						count+= in_plane_diagonal;
+
+					if (IsSolid(GetResourceAt(x - 1, y - 1, z - 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y - 1, z - 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x - 1, y + 1, z - 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y + 1, z - 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x - 1, y - 1, z + 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y - 1, z + 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x - 1, y + 1, z + 1)) == state)
+						count+= diagonal;
+					if (IsSolid(GetResourceAt(x + 1, y + 1, z + 1)) == state)
+						count+= diagonal;
+				
+
+					float density = (count) / max;
+					if (density == 0)
+						density = 0.005f;
+
+					resource.density = density;
+				}
 
 	for (int x = 0; x < MESH_SIZE.x; x++)
 		for (int y = 0; y < MESH_SIZE.y; y++)

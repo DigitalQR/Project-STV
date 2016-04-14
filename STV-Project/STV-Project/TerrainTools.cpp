@@ -130,6 +130,115 @@ void ModelData::BuildUVs()
 	}
 }
 
+void CheckRatio(float& ratio) 
+{
+	const float bound = 0.15;
+	if (ratio < bound)
+		ratio = bound;
+	else if (ratio > 1.0f - bound)
+		ratio = 1.0f - bound;
+}
+
+float InterpolateRatios(float ratio0, float ratio1, float p) 
+{
+	return ratio0 * (1.0f - p) + ratio1 * (p);
+}
+
+void ModelData::Smooth(Resource v0, Resource v1, Resource v2, Resource v3, Resource v4, Resource v5, Resource v6, Resource v7) 
+{
+	for (int i = 0; i < verts.size(); i+=3)
+	{
+		float& x = verts[i];
+		float& y = verts[i + 1];
+		float& z = verts[i + 2];
+
+		//front
+		if (z == 0)
+		{
+			if (x == 0.5f) {
+				float x_ratio0 = v0.density - v1.density;
+				float x_ratio1 = v4.density - v5.density;
+				x += InterpolateRatios(x_ratio0, x_ratio1, y);
+			}
+			if (y == 0.5f) {
+				float y_ratio0 = v0.density - v4.density;
+				float y_ratio1 = v1.density - v5.density;
+				y += InterpolateRatios(y_ratio0, y_ratio1, x);
+			}
+		}
+		//Back
+		else if (z == 1)
+		{
+			if (x == 0.5f) {
+				float x_ratio0 = v3.density - v2.density;
+				float x_ratio1 = v7.density - v6.density;
+				x += InterpolateRatios(x_ratio0, x_ratio1, y);
+			}
+			if (y == 0.5f) {
+				float y_ratio0 = v3.density - v7.density;
+				float y_ratio1 = v2.density - v6.density;
+				y += InterpolateRatios(y_ratio0, y_ratio1, x);
+			}
+		}
+		//Left
+		else if (x == 0)
+		{
+			if (z == 0.5f) {
+				float z_ratio0 = v0.density - v3.density;
+				float z_ratio1 = v4.density - v7.density;
+				z += InterpolateRatios(z_ratio0, z_ratio1, y);
+			}
+			if (y == 0.5f) {
+				float y_ratio0 = v0.density - v4.density;
+				float y_ratio1 = v3.density - v7.density;
+				y += InterpolateRatios(y_ratio0, y_ratio1, z);
+			}
+		}
+		//Right
+		else if (x == 1)
+		{
+			if (z == 0.5f) {
+				float z_ratio0 = v1.density - v2.density;
+				float z_ratio1 = v5.density - v6.density;
+				z += InterpolateRatios(z_ratio0, z_ratio1, y);
+			}
+			if (y == 0.5f) {
+				float y_ratio0 = v1.density - v5.density;
+				float y_ratio1 = v2.density - v6.density;
+				y += InterpolateRatios(y_ratio0, y_ratio1, z);
+			}
+		}
+		//Bottom
+		else if (y == 0)
+		{
+			if (x == 0.5f) {
+				float x_ratio0 = v0.density - v1.density;
+				float x_ratio1 = v3.density - v2.density;
+				x += InterpolateRatios(x_ratio0, x_ratio1, z);
+			}
+			if (z == 0.5f) {
+				float z_ratio0 = v0.density - v3.density;
+				float z_ratio1 = v1.density - v2.density;
+				z += InterpolateRatios(z_ratio0, z_ratio1, x);
+			}
+		}
+		//Top
+		else if (y == 1)
+		{
+			if (x == 0.5f) {
+				float x_ratio0 = v4.density - v5.density;
+				float x_ratio1 = v7.density - v6.density;
+				x += InterpolateRatios(x_ratio0, x_ratio1, z);
+			}
+			if (z == 0.5f) {
+				float z_ratio0 = v4.density - v7.density;
+				float z_ratio1 = v5.density - v6.density;
+				z += InterpolateRatios(z_ratio0, z_ratio1, x);
+			}
+		}
+	}	
+}
+
 void ModelData::Flip()
 {
 	reverse(indices.begin(), indices.end());

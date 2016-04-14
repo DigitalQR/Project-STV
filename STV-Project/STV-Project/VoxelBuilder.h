@@ -10,6 +10,8 @@ using namespace std;
 class VoxelBuilder 
 {
 public:
+	static const bool SMOOTHMODE = true;
+
 	void Init() 
 	{
 		SetDefaults();
@@ -41,7 +43,7 @@ public:
 		return i;
 	}
 
-	void BuildFaces(int X, int Y, int Z, array<array<array<resource_id, 2>, 2>, 2>& states, ModelData& model_data)
+	void BuildFaces(int X, int Y, int Z, array<array<array<Resource, 2>, 2>, 2>& states, ModelData& model_data)
 	{
 		unsigned int state_count = 0;
 		array<array<array<bool, 2>, 2>, 2> state_case{ 0 };
@@ -63,9 +65,21 @@ public:
 		ModelData data = GetData(
 			state_case[0][0][0], state_case[1][0][0], state_case[1][0][1], state_case[0][0][1],
 			state_case[0][1][0], state_case[1][1][0], state_case[1][1][1], state_case[0][1][1]);
-				
-		data.ReplaceTextureIDs(states[0][0][0], states[1][0][0], states[1][0][1], states[0][0][1],
-								states[0][1][0], states[1][1][0], states[1][1][1], states[0][1][1]);
+
+		data.ReplaceTextureIDs(states[0][0][0].resource, states[1][0][0].resource, states[1][0][1].resource, states[0][0][1].resource,
+			states[0][1][0].resource, states[1][1][0].resource, states[1][1][1].resource, states[0][1][1].resource);
+
+
+		if (SMOOTHMODE)
+		{
+				data.Smooth(states[0][0][0], states[1][0][0], states[1][0][1], states[0][0][1],
+					states[0][1][0], states[1][1][0], states[1][1][1], states[0][1][1]);
+
+			data.BuildNormals();
+			data.BuildUVs();
+		}
+
+
 		data += Vectori(X, Y, Z);
 		model_data += data;
 	};

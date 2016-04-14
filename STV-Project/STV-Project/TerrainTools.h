@@ -99,6 +99,8 @@ struct ModelData
 		}
 	}
 
+	void Smooth(Resource v0, Resource v1, Resource v2, Resource v3, Resource v4, Resource v5, Resource v6, Resource v7);
+
 	void ReplaceTextureIDs(resource_id v0, resource_id v1, resource_id v2, resource_id v3, resource_id v4, resource_id v5, resource_id v6, resource_id v7);
 
 	void BuildNormals();
