@@ -3,13 +3,18 @@
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 
-class Model
+
+using namespace std;
+
+
+struct Model
 {
 public:
 	Model(GLuint VAO, unsigned int indices_size) : 
 		_vao(VAO), 
 		_indices_size(indices_size) 
 	{};
+	~Model();
 
 	GLuint polygon_mode = GL_FILL;
 	GLuint getVAO() { return _vao; }

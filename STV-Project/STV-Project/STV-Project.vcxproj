@@ -171,6 +171,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MasterRenderer.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
     <ClCompile Include="RenderQueue.cpp" />

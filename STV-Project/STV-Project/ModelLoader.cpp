@@ -75,6 +75,19 @@ GLuint ModelLoader::BindIndicesBuffer(vector<unsigned int>& indices)
 	return vbo;
 }
 
+void ModelLoader::DeleteModelData(Model* model) 
+{
+	const GLuint vao = model->getVAO();
+	glDeleteVertexArrays(1, &vao);
+
+	for (int i = 0; i < _vaos.size(); i++)
+		if (_vaos[i] == vao)
+		{
+			_vaos.erase(_vaos.begin() + i);
+			break;
+		}
+}
+
 ModelLoader::~ModelLoader()
 {
 	if (_vaos.size() != 0)glDeleteVertexArrays(ModelLoader::_vaos.size(), &ModelLoader::_vaos[0]);

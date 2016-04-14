@@ -224,6 +224,9 @@
     <ClCompile Include="TerrainTools.cpp">
       <Filter>Core\Engine\Terrain\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\terrain.frag">
