@@ -50,6 +50,8 @@ public:
 	*/
 	GLuint StoreInVBO(GLuint attrib_number, int individual_data_size, vector<float> &data, const GLenum VBO_TYPE);
 	GLuint StoreInVBO(GLuint attrib_number, int individual_data_size, vector<unsigned int> &data, const GLenum VBO_TYPE);
+	void UpdateDataIn(GLuint vbo, GLuint attrib_number, int individual_data_size, vector<float> &data, const GLenum VBO_TYPE);
+	void UpdateDataIn(GLuint vbo, GLuint attrib_number, int individual_data_size, vector<unsigned int> &data, const GLenum VBO_TYPE);
 
 	void DeleteModelData(Model* model);
 
