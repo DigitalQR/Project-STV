@@ -97,11 +97,11 @@ public:
 
 			if (place_mode)
 			{
-				terrain->PlaceResources(vec, RES_DIRT, false);
+				terrain->PlaceResources(vec, RES_BRICKS, false);
 			}
 			else 
 			{
-				terrain->PlaceResource(location.x, location.y, location.z, RES_DIRT, false);
+				terrain->PlaceResource(location.x, location.y, location.z, RES_BRICKS, false);
 			}
 		}
 		else if (destroyed)
