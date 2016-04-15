@@ -18,7 +18,7 @@ class Terrain;
 #define CHUNK_SIZE_Z 16
 
 #define GEN_CAVE_SIZE 60
-#define GEN_SMOOTHNESS 60
+#define GEN_SMOOTHNESS 75
 #define GEN_SURFACE_HEIGHT 60
 #define GEN_SNOW_HEIGHT 58
 #define GEN_MOUNTAIN_HEIGHT 54

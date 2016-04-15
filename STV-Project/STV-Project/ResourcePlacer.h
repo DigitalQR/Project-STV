@@ -41,7 +41,7 @@ private:
 	}
 	
 	bool last_mode_state = false;
-	bool place_mode = true;
+	unsigned int place_type = 0;
 
 	void CheckModeToggle()
 	{
@@ -49,8 +49,12 @@ private:
 		if (key != last_mode_state)
 		{
 			last_mode_state = key;
-			if(key)
-				place_mode = !place_mode;
+			if (key)
+			{
+				place_type++;
+				if (place_type > 2)
+					place_type = 0;
+			}
 		}
 	}
 
@@ -71,15 +75,15 @@ public:
 		if (!placed && !destroyed)
 			return;
 
-		vec3 direction = parent->getForward() * 2.0f;
+		vec3 direction = parent->getForward() * (1.5f + place_type);
 		direction.x = direction.x;
 		direction.y = direction.y;
 		direction.z = direction.z;
 
-		const vec3 loc = parent->location + direction;
+		const vec3 loc = parent->location + vec3(0,0.3f,0) + direction;
 		const Vectori location(floor(loc.x), floor(loc.y), floor(loc.z));
 
-		vector<Vectori> vec
+		vector<Vectori> cube
 		{
 			Vectori(location.x, location.y, location.z),
 			Vectori(location.x + 1, location.y, location.z),
@@ -90,29 +94,68 @@ public:
 			Vectori(location.x + 1, location.y + 1, location.z),
 			Vectori(location.x + 1, location.y + 1, location.z + 1),
 			Vectori(location.x, location.y + 1, location.z + 1),
+		}; 
+		
+		vector<Vectori> sphere
+		{
+			Vectori(location.x, location.y, location.z),
+
+
+			Vectori(location.x + 1, location.y, location.z),
+			Vectori(location.x - 1, location.y, location.z),
+
+			Vectori(location.x, location.y + 1, location.z),
+			Vectori(location.x, location.y - 1, location.z),
+
+			Vectori(location.x, location.y, location.z + 1),
+			Vectori(location.x, location.y, location.z - 1),
+
+
+			Vectori(location.x - 1, location.y - 1, location.z),
+			Vectori(location.x + 1, location.y - 1, location.z),
+			Vectori(location.x - 1, location.y + 1, location.z),
+			Vectori(location.x + 1, location.y + 1, location.z),
+
+			Vectori(location.x - 1, location.y, location.z - 1),
+			Vectori(location.x + 1, location.y, location.z - 1),
+			Vectori(location.x - 1, location.y, location.z + 1),
+			Vectori(location.x + 1, location.y, location.z + 1),
+
+			Vectori(location.x, location.y - 1, location.z - 1),
+			Vectori(location.x, location.y + 1, location.z - 1),
+			Vectori(location.x, location.y - 1, location.z + 1),
+			Vectori(location.x, location.y + 1, location.z + 1),
 		};
 
 		if (placed)
 		{
 
-			if (place_mode)
-			{
-				terrain->PlaceResources(vec, RES_BRICKS, false);
-			}
-			else 
+			if (place_type == 0)
 			{
 				terrain->PlaceResource(location.x, location.y, location.z, RES_BRICKS, false);
 			}
+			else if(place_type == 1)
+			{
+				terrain->PlaceResources(cube, RES_BRICKS, false);
+			}
+			else 
+			{
+				terrain->PlaceResources(sphere, RES_BRICKS, false);
+			}
 		}
 		else if (destroyed)
-		{						
-			if (place_mode)
+		{		
+			if (place_type == 0)
 			{
-				terrain->PlaceResources(vec, RES_AIR, true);
+				terrain->PlaceResource(location.x, location.y, location.z, RES_AIR, true);
+			}
+			else if (place_type == 1)
+			{
+				terrain->PlaceResources(cube, RES_AIR, true);
 			}
 			else
 			{
-				terrain->PlaceResource(location.x, location.y, location.z, RES_AIR, true);
+				terrain->PlaceResources(sphere, RES_AIR, true);
 			}
 		}
 	};
