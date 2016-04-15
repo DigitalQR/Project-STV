@@ -45,6 +45,7 @@ protected:
 	unsigned int render_flag = 0;
 
 	void UpdateRenderedChunks(list<Chunk*> active_chunks);
+	void RebuildChunks(vector<Vectori>& chunks);
 
 private:
 	Shader* _terrain_shader;

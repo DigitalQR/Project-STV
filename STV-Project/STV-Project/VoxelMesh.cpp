@@ -66,27 +66,6 @@ void VoxelMesh::RebuildModel()
 	if (_element == nullptr)
 		_element = new Element3D(_texture_model);
 	
-	
-
-
-	//if (_element == nullptr) 
-	//{
-	//	BuildModel();
-	//	return;
-	//}
-
-	//ModelLoader& model_loader = *GameManager::getMain()->model_loader;
-	//vector<GLuint>& vbo = _texture_model->model->getVBOs();
-	//GLuint vao = _texture_model->model->getVAO();
-
-	//model_loader.UpdateDataIn(vao, vbo[0], 0, 3, _model_data->verts, GL_STATIC_DRAW);
-	//model_loader.UpdateDataIn(vao, vbo[1], 1, 2, _model_data->uvs, GL_STATIC_DRAW);
-	//model_loader.UpdateDataIn(vao, vbo[2], 2, 3, _model_data->normals, GL_STATIC_DRAW);
-	//model_loader.UpdateDataIn(vao, vbo[3], 3, 1, _model_data->texture_ids, GL_STATIC_DRAW);
-
-	//delete _model_data;
-	//_model_data = nullptr;
-
 }
 
 void VoxelMesh::BuildModel()

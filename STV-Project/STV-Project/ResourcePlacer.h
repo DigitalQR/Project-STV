@@ -65,27 +65,35 @@ public:
 	{
 		CheckModeToggle();
 
-		if (HasPlaced())
+		bool placed = HasPlaced();
+		bool destroyed = HasDestroyed();
+
+		if (!placed && !destroyed)
+			return;
+
+		vec3 direction = parent->getForward() * 2.0f;
+		direction.x = direction.x;
+		direction.y = direction.y;
+		direction.z = direction.z;
+
+		const vec3 loc = parent->location + direction;
+		const Vectori location(floor(loc.x), floor(loc.y), floor(loc.z));
+
+		vector<Vectori> vec
 		{
-			vec3 direction = parent->getForward() * 2.0f;
-			direction.x = round(direction.x);
-			direction.y = round(direction.y);
-			direction.z = round(direction.z);
+			Vectori(location.x, location.y, location.z),
+			Vectori(location.x + 1, location.y, location.z),
+			Vectori(location.x + 1, location.y, location.z + 1),
+			Vectori(location.x, location.y, location.z + 1),
 
-			const vec3 loc = parent->location + direction;
-			const Vectori location(round(loc.x), round(loc.y), round(loc.z));
-			vector<Vectori> vec
-			{
-				Vectori(location.x, location.y, location.z),
-				Vectori(location.x + 1, location.y, location.z),
-				Vectori(location.x + 1, location.y, location.z + 1),
-				Vectori(location.x, location.y, location.z + 1),
+			Vectori(location.x, location.y + 1, location.z),
+			Vectori(location.x + 1, location.y + 1, location.z),
+			Vectori(location.x + 1, location.y + 1, location.z + 1),
+			Vectori(location.x, location.y + 1, location.z + 1),
+		};
 
-				Vectori(location.x, location.y + 1, location.z),
-				Vectori(location.x + 1, location.y + 1, location.z),
-				Vectori(location.x + 1, location.y + 1, location.z + 1),
-				Vectori(location.x, location.y + 1, location.z + 1),
-			};
+		if (placed)
+		{
 
 			if (place_mode)
 			{
@@ -96,28 +104,8 @@ public:
 				terrain->PlaceResource(location.x, location.y, location.z, RES_DIRT, false);
 			}
 		}
-		else if (HasDestroyed())
-		{
-			vec3 direction = parent->getForward() * 1.5f;
-			direction.x = floor(direction.x);
-			direction.y = floor(direction.y);
-			direction.z = floor(direction.z);
-
-			const vec3 loc = parent->location + direction + vec3(0, 0.5f, 0);
-			const Vectori location(round(loc.x), round(loc.y), round(loc.z));
-			vector<Vectori> vec
-			{
-				Vectori(location.x, location.y, location.z),
-				Vectori(location.x + 1, location.y, location.z),
-				Vectori(location.x + 1, location.y, location.z + 1),
-				Vectori(location.x, location.y, location.z + 1),
-
-				Vectori(location.x, location.y + 1, location.z),
-				Vectori(location.x + 1, location.y + 1, location.z),
-				Vectori(location.x + 1, location.y + 1, location.z + 1),
-				Vectori(location.x, location.y + 1, location.z + 1),
-			};
-						
+		else if (destroyed)
+		{						
 			if (place_mode)
 			{
 				terrain->PlaceResources(vec, RES_AIR, true);

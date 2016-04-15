@@ -48,55 +48,50 @@ void Terrain::PlaceResource(int x, int y, int z, resource_id resource, bool over
 	chunk->SetResourceAt(x, y, z, resource);
 
 
-	set<Vectori> rebuild_chunks;
-	rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z));
+	vector<Vectori> rebuild_chunks;
+	rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z));
 	Vectori extra_chunk(chunk_coords.x, chunk_coords.y, chunk_coords.z);
 
 	if (x == CHUNK_SIZE_X - 1)
 	{
-		rebuild_chunks.insert(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
+		rebuild_chunks.push_back(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
 		extra_chunk.x++;
 	}
 	if (y == CHUNK_SIZE_Y - 1)
 	{
-		rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
+		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
 		extra_chunk.y++;
 	}
 	if (z == CHUNK_SIZE_Z - 1)
 	{
-		rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
+		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
 		extra_chunk.z++;
 	}
 
 	if (x == 0)
 	{
-		rebuild_chunks.insert(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
+		rebuild_chunks.push_back(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
 		extra_chunk.x--;
 	}
 	if (y == 0)
 	{
-		rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
+		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
 		extra_chunk.y--;
 	}
 	if (z == 0)
 	{
-		rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
+		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
 		extra_chunk.z--;
 	}
-	if (rebuild_chunks.find(extra_chunk) == rebuild_chunks.end())
-		rebuild_chunks.insert(extra_chunk);
+	if (find(rebuild_chunks.begin(), rebuild_chunks.end(), extra_chunk) == rebuild_chunks.end())
+		rebuild_chunks.push_back(extra_chunk);
 	
-
-	for (Vectori chunk : rebuild_chunks)
-	{
-		_chunk_loader->GetChunk(chunk.x, chunk.y, chunk.z)->RebuildModel();
-	}
+	RebuildChunks(rebuild_chunks);
 }
-
 
 void Terrain::PlaceResources(vector<Vectori>& coordinates, resource_id resource, bool overwrite) 
 {
-	set<Vectori> rebuild_chunks;
+	vector<Vectori> rebuild_chunks;
 
 	for (Vectori coords: coordinates)
 	{
@@ -116,48 +111,69 @@ void Terrain::PlaceResources(vector<Vectori>& coordinates, resource_id resource,
 				continue;
 
 		chunk->SetResourceAt(x, y, z, resource);
-		rebuild_chunks.insert(chunk_coords);
+		rebuild_chunks.push_back(chunk_coords);
 
 		Vectori extra_chunk(chunk_coords.x, chunk_coords.y, chunk_coords.z);
 
 		if (x == CHUNK_SIZE_X - 1) 
 		{
-			rebuild_chunks.insert(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
+			rebuild_chunks.push_back(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
 			extra_chunk.x++;
 		}
 		if (y == CHUNK_SIZE_Y - 1)
 		{
-			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
+			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
 			extra_chunk.y++;
 		}
 		if (z == CHUNK_SIZE_Z - 1)
 		{
-			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
+			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
 			extra_chunk.z++;
 		}
 
 		if (x == 0)
 		{
-			rebuild_chunks.insert(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
+			rebuild_chunks.push_back(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
 			extra_chunk.x--;
 		}
 		if (y == 0)
 		{
-			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
+			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
 			extra_chunk.y--;
 		}
 		if (z == 0)
 		{
-			rebuild_chunks.insert(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
+			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
 			extra_chunk.z--;
 		}
 
-		if(rebuild_chunks.find(extra_chunk) == rebuild_chunks.end())
-			rebuild_chunks.insert(extra_chunk);
+		if (find(rebuild_chunks.begin(), rebuild_chunks.end(), extra_chunk) == rebuild_chunks.end())
+			rebuild_chunks.push_back(extra_chunk);
 	}
-	
-	for (Vectori chunk: rebuild_chunks) 
+
+	RebuildChunks(rebuild_chunks);
+}
+
+void Terrain::RebuildChunks(vector<Vectori>& chunks)
+{
+	vector<Vectori> done;
+
+	for (Vectori chunk : chunks)
 	{
+		bool processed = false;
+
+		for (Vectori d : done)
+			if (d == chunk)
+			{
+				processed = true;
+				break;
+			}
+
+		if (processed)
+			continue;
+		else
+			done.push_back(chunk);
+
 		_chunk_loader->GetChunk(chunk.x, chunk.y, chunk.z)->RebuildModel();
 	}
 }
