@@ -101,9 +101,9 @@ void ModelData::BuildUVs()
 
 	for (unsigned int i = 0; i < verts.size(); i += 3)
 	{
-		const float x = verts[i] / 2.0f + 0.5f;
-		const float y = verts[i + 1] / 2.0f + 0.5f;
-		const float z = verts[i + 2] / 2.0f + 0.5f;
+		const float x = verts[i];
+		const float y = verts[i + 1];
+		const float z = verts[i + 2];
 		
 		const float xn = abs(normals[i]);
 		const float yn = abs(normals[i + 1]);
