@@ -68,18 +68,22 @@ void Chunk::Generate()
 void Chunk::GeneratePoint(int height, int x, int y, int z) 
 {
 	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
-	
 
 	if (GEN_CAVE_SIZE < GetCaveChance(x, y, z))
 	{
-		if (y + height_offset == height)
+		if (y + height_offset >= GEN_SURFACE_START + GEN_SNOW_HEIGHT)
+			SetResourceAt(x, y, z, RES_SNOW);
+		else if (y + height_offset >= GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
+			SetResourceAt(x, y, z, RES_DIRT);
+
+		else if (y + height_offset == height)
 			SetResourceAt(x, y, z, RES_GRASS);
 		else if (y + height_offset >= height - 3)
 			SetResourceAt(x, y, z, RES_DIRT);
 		
-		//Add patches of dirt in stone
-		else if (50 >= Get3DChance(x, y, z, 90.0f, 10))
-				SetResourceAt(x, y, z, RES_DIRT);
+		//Add patches of ore in stone
+		else if (GEN_ORE_SIZE >= Get3DChance(x, y, z, 90.0f, 10))
+				SetResourceAt(x, y, z, RES_ORE);
 		else
 			SetResourceAt(x, y, z, RES_STONE);
 	}
@@ -93,7 +97,7 @@ int Chunk::GetHeight(int x, int z)
 	//Correct to be in height range
 	const float half_height = GEN_SURFACE_HEIGHT / 2.0f;
 
-	return GEN_SURFACE_START + floorf(GetSmoothNoise(x, z, 100.0f, 50) * half_height + half_height);
+	return GEN_SURFACE_START + floorf(GetSmoothNoise(x, z, 100.0f, GEN_SMOOTHNESS) * half_height + half_height);
 }
 
 int Chunk::GetCaveChance(int x, int y, int z)

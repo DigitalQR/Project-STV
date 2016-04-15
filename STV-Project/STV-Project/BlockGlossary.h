@@ -2,7 +2,7 @@
 
 enum resource_id {
 	RES_AIR = 2500, RES_UNKNOWN,
-	RES_GRASS = 0, RES_DIRT, RES_STONE
+	RES_GRASS = 0, RES_DIRT, RES_STONE, RES_ORE, RES_SNOW
 };
 
 struct Resource
