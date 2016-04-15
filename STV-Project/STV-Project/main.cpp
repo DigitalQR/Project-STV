@@ -16,20 +16,10 @@
 using namespace std;
 
 
-void Start() 
+void Start(bool smooth_state, int seed) 
 {
 	GameManager::getMain();
-
-	cout << "Smooth mode? ";
-	bool state;
-	cin >> state;
-	GameManager::getMain()->voxel_builder->SetSmoothMode(state);
-	cout << state << endl;
-
-	cout << "Input seed: ";
-	int seed;
-	cin >> seed;
-	cout << seed << endl;
+	GameManager::getMain()->voxel_builder->SetSmoothMode(smooth_state);
 
 	Entity* player = new Entity();
 	player->location = vec3(0, 40, 0);
@@ -54,10 +44,21 @@ void Start()
 
 int main(int argc, char **argv)
 {
-	Start();
+	cout << "Smooth mode? ";
+	bool state;
+	cin >> state;
+	cout << state << endl;
+	cout << "Input seed: ";
+	int seed;
+	cin >> seed;
+	cout << seed << endl;
+
+	Start(state, seed);
 	
-	cout << "Press enter to close.." << endl;
-	cin.get();
+	cout << "Ready to close.." << endl;
+	char thro;
+	cin >> thro;
+
 	_CrtDumpMemoryLeaks();
 	return 0;
 }

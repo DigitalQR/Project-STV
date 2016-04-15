@@ -101,58 +101,59 @@ void ModelData::BuildUVs()
 
 	for (unsigned int i = 0; i < verts.size(); i += 3)
 	{
-		float x = verts[i];
-		float y = verts[i + 1];
-		float z = verts[i + 2];
+		const float x = verts[i] / 2.0f + 0.5f;
+		const float y = verts[i + 1] / 2.0f + 0.5f;
+		const float z = verts[i + 2] / 2.0f + 0.5f;
+		
+		const float xn = abs(normals[i]);
+		const float yn = abs(normals[i + 1]);
+		const float zn = abs(normals[i + 2]);
 
-		const float xn = normals[i];
-		const float yn = normals[i + 1];
-		const float zn = normals[i + 2];
+		uvs[uv_i] = x;
+		uvs[uv_i + 1] = z;
 
-		const float xna = abs(xn);
-		const float yna = abs(yn);
-		const float zna = abs(zn);
-
-
-		if (xna >= yna && xna >= zna)
+		if (xn == 0)
 		{
-			if (sign(xn) > 0)
+			if (yn != 0)
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = z;
+			}
+			if (zn != 0)
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = y;
+			}
+		}
+
+		if (yn == 0)
+		{
+			if (xn != 0)
 			{
 				uvs[uv_i] = z;
 				uvs[uv_i + 1] = y;
 			}
-			else
-			{
-				uvs[uv_i] = y;
-				uvs[uv_i + 1] = z;
-			}
-		}
-		else if (yna >= xna && yna >= zna)
-		{
-			if (sign(yn) > 0)
-			{
-				uvs[uv_i] = x;
-				uvs[uv_i + 1] = z;
-			}
-			else
-			{
-				uvs[uv_i] = x;
-				uvs[uv_i + 1] = z;
-			}
-		}
-		else if (zna >= xna && zna >= yna)
-		{
-			if (sign(zn) > 0)
-			{
-				uvs[uv_i] = y;
-				uvs[uv_i + 1] = x;
-			}
-			else
+			if (zn != 0)
 			{
 				uvs[uv_i] = x;
 				uvs[uv_i + 1] = y;
 			}
 		}
+
+		if (zn == 0)
+		{
+			if (xn != 0)
+			{
+				uvs[uv_i] = z;
+				uvs[uv_i + 1] = y;
+			}
+			if (yn != 0)
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = z;
+			}
+		}
+
 		uv_i += 2;
 	}
 }
