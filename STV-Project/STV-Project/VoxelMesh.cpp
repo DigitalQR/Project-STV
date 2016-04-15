@@ -48,27 +48,24 @@ void VoxelMesh::RebuildModel()
 	ConstructModel();
 
 	Model* model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
-	try 
-	{
-		Model* old_model = _texture_model->model;
-		delete old_model;
-	}
-	catch (exception& e) 
-	{
-		int i;
-		//Accessing non-existant model
-	}
+	
+	if (!GetEmptyModelFlag())
+		if (_texture_model != nullptr)
+		{
+			Model* old_model = _texture_model->model;
+			if (old_model != nullptr)
+				delete old_model;
+		}
+	
 
-	try
-	{
-		_texture_model->model = model;
-	}
-	catch (const runtime_error& e)
-	{
+	if (_texture_model == nullptr)
 		_texture_model = new TexturedModel(model, (GLuint)0);
-		if (_element == nullptr)
-			_element = new Element3D(_texture_model);
-	}
+	else
+		_texture_model->model = model;
+
+	if (_element == nullptr)
+		_element = new Element3D(_texture_model);
+	
 	
 
 
