@@ -36,11 +36,14 @@ void StaticShader::PrepareShader()
 	glUniform3f(_UNIFORM_SUNLIGHT_DIRECTION, sunlight_direction.x, sunlight_direction.y, sunlight_direction.z);
 }
 
-void StaticShader::PrepareModel(TexturedModel* textured_model)
+bool StaticShader::PrepareModel(TexturedModel* textured_model)
 {
-	Shader::PrepareModel(textured_model);
+	if (!Shader::PrepareModel(textured_model))
+		return false;
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textured_model->texture);
+	return true;
 }
 
 void StaticShader::PrepareInstance(Element3D* element)

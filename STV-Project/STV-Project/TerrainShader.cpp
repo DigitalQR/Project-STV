@@ -36,11 +36,14 @@ void TerrainShader::PrepareShader()
 
 }
 
-void TerrainShader::PrepareModel(TexturedModel* textured_model)
+bool TerrainShader::PrepareModel(TexturedModel* textured_model)
 {
-	Shader::PrepareModel(textured_model);
+	if (!Shader::PrepareModel(textured_model))
+		return false;
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textured_model->texture);
+	return true;
 }
 
 void TerrainShader::PrepareInstance(Element3D* element)

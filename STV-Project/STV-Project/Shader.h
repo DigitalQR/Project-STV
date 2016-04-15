@@ -25,10 +25,14 @@ public:
 		glUseProgram(_program);
 	};
 
-	virtual void PrepareModel(TexturedModel* textured_model)
+	virtual bool PrepareModel(TexturedModel* textured_model)
 	{
+		if (textured_model->model == nullptr)
+			return false;
+
 		glBindVertexArray(textured_model->model->getVAO());
 		glPolygonMode(GL_FRONT_AND_BACK, textured_model->model->polygon_mode);
+		return true;
 	};
 
 	virtual void PrepareInstance(Element3D* e) {};

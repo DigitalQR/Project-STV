@@ -11,7 +11,7 @@ public:
 	~TerrainShader();
 
 	void PrepareShader();
-	void PrepareModel(TexturedModel* textured_model);
+	bool PrepareModel(TexturedModel* textured_model);
 	void PrepareInstance(Element3D* element);
 
 private:

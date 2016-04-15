@@ -134,7 +134,8 @@ void Shader::Render()
 	for (map<const TexturedModel*, list<Element3D*>*>::iterator it = render_queue.queue.begin(); it != render_queue.queue.end(); it++)
 	{
 		TexturedModel* textured_model = (TexturedModel*)it->first;
-		PrepareModel(textured_model);
+		if (!PrepareModel(textured_model))
+			continue;
 
 		list<Element3D*>* element_list = render_queue.queue[textured_model];
 		for (Element3D* element : *element_list)
