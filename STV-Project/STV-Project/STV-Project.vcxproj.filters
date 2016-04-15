@@ -168,6 +168,9 @@
     <ClInclude Include="ResourcePlacer.h">
       <Filter>Core\Game\Control</Filter>
     </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Core\Engine\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

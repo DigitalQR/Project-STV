@@ -2,6 +2,7 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 #include "Timer.h"
 
 #include <vector>
@@ -35,6 +36,27 @@ void KeyUp(unsigned char key, int x, int y)
 	Keyboard::setState(key, false);
 }
 
+void MouseClick(int button, int state, int x, int y) 
+{
+	switch (button) 
+	{
+	case GLUT_LEFT_BUTTON:
+		Mouse::SetState(0, state == GLUT_DOWN);
+		break;
+	case GLUT_RIGHT_BUTTON:
+		Mouse::SetState(1, state == GLUT_DOWN);
+		break;
+	case GLUT_MIDDLE_BUTTON:
+		Mouse::SetState(2, state == GLUT_DOWN);
+		break;
+	};
+}
+
+void MouseMotion(int x, int y) 
+{
+	Mouse::UpdateMouseInfo(x, y);
+}
+
 GameManager::GameManager()
 {
 	int fakeargc = 1;
@@ -55,6 +77,8 @@ GameManager::GameManager()
 	glutReshapeFunc(ReshapeWindow);
 	glutKeyboardFunc(KeyDown);
 	glutKeyboardUpFunc(KeyUp);
+	glutMouseFunc(MouseClick);
+	glutPassiveMotionFunc(MouseMotion);
 }
 
 GameManager::~GameManager()
@@ -66,6 +90,7 @@ GameManager::~GameManager()
 	delete voxel_builder;
 	delete Camera::getMain();
 	delete Keyboard::getMain();
+	delete Mouse::getMain();
 	cout << "GameManager finished." << endl << "======" << endl;
 }
 

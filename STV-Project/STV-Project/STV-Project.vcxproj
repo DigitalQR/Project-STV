@@ -144,6 +144,7 @@
     <ClInclude Include="MemoryListener.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RenderQueue.h" />
