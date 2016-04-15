@@ -243,9 +243,6 @@ void Terrain::UpdateRenderedChunks(list<Chunk*> active_chunks)
 	//Remove
 	for (Chunk* current_chunk : _rendered_chunks)
 	{
-		if (current_chunk->GetEmptyModelFlag())
-			continue;
-
 		bool in = false;
 		for (Chunk* active_chunk : active_chunks)
 		{
@@ -266,9 +263,6 @@ void Terrain::UpdateRenderedChunks(list<Chunk*> active_chunks)
 	//Add
 	for (Chunk* current_chunk : active_chunks)
 	{
-		if (current_chunk->GetEmptyModelFlag())
-			continue;
-
 		bool in = false;
 		for (Chunk* rendered_chunk : _rendered_chunks)
 		{

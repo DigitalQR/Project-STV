@@ -5,6 +5,9 @@
 VoxelMesh::VoxelMesh(Vectori& mesh_size, Vectori& mesh_offset) :
 	MESH_SIZE(mesh_size), MESH_OFFSET(mesh_offset)
 {
+	_texture_model = new TexturedModel(nullptr, (GLuint)0);
+	_element = new Element3D(_texture_model);
+
 	//Reserve space for chunk
 	_resources.resize(MESH_SIZE.x);
 	for (int x = 0; x < MESH_SIZE.x; x++)
@@ -25,13 +28,12 @@ VoxelMesh::~VoxelMesh()
 {
 	if (_model_data != nullptr)
 		delete _model_data;
-
-	if (_element != nullptr)
-	{
+	
+	if(_texture_model->model != nullptr)
 		delete _texture_model->model;
-		delete _texture_model;
-		delete _element;
-	}
+
+	delete _texture_model;
+	delete _element;
 }
 
 void VoxelMesh::SetResourceAt(int x, int y, int z, Resource block)
@@ -47,35 +49,26 @@ void VoxelMesh::RebuildModel()
 {
 	ConstructModel();
 
-	Model* model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
+	Model* new_model = nullptr;
+		
+	if(!GetEmptyModelFlag())
+		new_model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
 	
-	if (!GetEmptyModelFlag())
-		if (_texture_model != nullptr)
-		{
-			Model* old_model = _texture_model->model;
-			if (old_model != nullptr)
-				delete old_model;
-		}
-	
+	Model* old_model = _texture_model->model;
+	_texture_model->model = new_model;
 
-	if (_texture_model == nullptr)
-		_texture_model = new TexturedModel(model, (GLuint)0);
-	else
-		_texture_model->model = model;
-
-	if (_element == nullptr)
-		_element = new Element3D(_texture_model);
-	
+	if (old_model != nullptr)
+		delete old_model;
 }
 
 void VoxelMesh::BuildModel()
 {
-	if (GetEmptyModelFlag())
-		return;
-	
-	Model* model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
-	_texture_model = new TexturedModel(model, (GLuint)0);
-	_element = new Element3D(_texture_model);
+	Model* model = nullptr;
+
+	if (!GetEmptyModelFlag())
+		model = GameManager::getMain()->model_loader->CreateTerrainModel(_model_data->verts, _model_data->uvs, _model_data->normals, _model_data->texture_ids, _model_data->indices);
+
+	_texture_model->model = model;
 
 	delete _model_data;
 	_model_data = nullptr;
