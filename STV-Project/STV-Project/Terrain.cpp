@@ -52,33 +52,38 @@ void Terrain::PlaceResource(int x, int y, int z, resource_id resource, bool over
 	rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z));
 	Vectori extra_chunk(chunk_coords.x, chunk_coords.y, chunk_coords.z);
 
-	if (x == CHUNK_SIZE_X - 1)
+	int bound = 0;
+
+	if (GameManager::getMain()->voxel_builder->IsSmoothMode())
+		bound = 1;
+
+	if (x >= CHUNK_SIZE_X - 1 - bound)
 	{
 		rebuild_chunks.push_back(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
 		extra_chunk.x++;
 	}
-	if (y == CHUNK_SIZE_Y - 1)
+	if (y >= CHUNK_SIZE_Y - 1 - bound)
 	{
 		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
 		extra_chunk.y++;
 	}
-	if (z == CHUNK_SIZE_Z - 1)
+	if (z >= CHUNK_SIZE_Z - 1 - bound)
 	{
 		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
 		extra_chunk.z++;
 	}
 
-	if (x == 0)
+	if (x <= bound)
 	{
 		rebuild_chunks.push_back(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
 		extra_chunk.x--;
 	}
-	if (y == 0)
+	if (y <= bound)
 	{
 		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
 		extra_chunk.y--;
 	}
-	if (z == 0)
+	if (z <= bound)
 	{
 		rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
 		extra_chunk.z--;
@@ -115,33 +120,38 @@ void Terrain::PlaceResources(vector<Vectori>& coordinates, resource_id resource,
 
 		Vectori extra_chunk(chunk_coords.x, chunk_coords.y, chunk_coords.z);
 
-		if (x == CHUNK_SIZE_X - 1) 
+		int bound = 0;
+
+		if (GameManager::getMain()->voxel_builder->IsSmoothMode())
+			bound = 1;
+
+		if (x >= CHUNK_SIZE_X - 1 - bound)
 		{
 			rebuild_chunks.push_back(Vectori(chunk_coords.x + 1, chunk_coords.y, chunk_coords.z));
 			extra_chunk.x++;
 		}
-		if (y == CHUNK_SIZE_Y - 1)
+		if (y >= CHUNK_SIZE_Y - 1 - bound)
 		{
 			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y + 1, chunk_coords.z));
 			extra_chunk.y++;
 		}
-		if (z == CHUNK_SIZE_Z - 1)
+		if (z >= CHUNK_SIZE_Z - 1 - bound)
 		{
 			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z + 1));
 			extra_chunk.z++;
 		}
 
-		if (x == 0)
+		if (x <= bound)
 		{
 			rebuild_chunks.push_back(Vectori(chunk_coords.x - 1, chunk_coords.y, chunk_coords.z));
 			extra_chunk.x--;
 		}
-		if (y == 0)
+		if (y <= bound)
 		{
 			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y - 1, chunk_coords.z));
 			extra_chunk.y--;
 		}
-		if (z == 0)
+		if (z <= bound)
 		{
 			rebuild_chunks.push_back(Vectori(chunk_coords.x, chunk_coords.y, chunk_coords.z - 1));
 			extra_chunk.z--;
