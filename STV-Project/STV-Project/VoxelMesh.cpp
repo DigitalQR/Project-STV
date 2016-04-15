@@ -114,8 +114,7 @@ void VoxelMesh::ConstructModel()
 
 	//Calcuate densities
 	const float in_plane_diagonal = 2;
-	const float diagonal = 3;
-	const float max = 1 * 6 + in_plane_diagonal * 12 + diagonal * 8;
+	const float max = 1 * 6 + in_plane_diagonal * 12;
 
 	if(GameManager::getMain()->voxel_builder->IsSmoothMode())
 		for (int x = 0; x <= MESH_SIZE.x; x++)
@@ -167,23 +166,6 @@ void VoxelMesh::ConstructModel()
 						count+= in_plane_diagonal;
 					if (IsSolid(GetResourceAt(x + 1, y + 1, z)) == state)
 						count+= in_plane_diagonal;
-
-					if (IsSolid(GetResourceAt(x - 1, y - 1, z - 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x + 1, y - 1, z - 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x - 1, y + 1, z - 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x + 1, y + 1, z - 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x - 1, y - 1, z + 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x + 1, y - 1, z + 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x - 1, y + 1, z + 1)) == state)
-						count+= diagonal;
-					if (IsSolid(GetResourceAt(x + 1, y + 1, z + 1)) == state)
-						count+= diagonal;
 				
 
 					float density = (count) / max;
