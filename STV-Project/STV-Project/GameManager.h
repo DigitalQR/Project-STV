@@ -7,6 +7,7 @@
 #include "MasterRenderer.h"
 #include "TextureLoader.h"
 #include "MarchingCube.h"
+#include "PhysicsEngine.h"
 #include "Scene.h"
 #include "StatisticCounter.h"
 #include "Timer.h"
@@ -50,6 +51,7 @@ public:
 	ModelLoader* model_loader;
 	TextureLoader* texture_loader;
 	MarchingCube* voxel_builder;
+	PhysicsEngine* physics_engine;
 
 	/**
 	Generates a singleton

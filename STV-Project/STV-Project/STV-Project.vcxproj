@@ -130,12 +130,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockGlossary.h" />
+    <ClInclude Include="Body.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Chunk.h" />
     <ClInclude Include="ChunkLoader.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DayCycleController.h" />
     <ClInclude Include="Element3D.h" />
+    <ClInclude Include="EllipsoidBody.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Keyboard.h" />
@@ -147,6 +149,7 @@
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="OBJLoader.h" />
+    <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="ResourcePlacer.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TriMesh.h" />
     <ClInclude Include="VoxelBuilder.h" />
     <ClInclude Include="VoxelMesh.h" />
   </ItemGroup>
@@ -176,6 +180,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="OBJLoader.cpp" />
+    <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="StaticShader.cpp" />

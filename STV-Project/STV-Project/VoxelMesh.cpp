@@ -162,5 +162,6 @@ void VoxelMesh::ConstructModel()
 				GameManager::getMain()->voxel_builder->BuildFaces(x + offset.x, y + offset.y, z + offset.z, states, *_model_data);
 			}
 
+	mesh.ConvertToTriangles(_model_data->verts, _model_data->indices);
 	empty_model_flag = !(bool)(_model_data->verts.size());
 }

@@ -88,6 +88,7 @@ GameManager::~GameManager()
 	delete master_renderer;
 	delete texture_loader;
 	delete voxel_builder;
+	delete physics_engine;
 	delete Camera::getMain();
 	delete Keyboard::getMain();
 	delete Mouse::getMain();
@@ -114,6 +115,7 @@ void GameManager::GLInit()
 	
 void GameManager::GameInit()
 {
+	physics_engine = new PhysicsEngine;
 	texture_loader = new TextureLoader;
 	model_loader = new ModelLoader;
 	master_renderer = new MasterRenderer(this);
@@ -147,7 +149,11 @@ void GameManager::SetCurrentScene(Scene* scene)
 	master_renderer->ClearAllRenderQueues();
 
 	_current_scene = scene;
-	if(scene != nullptr) scene->AttachScene();
+	if (scene != nullptr)
+	{
+		scene->AttachScene();
+		physics_engine->SetScene(scene);
+	}
 }
 
 
@@ -161,6 +167,7 @@ void GameManager::LogicLoop()
 	{
 		update_timer.start();
 		LogicUpdate();
+		physics_engine->PhysicsStep();
 		update_timer.HoldUntilExceeded(UPDATE_SLEEP);
 	}
 

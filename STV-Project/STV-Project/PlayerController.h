@@ -3,11 +3,14 @@
 #include "Camera.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Body.h"
 #define PI 3.141592
 
 class PlayerController : public Component
 {
 private:
+	Body* body;
+	vec2 mouse_velocity;
 
 	bool last_lock_state = false;
 	bool mouse_locked = false;
@@ -37,6 +40,7 @@ private:
 
 		if (mouse_locked)
 		{
+			mouse_velocity = Mouse::GetPosition();
 			Mouse::WarpTo(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 		}
 	}
@@ -45,6 +49,8 @@ public:
 	void Start() 
 	{
 		Camera::getMain()->location = this->parent->location;
+		body = parent->GetComponent<Body>();
+		body->gravity_scale = 0.0f;
 	}
 	
 
@@ -57,26 +63,29 @@ public:
 
 		vec3 direction = Camera::getMain()->getForward();
 		direction.y = 0;
-		const float speed = 0.4f;
+		const float speed = 0.04f;
+
+		vec3 acceleration;
 
 		if (Keyboard::isKeyDown('a'))
-			parent->location -= cross(direction, vec3(0, 1, 0))*speed;
+			acceleration -= cross(direction, vec3(0, 1, 0))*speed;
 
 		if (Keyboard::isKeyDown('d'))
-			parent->location += cross(direction, vec3(0, 1, 0))*speed;
+			acceleration += cross(direction, vec3(0, 1, 0))*speed;
 
 		if (Keyboard::isKeyDown('w'))
-			parent->location += direction*speed;
+			acceleration += direction*speed;
 
 		if (Keyboard::isKeyDown('s'))
-			parent->location -= direction*speed;
+			acceleration -= direction*speed;
 
 		if (Keyboard::isKeyDown('e'))
-			parent->location += vec3(0, 1, 0)*speed;
+			acceleration += vec3(0, 1, 0)*speed;
 
 		if (Keyboard::isKeyDown('q'))
-			parent->location -= vec3(0, 1, 0)*speed;
+			acceleration -= vec3(0, 1, 0)*speed;
 
+		body->velocity += acceleration;
 		GameManager::getMain()->player_light.location = parent->location;
 	};
 
@@ -86,7 +95,7 @@ public:
 
 		if (mouse_locked)
 		{
-			vec2 movement = Mouse::GetPosition() * sensitivity;
+			vec2 movement = mouse_velocity * sensitivity;
 			parent->rotation += vec3(movement.y, -movement.x, 0.0f);
 
 			if (parent->rotation.x >= PI / 2.0f)

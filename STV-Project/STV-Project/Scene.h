@@ -1,13 +1,19 @@
 #pragma once
+#include "Dependencies\glm\common.hpp"
 #include "Entity.h"
 #include "Terrain.h"
 #include <list>
 
 using namespace std;
+using namespace glm;
+
 
 class Scene
 {
 public:
+	
+	vec3 gravity = vec3(0, -0.1f, 0);
+
 	~Scene() 
 	{
 		for (Entity* entity : _entities)
@@ -15,6 +21,7 @@ public:
 
 		if(_terrain != nullptr) 
 			delete _terrain;
+
 	};
 
 	void VisualUpdate() 
@@ -70,6 +77,11 @@ public:
 	{
 		if (_terrain != nullptr) 
 			_terrain->StopChunkLoading();
+	}
+
+	list<Entity*>& GetEntities() 
+	{
+		return _entities;
 	}
 
 private:

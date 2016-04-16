@@ -70,6 +70,15 @@
     <Filter Include="Core\Engine\Visual\Elements">
       <UniqueIdentifier>{8ca6c5bf-dfec-40b4-a9e5-412f93286746}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Logic\Physics">
+      <UniqueIdentifier>{5e4c6561-084e-4126-ab5f-5eecf88d584f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Logic\Physics\Core">
+      <UniqueIdentifier>{8b41478d-d51a-488e-b948-03679d1c6ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Engine\Logic\Physics\Core\Bodies">
+      <UniqueIdentifier>{3a0ffcc4-6b86-4b2b-bf32-4408ad0839c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -177,6 +186,18 @@
     <ClInclude Include="Light.h">
       <Filter>Core\Engine\Visual\Elements</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
+      <Filter>Core\Engine\Logic\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="TriMesh.h">
+      <Filter>Core\Engine\Logic\Physics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Core\Engine\Logic\Physics\Core\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipsoidBody.h">
+      <Filter>Core\Engine\Logic\Physics\Core\Bodies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -238,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Core\Engine\Visual\Rendering\Models\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngine.cpp">
+      <Filter>Core\Engine\Logic\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
