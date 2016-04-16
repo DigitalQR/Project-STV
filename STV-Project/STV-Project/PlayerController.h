@@ -10,6 +10,7 @@ class PlayerController : public Component
 {
 private:
 	Body* body;
+	vec2 mouse_velocity;
 
 	bool last_lock_state = false;
 	bool mouse_locked = false;
@@ -39,6 +40,7 @@ private:
 
 		if (mouse_locked)
 		{
+			mouse_velocity = Mouse::GetPosition();
 			Mouse::WarpTo(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 		}
 	}
@@ -93,7 +95,7 @@ public:
 
 		if (mouse_locked)
 		{
-			vec2 movement = Mouse::GetPosition() * sensitivity;
+			vec2 movement = mouse_velocity * sensitivity;
 			parent->rotation += vec3(movement.y, -movement.x, 0.0f);
 
 			if (parent->rotation.x >= PI / 2.0f)
