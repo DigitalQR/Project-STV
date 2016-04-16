@@ -5,6 +5,7 @@
 #include "ModelLoader.h"
 #include "TerrainTools.h"
 #include "Element3D.h"
+#include "TriMesh.h"
 
 #include <array>
 #include <vector>
@@ -43,6 +44,11 @@ public:
 		return empty_model_flag;
 	}
 
+	TriMesh& GetMesh() 
+	{
+		return mesh;
+	}
+
 protected:
 	unsigned int full_gen_track = 0;
 	bool empty_model_flag = false;
@@ -52,4 +58,5 @@ private:
 	TexturedModel* _texture_model = nullptr;
 	Element3D* _element = nullptr;
 	vector<vector<vector<Resource>>> _resources;
+	TriMesh mesh;
 };

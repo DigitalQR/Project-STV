@@ -72,6 +72,11 @@ public:
 			_terrain->StopChunkLoading();
 	}
 
+	list<Entity*>& GetEntities() 
+	{
+		return _entities;
+	}
+
 private:
 	list<Entity*> _entities;
 	Terrain* _terrain = nullptr;
