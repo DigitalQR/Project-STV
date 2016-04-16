@@ -23,8 +23,8 @@ void PhysicsEngine::Step(EllipsoidBody& body)
 	if (body.velocity.x == 0 && body.velocity.y == 0 && body.velocity.z == 0)
 		return;
 
-
 	body.parent->location += body.velocity;
+	body.velocity *= 0.8f;
 }
 
 void PhysicsEngine::SetScene(Scene* scene) 
