@@ -345,10 +345,9 @@ namespace EllipsoidSolver
 
 		Plane slide_plane(slide_plane_origin, slide_plane_normal);
 
-		vec3 new_destination = destination + slide_plane.SignedDistance(destination) * slide_plane_normal;
+		vec3 new_destination = destination - slide_plane_normal * slide_plane.SignedDistance(destination);
 		vec3 new_velocity = new_destination - u_body.intersection_point;
 
-		u_body.location = new_destination;
 		u_body.velocity = new_velocity;
 		u_body.UpdateVelocity(original_body);
 
