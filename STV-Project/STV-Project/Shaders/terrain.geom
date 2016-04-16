@@ -18,6 +18,7 @@ in VertexData
 	vec2 uv_coord;
 	vec3 normal;
 	uint texture_id;
+	vec3 to_light;
 } vertex_in[];
 
 
@@ -29,6 +30,7 @@ out VertexDataPass
 	float brightness;
 	float fog_factor;
 	flat vec3 texture_ids;
+	vec3 to_light;
 } vertex_out;
 
 
@@ -57,6 +59,7 @@ void main()
 		gl_Position = vp_matrix * gl_in[i].gl_Position;
 		vertex_out.uv_coord = vertex_in[i].uv_coord;
 		vertex_out.normal = vertex_in[i].normal;
+		vertex_out.to_light = vertex_in[i].to_light;
 		
 		vertex_out.texture_ids.x = vertex_in[0].texture_id;
 		vertex_out.texture_ids.y = vertex_in[1].texture_id;

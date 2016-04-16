@@ -67,6 +67,9 @@
     <Filter Include="Core\Game\Control">
       <UniqueIdentifier>{c0f73b10-f76f-4955-98b3-b25c73768a18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Visual\Elements">
+      <UniqueIdentifier>{8ca6c5bf-dfec-40b4-a9e5-412f93286746}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>Core\Engine\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Core\Engine\Visual\Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

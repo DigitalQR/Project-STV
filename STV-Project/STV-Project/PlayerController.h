@@ -76,6 +76,8 @@ public:
 
 		if (Keyboard::isKeyDown('q'))
 			parent->location -= vec3(0, 1, 0)*speed;
+
+		GameManager::getMain()->player_light.location = parent->location;
 	};
 
 	void VisualUpdate() 
@@ -92,6 +94,7 @@ public:
 			if (parent->rotation.x <= -PI / 2.0f)
 				parent->rotation.x = -PI / 2.0f;
 		}
+
 	};
 
 };

@@ -17,10 +17,17 @@ public:
 private:
 	const GLuint _UNIFORM_VIEW_MATRIX;
 	const GLuint _UNIFORM_PROJECTION_MATRIX;
+
 	const GLuint _UNIFORM_FOG_COLOUR;
 	const GLuint _UNIFORM_FOG_DENSITY;
 	const GLuint _UNIFORM_FOG_GRADIENT;
+
 	const GLuint _UNIFORM_SUNLIGHT_COLOUR;
 	const GLuint _UNIFORM_SUNLIGHT_DIRECTION;
+
+	const GLuint _UNIFORM_LIGHT_LOCATION;
+	const GLuint _UNIFORM_LIGHT_COLOUR;
+	const GLuint _UNIFORM_LIGHT_ATTENUATION;
+	
 };
 

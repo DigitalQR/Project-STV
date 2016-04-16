@@ -11,9 +11,12 @@ uniform mat4 projection_matrix;
 uniform float fog_density;
 uniform float fog_gradient;
 
+uniform vec3 light_location;
+
 out vec2 pass_uv_coords;
 out vec3 pass_normal;
 out float fog_factor;
+out vec3 to_light;
 
 void CalculateFogFactor()
 {
@@ -28,5 +31,9 @@ void main()
 
 	pass_normal = (model_matrix * vec4(in_normal, 0.0)).xyz;
 	CalculateFogFactor();
-	gl_Position = projection_matrix * view_matrix * model_matrix * vec4(in_position, 1.0);
+	vec4 world_position = model_matrix * vec4(in_position, 1.0);
+
+	gl_Position = projection_matrix * view_matrix * world_position;
+
+	to_light = light_location - world_position.xyz;
 }

@@ -14,11 +14,15 @@
 #include <iostream>
 #include <list>
 
+#include"Light.h"
+
 class MasterRenderer;
 
 class GameManager
 {
 public:
+	Light player_light;
+
 	GameManager();
 	~GameManager();
 	/**

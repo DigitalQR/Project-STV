@@ -104,6 +104,8 @@ void GameManager::GLInit()
 	fog_density = 0.025f;
 	fog_gradient = 6;
 
+	player_light = Light(vec3(0, 0, 0), vec3(1, 0.6f, 0.2f), vec3(1, 0.01f, 0.02f));
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 

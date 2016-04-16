@@ -8,6 +8,7 @@ in VertexDataPass
 	float brightness;
 	float fog_factor;
 	flat vec3 texture_ids;
+	vec3 to_light;
 } vertex_data;
 
 
@@ -18,8 +19,10 @@ uniform sampler2D texture0_sampler;
 uniform vec3 fog_colour;
 uniform vec3 sunlight_colour;
 
-out vec4 colour;
+uniform vec3 light_colour;
+uniform vec3 light_attenuation;
 
+out vec4 colour;
 
 vec2 CorrectUVs(vec2 uvs)
 {
@@ -65,6 +68,24 @@ vec4 GetTexture(uint id, vec2 uv_coords)
 	return texture(texture0_sampler, uv_coords);
 }
 
+void CalculateLighting()
+{
+	vec3 total_diffuse = vertex_data.brightness * sunlight_colour;
+
+	vec3 unit_to_light = normalize(vertex_data.to_light);
+	float distance_to_light = length(vertex_data.to_light);
+
+	vec3 unit_normal = normalize(vertex_data.normal);
+	float normal_dot_light = dot(unit_normal, unit_to_light);
+	float brightness = max(normal_dot_light, 0.0);
+
+	float attenuation_factor = light_attenuation.x + light_attenuation.y * distance_to_light + light_attenuation.z * distance_to_light * distance_to_light;
+
+	total_diffuse += (brightness * light_colour)/attenuation_factor;
+
+	colour.xyz *= total_diffuse;
+}
+
 
 void main()
 {
@@ -78,6 +99,6 @@ void main()
 	if(colour.a == 0)
 		discard;
 
-	colour.xyz *= vertex_data.brightness * sunlight_colour;
+	CalculateLighting();
 	colour.xyz = mix(fog_colour, colour.xyz, vertex_data.fog_factor);
 }
