@@ -1,5 +1,9 @@
 #pragma once
 #include "Body.h"
+#include "Dependencies\glm\common.hpp"
+
+
+using namespace glm;
 
 
 class EllipsoidBody : public Body
