@@ -38,6 +38,10 @@ public:
 
 		return chunk;
 	}
+	static Vectori GetChunkCoordsOf(vec3 location)
+	{
+		return GetChunkCoordsOf(round(location.x), round(location.y), round(location.z));
+	}
 
 
 	Chunk(Terrain* parent, int x, int y, int z);

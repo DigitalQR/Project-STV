@@ -48,6 +48,7 @@ public:
 	{
 		Camera::getMain()->location = this->parent->location;
 		body = parent->GetComponent<Body>();
+		body->gravity_scale = 0.0f;
 	}
 	
 

@@ -39,6 +39,14 @@ public:
 		return _tris;
 	}
 
+	friend TriMesh& operator+(TriMesh& a, TriMesh& b) 
+	{
+		TriMesh c;
+		c._tris.insert(c._tris.end(), a._tris.begin(), a._tris.end());
+		c._tris.insert(c._tris.end(), b._tris.begin(), b._tris.end());
+		return c;
+	}
+
 	void ConvertToTriangles(vector<float>& verts, vector<unsigned int>& indices) 
 	{
 		_tris.clear();

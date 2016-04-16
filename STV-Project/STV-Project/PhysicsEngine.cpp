@@ -1,5 +1,5 @@
 #include "PhysicsEngine.h"
-
+#include "Chunk.h"
 
 
 PhysicsEngine::PhysicsEngine()
@@ -15,7 +15,12 @@ PhysicsEngine::~PhysicsEngine()
 void PhysicsEngine::PhysicsStep() 
 {
 	for (EllipsoidBody* body : _ellipsoid_bodies)
+	{
+		body->velocity += _current_scene->gravity * body->gravity_scale;
 		Step(*body);
+		body->parent->location += body->velocity;
+		body->velocity *= 0.8f;
+	}
 }
 
 void PhysicsEngine::Step(EllipsoidBody& body) 
@@ -23,8 +28,9 @@ void PhysicsEngine::Step(EllipsoidBody& body)
 	if (body.velocity.x == 0 && body.velocity.y == 0 && body.velocity.z == 0)
 		return;
 
-	body.parent->location += body.velocity;
-	body.velocity *= 0.8f;
+	Vectori start_chunk = Chunk::GetChunkCoordsOf(body.parent->location);
+	Vectori end_chunk = Chunk::GetChunkCoordsOf(body.parent->location + body.velocity);
+	
 }
 
 void PhysicsEngine::SetScene(Scene* scene) 

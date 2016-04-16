@@ -10,6 +10,7 @@ class Body : public Component
 {
 public:
 	vec3 velocity;
+	float gravity_scale = 1.0f;
 
 	void Start() {}
 
