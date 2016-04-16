@@ -94,9 +94,6 @@ public:
 	#define in(a) ((uint32&)a)
 	bool IsPointInside(vec3 point) 
 	{
-		if (_normal.x * point.x + _normal.y * point.y + _normal.z * point.z != -_plane_constant)
-			return false;
-
 		Triangle& tri = *this;
 
 		vec3 e10 = tri.b - tri.a;

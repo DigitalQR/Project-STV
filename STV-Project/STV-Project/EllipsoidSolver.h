@@ -100,7 +100,7 @@ namespace EllipsoidSolver
 		if (normal_dot_velocity == 0.0f)
 		{
 			//Sphere is not embedded
-			if (fabs(signed_distance_to_plane) >= 0.0f)
+			if (fabs(signed_distance_to_plane) >= 1.0f)
 				return;
 
 			//Sphere is embedded
@@ -125,6 +125,9 @@ namespace EllipsoidSolver
 				t1 = temp;
 			}
 
+			if (t0 > 1.0f || t1 < 0.0f)
+				return;
+
 			//Clamp
 			if (t0 < 0.0f) t0 = 0.0f;
 			if (t1 < 0.0f) t1 = 0.0f;
@@ -140,7 +143,7 @@ namespace EllipsoidSolver
 		//Check if collision is inside triangle
 		if (!embedded_in_plane)
 		{
-			vec3 plane_intersection_point = (u_body.location - triangle.GetNormal()) + t0 * u_body.velocity;
+			vec3 plane_intersection_point = (u_body.location - triangle.GetNormal() * signed_distance_to_plane) + t0 * u_body.velocity;
 
 			if (triangle.IsPointInside(plane_intersection_point))
 			{
@@ -308,15 +311,19 @@ namespace EllipsoidSolver
 			return;
 		recursion_depth--;
 
+
 		//Reset
 		UnitBody u_body = UnitBody(original_body);		
 		CheckAgainstMesh(u_body, mesh);
 
+
+		//No collision occured
 		if (!u_body.collision_found)
 		{
 			u_body.UpdateVelocity(original_body);
 			return;
 		}
+
 
 		//Collision occured
 		vec3 destination = u_body.location + u_body.velocity;
@@ -327,18 +334,18 @@ namespace EllipsoidSolver
 		{
 			vec3 v = u_body.velocity;
 			normalize(v);
-			u_body.intersection_point -= close_distance * v;
 
-			v *= u_body.nearest_distance - close_distance;
-			base = u_body.location + v;
+			base = u_body.location + v * (u_body.nearest_distance - close_distance);
+			u_body.intersection_point -= close_distance * v;
 		}
 
+		//Calculating sliding
 		vec3 slide_plane_origin = u_body.intersection_point;
-		vec3 slide_plane_normal = normalize(u_body.intersection_point);
+		vec3 slide_plane_normal = normalize(base - u_body.intersection_point);
 
 		Plane slide_plane(slide_plane_origin, slide_plane_normal);
 
-		vec3 new_destination = destination - slide_plane.SignedDistance(destination) * slide_plane_normal;
+		vec3 new_destination = destination + slide_plane.SignedDistance(destination) * slide_plane_normal;
 		vec3 new_velocity = new_destination - u_body.intersection_point;
 
 		u_body.location = new_destination;

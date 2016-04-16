@@ -23,7 +23,7 @@ void Start(bool smooth_state, int seed)
 	GameManager::getMain()->voxel_builder->SetSmoothMode(smooth_state);
 
 	Entity* player = new Entity();
-	player->location = vec3(0, 40, 0);
+	player->location = vec3(0, 15, 0);
 	player->AddComponent(new EllipsoidBody(vec3(1,1,1)));
 	player->AddComponent(new PlayerController());
 	player->AddComponent(new ResourcePlacer());
@@ -38,10 +38,10 @@ void Start(bool smooth_state, int seed)
 		new Element3D(
 			new TexturedModel(
 				GameManager::getMain()->model_loader->CreateModel(
-						{ 0,30,0, 0,30,50, 50,30,0 },
+						{ 0, 10, 0, 0, 10, 50, 50, 10, 0, 50, 30, 50 },
 						{0},
-						{ 0,1,0, 0,1,0, 0,1,0 },
-						{0,1,2}
+						{ 0,1,0, 0,1,0, 0,1,0, 0,1,0 },
+						{0,1,2, 2,1,3}
 					),
 				(GLuint)0
 				)

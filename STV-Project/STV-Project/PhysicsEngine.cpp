@@ -37,8 +37,9 @@ void PhysicsEngine::Step(EllipsoidBody& body)
 	//TO-DO add adjacent chunk checks
 
 	TriMesh tri;
-	vector<float> verts{ 0,30,0, 0,30,50, 50,30,0 };
-	vector<unsigned int> inds{ 0,1,2 };
+	vector<float> verts{ 0, 10, 0, 0, 10, 50, 50, 10, 0, 50, 30, 50 };
+	vector<unsigned int> inds{ 0,1,2, 2,1,3 };
+
 
 	tri.ConvertToTriangles(verts, inds);
 	EllipsoidSolver::ResolvedCollisions(body, tri);
