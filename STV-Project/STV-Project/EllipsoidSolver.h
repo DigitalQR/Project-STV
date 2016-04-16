@@ -36,8 +36,8 @@ namespace EllipsoidSolver
 
 		void UpdateVelocity(EllipsoidBody& body) 
 		{
-			body.parent->location = location * body.GetSize();
 			body.velocity = velocity * body.GetSize();
+			body.parent->location += body.velocity;
 		}
 
 		bool collision_found = false;
