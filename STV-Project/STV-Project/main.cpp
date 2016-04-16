@@ -32,8 +32,25 @@ void Start(bool smooth_state, int seed)
 	Entity* day_cycle_controller = new Entity();
 	day_cycle_controller->AddComponent(new DayCycleController());
 
+
+	Entity* triangle = new Entity();
+	triangle->AddElement(
+		new Element3D(
+			new TexturedModel(
+				GameManager::getMain()->model_loader->CreateModel(
+						{ 0,30,0, 0,30,50, 50,30,0 },
+						{0},
+						{ 0,1,0, 0,1,0, 0,1,0 },
+						{0,1,2}
+					),
+				(GLuint)0
+				)
+			)
+		);
+
 	Scene* scene = new Scene();
 	scene->AddToScene(player);
+	scene->AddToScene(triangle);
 	scene->AddToScene(day_cycle_controller);
 	scene->SetTerrain(terrain);
 	GameManager::getMain()->SetCurrentScene(scene);

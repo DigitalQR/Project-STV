@@ -138,6 +138,7 @@
     <ClInclude Include="DayCycleController.h" />
     <ClInclude Include="Element3D.h" />
     <ClInclude Include="EllipsoidBody.h" />
+    <ClInclude Include="EllipsoidSolver.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Keyboard.h" />

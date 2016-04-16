@@ -79,6 +79,9 @@
     <Filter Include="Core\Engine\Logic\Physics\Core\Bodies">
       <UniqueIdentifier>{3a0ffcc4-6b86-4b2b-bf32-4408ad0839c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Engine\Logic\Physics\Solver">
+      <UniqueIdentifier>{22af0425-c065-44cb-aa97-24f7168d2884}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="STV-Project.rc" />
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="EllipsoidBody.h">
       <Filter>Core\Engine\Logic\Physics\Core\Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipsoidSolver.h">
+      <Filter>Core\Engine\Logic\Physics\Solver</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
