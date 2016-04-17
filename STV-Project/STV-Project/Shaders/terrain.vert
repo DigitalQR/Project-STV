@@ -1,11 +1,11 @@
-#version 330 core
+#version 440 core
 
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec2 in_uv_coords;
 layout(location = 2) in vec3 in_normal;
 layout(location = 3) in float in_texture_id;
 
-out VertexData
+layout(location = 10) out VertexData
 {
 	vec2 uv_coord;
 	vec3 normal;

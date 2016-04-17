@@ -1,6 +1,6 @@
-#version 330 core
+#version 440 core
 
-in VertexDataPass
+layout(location = 11) in VertexDataPass
 {
 	vec2 uv_coord;
 	vec3 normal;

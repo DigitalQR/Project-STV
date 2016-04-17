@@ -12,7 +12,7 @@
 #include "EllipsoidBody.h"
 #include "DayCycleController.h"
 #include "Scene.h"
-
+#include "OBJLoader.h"
 
 using namespace std;
 
@@ -21,6 +21,15 @@ void Start(bool smooth_state, int seed)
 {
 	GameManager::getMain();
 	GameManager::getMain()->voxel_builder->SetSmoothMode(smooth_state);
+
+	Entity* test = new Entity();
+	map<string, Model*> models = OBJLoader::LoadOBJ("Res/Creatures/Player/T-Pose.obj");
+	GLuint texture = GameManager::getMain()->texture_loader->LoadPNG("Res/Creatures/Player/stv_charpal.png");
+
+	for (map<string, Model*>::iterator it = models.begin(); it != models.end(); it++)
+	{
+		test->AddElement(new Element3D(new TexturedModel(it->second, texture)));
+	}
 
 	Entity* player = new Entity();
 	player->location = vec3(0, 40, 0);
@@ -34,6 +43,7 @@ void Start(bool smooth_state, int seed)
 
 	Scene* scene = new Scene();
 	scene->AddToScene(player);
+	scene->AddToScene(test);
 	scene->AddToScene(day_cycle_controller);
 	scene->SetTerrain(terrain);
 	GameManager::getMain()->SetCurrentScene(scene);
