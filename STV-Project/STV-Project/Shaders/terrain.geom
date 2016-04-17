@@ -1,4 +1,4 @@
-#version 330 core
+#version 440 core
 
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
@@ -13,7 +13,7 @@ uniform float fog_density;
 uniform float fog_gradient;
 
 
-in VertexData
+layout(location = 10) in VertexData
 {
 	vec2 uv_coord;
 	vec3 normal;
@@ -22,7 +22,7 @@ in VertexData
 } vertex_in[];
 
 
-out VertexDataPass
+layout(location = 11) out VertexDataPass
 {
 	vec2 uv_coord;
 	vec3 normal;
