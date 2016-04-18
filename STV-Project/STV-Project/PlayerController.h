@@ -98,7 +98,7 @@ public:
 		if (mouse_locked)
 		{
 			vec2 movement = mouse_velocity * sensitivity;
-			mouse_velocity *= 0;
+			mouse_velocity = vec2(0, 0);
 			parent->rotation += vec3(movement.y, -movement.x, 0.0f);
 
 			if (parent->rotation.x >= PI / 2.0f)
