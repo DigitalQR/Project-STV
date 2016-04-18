@@ -40,7 +40,7 @@ private:
 
 		if (mouse_locked)
 		{
-			mouse_velocity = Mouse::GetPosition();
+			mouse_velocity += Mouse::GetPosition();
 			mouse_velocity.x = round(mouse_velocity.x * 100) / 100.0f;
 			mouse_velocity.y = round(mouse_velocity.y * 100) / 100.0f;
 			Mouse::WarpTo(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
@@ -98,6 +98,7 @@ public:
 		if (mouse_locked)
 		{
 			vec2 movement = mouse_velocity * sensitivity;
+			mouse_velocity *= 0;
 			parent->rotation += vec3(movement.y, -movement.x, 0.0f);
 
 			if (parent->rotation.x >= PI / 2.0f)
