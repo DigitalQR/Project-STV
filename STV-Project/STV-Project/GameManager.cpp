@@ -11,6 +11,7 @@
 
 void RenderScene()
 {
+	Camera::getMain()->frustum.ClearTests();
 	GameManager::getMain()->VisualUpdate();
 	GameManager::getMain()->master_renderer->Render();
 }
@@ -65,7 +66,7 @@ GameManager::GameManager()
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 
 	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(1280, 720);
+	glutInitWindowSize(400, 400);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glutCreateWindow("Game");
 

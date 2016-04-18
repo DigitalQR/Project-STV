@@ -4,7 +4,11 @@
 #include "Dependencies\glm\common.hpp"
 #include "Dependencies\glm\mat4x4.hpp"
 
+#define PI 3.141592f
+
+
 using namespace glm;
+
 
 class Transform
 {
@@ -18,7 +22,17 @@ public:
 	vec3 getLERPLocation();
 	vec3 getLERPRotation();
 	float getLERPScale();
-	vec3 getForward() 
+
+	vec2 getFlatForward() 
+	{
+		vec2 direction = vec2(
+			sin(rotation.y),
+			cos(rotation.y)
+			);
+		return normalize(direction);
+	}
+
+	vec3 getForward()
 	{
 		vec3 direction = vec3(
 			sin(rotation.y),
@@ -28,6 +42,17 @@ public:
 
 		return normalize(direction);
 	}
+
+	vec3 getLeft()
+	{
+		return normalize(-cross(getForward(), vec3(0, 1, 0)));
+	}
+
+	vec3 getUp()
+	{
+		return normalize(cross(getForward(), getLeft()));
+	}
+
 	mat4& getModelMatrix();
 
 	vec3 location;

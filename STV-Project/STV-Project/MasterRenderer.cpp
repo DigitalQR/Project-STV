@@ -26,6 +26,8 @@ void MasterRenderer::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(clear_colour.x, clear_colour.y, clear_colour.z, 1.0);
 	Camera::getMain()->buildViewMatrix();
+	Camera::getMain()->frustum.GenerateFrustum();
+	Camera::getMain()->frustum.RunTests();
 
 	terrain_shader->Render();
 	static_shader->Render();

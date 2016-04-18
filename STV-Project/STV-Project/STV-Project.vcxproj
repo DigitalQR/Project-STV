@@ -139,6 +139,7 @@
     <ClInclude Include="Element3D.h" />
     <ClInclude Include="EllipsoidBody.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Light.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="ResourcePlacer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Shapes.h" />
     <ClInclude Include="StaticShader.h" />
     <ClInclude Include="StatisticCounter.h" />
     <ClInclude Include="Terrain.h" />
@@ -173,6 +175,7 @@
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="ChunkLoader.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarchingCube.cpp" />

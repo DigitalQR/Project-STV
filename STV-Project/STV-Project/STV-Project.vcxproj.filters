@@ -198,6 +198,12 @@
     <ClInclude Include="EllipsoidBody.h">
       <Filter>Core\Engine\Logic\Physics\Core\Bodies</Filter>
     </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>Core\Engine\Visual</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes.h">
+      <Filter>Core\Engine\Core\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -262,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsEngine.cpp">
       <Filter>Core\Engine\Logic\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>Core\Engine\Visual</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

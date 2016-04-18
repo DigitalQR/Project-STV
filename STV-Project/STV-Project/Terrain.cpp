@@ -1,6 +1,7 @@
 #include "Terrain.h"
 #include "Chunk.h"
 #include "GameManager.h"
+#include "Camera.h"
 #include <set>
 
 Terrain::Terrain(unsigned int seed) : _SEED(seed)
@@ -234,6 +235,9 @@ void Terrain::VisualUpdate()
 			delete chunk;
 		}
 	}
+
+	for (Chunk* chunk : GetActiveChunks())
+		Camera::getMain()->frustum.AddToTest(chunk);
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "MemoryListener.h"
 #include "Transform.h"
+#include "Frustum.h"
 #include "Dependencies\glm\vec3.hpp"
 #include "Dependencies\glm\mat4x4.hpp"
 #include "Dependencies\glm\gtc\matrix_transform.hpp"
@@ -13,6 +14,7 @@ using namespace glm;
 class Camera : public Transform
 {
 public:
+	Frustum frustum = Frustum(*this);
 	Camera();
 	~Camera();
 
@@ -21,6 +23,11 @@ public:
 		if (fov > 0 && fov < 150)
 			_FoV = fov;
 	}
+	inline float GetFoV() { return _FoV; }
+	inline float GetAspectRatio() { return _last_aspect_ratio; }
+
+	inline float GetNearClippingPlane() { return NEAR_CLIPPING_PLANE; }
+	inline float GetFarClippingPlane() { return FAR_CLIPPING_PLANE; }
 
 	/**
 	Methods for building the appropriate Camera matrices
