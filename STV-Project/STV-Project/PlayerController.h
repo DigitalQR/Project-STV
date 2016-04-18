@@ -41,6 +41,8 @@ private:
 		if (mouse_locked)
 		{
 			mouse_velocity = Mouse::GetPosition();
+			mouse_velocity.x = round(mouse_velocity.x * 100) / 100.0f;
+			mouse_velocity.y = round(mouse_velocity.y * 100) / 100.0f;
 			Mouse::WarpTo(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 		}
 	}
@@ -91,7 +93,7 @@ public:
 
 	void VisualUpdate() 
 	{
-		const float sensitivity = 0.6f;
+		const float sensitivity = 2.0f;
 
 		if (mouse_locked)
 		{
