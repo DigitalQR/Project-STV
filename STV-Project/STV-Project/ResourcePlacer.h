@@ -60,7 +60,7 @@ private:
 	
 	void UpdateResouce() 
 	{
-		for (int i = (int)RES_DIRT; i <= (int)RES_PLANKS; i++)
+		for (int i = (int)RES_DIRT; i <= (int)RES_THATCH; i++)
 		{
 			if (Keyboard::isKeyDown(48 + i)) 
 			{
