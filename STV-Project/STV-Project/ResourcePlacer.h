@@ -41,10 +41,11 @@ private:
 	}
 	
 	bool last_mode_state = false;
-	unsigned int place_type = 0;
+	unsigned int place_type = 1;
 
 	void CheckModeToggle()
 	{
+
 		const bool key = Mouse::isButtonDown(2);
 		if (key != last_mode_state)
 		{
@@ -53,9 +54,10 @@ private:
 			{
 				place_type++;
 				if (place_type > 2)
-					place_type = 0;
+					place_type = 1;
 			}
 		}
+		
 	}
 
 	void UpdateResouce() 
