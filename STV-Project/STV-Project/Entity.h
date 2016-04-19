@@ -64,11 +64,14 @@ protected:
 	
 	@params Desired shader
 	*/	
-	void AddElementsForRender(Shader* shader)
+	void AddElementsForRender(Shader* default_shader)
 	{
 		for (Element3D* element : _elements)
 		{
-			AddElementForRender(element, shader);
+			if(element->prefered_shader == nullptr)
+				AddElementForRender(element, default_shader);
+			else
+				AddElementForRender(element, element->prefered_shader);
 		}
 	}
 
