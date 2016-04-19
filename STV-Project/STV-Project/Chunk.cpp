@@ -73,7 +73,9 @@ void Chunk::GeneratePoint(int height, int x, int y, int z)
 	{
 		if (y + height_offset >= GEN_SURFACE_START + GEN_SNOW_HEIGHT)
 			SetResourceAt(x, y, z, RES_SNOW);
-		else if (y + height_offset >= GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
+		else if (y + height_offset > GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
+			SetResourceAt(x, y, z, RES_STONE);
+		else if (y + height_offset == GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
 			SetResourceAt(x, y, z, RES_DIRT);
 
 		else if (y + height_offset == height)

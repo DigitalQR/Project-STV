@@ -164,12 +164,29 @@ void GameManager::LogicLoop()
 	logic_running = true;
 	cout << "Starting 'Logic Loop'\n";
 
+	float overtime = 0;
+
 	while (running)
 	{
 		update_timer.start();
 		LogicUpdate();
 		physics_engine->PhysicsStep();
-		update_timer.HoldUntilExceeded(UPDATE_SLEEP);
+
+
+		if (update_timer.HasExceeded(UPDATE_SLEEP))
+		{
+			overtime += update_timer.GetElapsedTimef() - UPDATE_SLEEP;
+		}
+		else
+		{
+			update_timer.HoldUntilExceeded(UPDATE_SLEEP - overtime);
+
+			if (overtime >= UPDATE_SLEEP)
+				overtime -= UPDATE_SLEEP;
+			else
+				overtime = 0;
+
+		}
 	}
 
 	cout << "Finshed 'Logic Loop'\n"; 
