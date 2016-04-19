@@ -60,7 +60,7 @@ private:
 	
 	void UpdateResouce() 
 	{
-		for (int i = (int)RES_DIRT; i <= (int)RES_BRICKS; i++)
+		for (int i = (int)RES_DIRT; i <= (int)RES_PLANKS; i++)
 		{
 			if (Keyboard::isKeyDown(48 + i)) 
 			{
@@ -70,7 +70,7 @@ private:
 		}
 	}
 
-	resource_id current_resource = RES_BRICKS;
+	resource_id current_resource = RES_DIRT;
 
 public:
 

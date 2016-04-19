@@ -2,7 +2,7 @@
 
 enum resource_id {
 	RES_AIR = 2500, RES_UNKNOWN,
-	RES_GRASS = 0, RES_DIRT, RES_STONE, RES_ORE, RES_SNOW, RES_BRICKS
+	RES_GRASS = 0, RES_DIRT, RES_STONE, RES_ORE, RES_SNOW, RES_BRICKS, RES_PLANKS
 };
 
 struct Resource
@@ -34,17 +34,12 @@ struct Resource
 	}
 };
 
-static bool IsSolid(resource_id res)
-{
-	return res != RES_AIR;
-}
-
 static bool IsSolid(Resource res)
 {
-	return res != RES_AIR;
+	return !(res == RES_AIR);
 }
 
 static bool DoesBlend(Resource res)
 {
-	return res != RES_BRICKS;
+	return !(res == RES_BRICKS || res == RES_PLANKS);
 }
