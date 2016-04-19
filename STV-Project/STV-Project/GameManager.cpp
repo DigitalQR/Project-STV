@@ -58,6 +58,11 @@ void MouseMotion(int x, int y)
 	Mouse::UpdateMouseInfo(x, y);
 }
 
+void MouseWheel(int button, int direction, int x, int y)
+{
+	Mouse::SetScrollAmount(direction);
+}
+
 GameManager::GameManager()
 {
 	int fakeargc = 1;
@@ -79,6 +84,7 @@ GameManager::GameManager()
 	glutKeyboardFunc(KeyDown);
 	glutKeyboardUpFunc(KeyUp);
 	glutMouseFunc(MouseClick);
+	glutMouseWheelFunc(MouseWheel);
 	glutPassiveMotionFunc(MouseMotion);
 }
 

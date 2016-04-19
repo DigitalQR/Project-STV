@@ -57,16 +57,32 @@ private:
 		}
 	}
 
-	
 	void UpdateResouce() 
 	{
-		for (int i = (int)RES_DIRT; i <= (int)RES_THATCH; i++)
+		float scroll = Mouse::GetScrollAmount();
+
+		if (!scroll)
 		{
-			if (Keyboard::isKeyDown(48 + i)) 
+			for (int i = (int)RES_DIRT; i <= (int)RES_THATCH; i++)
 			{
-				current_resource = (resource_id)i;
-				break;
+				if (Keyboard::isKeyDown(48 + i))
+				{
+					current_resource = (resource_id)i;
+					break;
+				}
 			}
+		}
+		else 
+		{
+			int desired_resource = current_resource + scroll;
+
+			if (desired_resource < RES_DIRT)
+				desired_resource = RES_THATCH;
+			if (desired_resource > RES_THATCH)
+				desired_resource = RES_DIRT;
+
+			cout << desired_resource << endl;
+			current_resource = (resource_id)desired_resource;
 		}
 	}
 
