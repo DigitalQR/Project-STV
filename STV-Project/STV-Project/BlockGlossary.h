@@ -43,3 +43,8 @@ static bool IsSolid(Resource res)
 {
 	return res != RES_AIR;
 }
+
+static bool DoesBlend(Resource res)
+{
+	return res != RES_BRICKS;
+}

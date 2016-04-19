@@ -95,8 +95,14 @@ void VoxelMesh::ConstructModel()
 				{
 					int count = 0;
 					Resource& resource = GetResourceAt(x, y, z);
+					
+					if (!DoesBlend(resource))
+					{
+						resource.density = 1;
+						continue;
+					}
 					bool state = IsSolid(resource);
-								
+
 
 					if (IsSolid(GetResourceAt(x + 1, y, z)) == state)
 						count++;
