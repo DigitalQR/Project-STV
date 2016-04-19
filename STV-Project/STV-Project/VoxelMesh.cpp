@@ -98,7 +98,7 @@ void VoxelMesh::ConstructModel()
 					
 					if (!DoesBlend(resource))
 					{
-						resource.density = 1;
+						resource.density = 0;
 						continue;
 					}
 					bool state = IsSolid(resource);
