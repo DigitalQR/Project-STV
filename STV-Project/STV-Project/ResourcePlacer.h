@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Camera.h"
 #include "Mouse.h"
+#include "Keyboard.h"
 #include "GameManager.h"
 #include "Terrain.h"
 #include <vector>
@@ -74,14 +75,13 @@ private:
 		}
 		else 
 		{
-			int desired_resource = current_resource + scroll;
+			int desired_resource = current_resource - scroll;
 
 			if (desired_resource < RES_DIRT)
 				desired_resource = RES_THATCH;
 			if (desired_resource > RES_THATCH)
 				desired_resource = RES_DIRT;
 
-			cout << desired_resource << endl;
 			current_resource = (resource_id)desired_resource;
 		}
 	}
@@ -89,6 +89,11 @@ private:
 	resource_id current_resource = RES_DIRT;
 
 public:
+
+	resource_id GetCurrentResource() 
+	{
+		return current_resource;
+	}
 
 	void Start()
 	{

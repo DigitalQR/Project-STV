@@ -39,6 +39,7 @@ public:
 
 	mat4 getViewMatrix() { return _view_matrix; }
 	mat4 getProjectionMatrix() { return _projection_matrix; }
+	mat4 getStandardViewMatrix() { return _standard_view_matrix; }
 
 	/**
 	Generates a singleton
@@ -58,5 +59,7 @@ private:
 	float _FoV = 80;
 	mat4 _projection_matrix;
 	mat4 _view_matrix;
+
+	mat4 _standard_view_matrix;
 };
 

@@ -204,6 +204,12 @@
     <ClInclude Include="Shapes.h">
       <Filter>Core\Engine\Core\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerHand.h">
+      <Filter>Core\Game\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="HandShader.h">
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -272,6 +278,9 @@
     <ClCompile Include="Frustum.cpp">
       <Filter>Core\Engine\Visual</Filter>
     </ClCompile>
+    <ClCompile Include="HandShader.cpp">
+      <Filter>Core\Engine\Visual\Rendering\Shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\terrain.frag">
@@ -287,6 +296,12 @@
       <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
     </None>
     <None Include="Shaders\terrain.geom">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
+    </None>
+    <None Include="Shaders\hand.frag">
+      <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
+    </None>
+    <None Include="Shaders\hand.vert">
       <Filter>Core\Engine\Visual\Rendering\Shaders\Source</Filter>
     </None>
   </ItemGroup>

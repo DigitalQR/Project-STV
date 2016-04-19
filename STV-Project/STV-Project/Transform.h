@@ -54,6 +54,7 @@ public:
 	}
 
 	mat4& getModelMatrix();
+	mat4& getLocalModelMatrix();
 
 	vec3 location;
 	vec3 pivot;
@@ -65,6 +66,8 @@ public:
 
 	void TransformUpdate();
 
+	void Init(vec3& location, vec3& rotation, float scale);
+
 private:
 	mat4 _model_matrix;
 	Transform* _parent = nullptr;
@@ -73,6 +76,5 @@ private:
 	vec3 _last_rotation;
 	float _last_scale;
 
-	void Init(vec3& location, vec3& rotation, float scale);
 };
 

@@ -13,6 +13,7 @@ class MasterRenderer
 public:
 	Shader* static_shader;
 	Shader* terrain_shader;
+	Shader* hand_shader;
 
 	MasterRenderer(GameManager* game_manager);
 	~MasterRenderer();
