@@ -68,10 +68,10 @@ protected:
 	{
 		for (Element3D* element : _elements)
 		{
-			if(element->prefered_shader == nullptr)
+			if(element->preferred_shader == nullptr)
 				AddElementForRender(element, default_shader);
 			else
-				AddElementForRender(element, element->prefered_shader);
+				AddElementForRender(element, element->preferred_shader);
 		}
 	}
 
