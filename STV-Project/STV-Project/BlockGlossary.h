@@ -43,3 +43,16 @@ static bool DoesBlend(Resource res)
 {
 	return !(res == RES_BRICKS || res == RES_PLANKS);
 }
+
+static float GetBlendDensity(Resource res) 
+{
+	switch (res.resource) 
+	{
+	case RES_BRICKS:
+		return 0.5f;
+	case RES_PLANKS:
+		return 0.1f;
+	default:
+		return 0;
+	}
+}

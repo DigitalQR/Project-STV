@@ -48,6 +48,9 @@ public:
 	void GeneratePoint(int height, int x, int y, int z);
 
 	Resource& GetResourceAt(int x, int y, int z);
+	void ForceSetResourceAt(int x, int y, int z, resource_id res);
+
+	int GetHeight(int x, int y);
 
 protected:
 	virtual void Generate();
@@ -62,7 +65,6 @@ protected:
 	float Chunk::MwC_Rand(int x, int y, int z, int seed);
 	float GetRawNoise(int x, int y, int z, float frequency);
 
-	int GetHeight(int x, int y);
 	int GetCaveChance(int x, int y, int z);
 	int Get3DChance(int x, int y, int z, float frequency, int smoothness);
 
@@ -73,6 +75,7 @@ protected:
 
 	void AddDebugPanel(int x, int y, int z, int x_point, int y_point, int z_point, vector<float>& verts, vector<float>& uvs, vector<float>& normals, vector<unsigned int>& indices, unsigned int& index_track);
 
+	void BuildHouse(int height);
 
 private:
 	Terrain* _parent;

@@ -5,6 +5,7 @@ using namespace std;
 
 Camera::Camera()
 {
+	_standard_view_matrix = glm::lookAt(vec3(), vec3(0, 0, 1), vec3(0, 1, 0));
 }
 
 Camera::~Camera()
@@ -27,7 +28,6 @@ void Camera::buildViewMatrix()
 	_view_matrix = glm::lookAt(
 		lerp_location, lerp_location + direction, vec3(0, 1, 0)
 		);
-	
 }
 
 void Camera::rebuildProjectionMatrix()
