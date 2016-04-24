@@ -1,6 +1,7 @@
 #pragma once
 #include "EllipsoidBody.h"
 #include "TriMesh.h"
+#include "Shapes.h"
 
 namespace EllipsoidSolver 
 {

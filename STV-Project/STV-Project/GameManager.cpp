@@ -11,6 +11,7 @@
 
 void RenderScene()
 {
+	Camera::getMain()->frustum.ClearTests();
 	GameManager::getMain()->VisualUpdate();
 	GameManager::getMain()->master_renderer->Render();
 }
@@ -57,6 +58,11 @@ void MouseMotion(int x, int y)
 	Mouse::UpdateMouseInfo(x, y);
 }
 
+void MouseWheel(int button, int direction, int x, int y)
+{
+	Mouse::SetScrollAmount(direction);
+}
+
 GameManager::GameManager()
 {
 	int fakeargc = 1;
@@ -65,7 +71,7 @@ GameManager::GameManager()
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 
 	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(1280, 720);
+	glutInitWindowSize(400, 400);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	glutCreateWindow("Game");
 
@@ -78,6 +84,7 @@ GameManager::GameManager()
 	glutKeyboardFunc(KeyDown);
 	glutKeyboardUpFunc(KeyUp);
 	glutMouseFunc(MouseClick);
+	glutMouseWheelFunc(MouseWheel);
 	glutPassiveMotionFunc(MouseMotion);
 }
 
@@ -163,12 +170,29 @@ void GameManager::LogicLoop()
 	logic_running = true;
 	cout << "Starting 'Logic Loop'\n";
 
+	float overtime = 0;
+
 	while (running)
 	{
 		update_timer.start();
 		LogicUpdate();
 		physics_engine->PhysicsStep();
-		update_timer.HoldUntilExceeded(UPDATE_SLEEP);
+
+
+		if (update_timer.HasExceeded(UPDATE_SLEEP))
+		{
+			overtime += update_timer.GetElapsedTimef() - UPDATE_SLEEP;
+		}
+		else
+		{
+			update_timer.HoldUntilExceeded(UPDATE_SLEEP - overtime);
+
+			if (overtime >= UPDATE_SLEEP)
+				overtime -= UPDATE_SLEEP;
+			else
+				overtime = 0;
+
+		}
 	}
 
 	cout << "Finshed 'Logic Loop'\n"; 

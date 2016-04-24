@@ -43,19 +43,126 @@ Resource& Chunk::GetResourceAt(int x, int y, int z)
 	return VoxelMesh::GetResourceAt(x, y, z);
 }
 
+void Chunk::ForceSetResourceAt(int x, int y, int z, resource_id res) 
+{
+
+	if (x < 0 || y < 0 || z < 0 || x >= MESH_SIZE.x || y >= MESH_SIZE.y || z >= MESH_SIZE.z)
+	{
+		const Vectori current_offset(
+			MESH_OFFSET.x * MESH_SIZE.x,
+			MESH_OFFSET.y * MESH_SIZE.y,
+			MESH_OFFSET.z * MESH_SIZE.z
+			);
+
+		const Vectori new_chunk_coords = GetChunkCoordsOf(
+			x + current_offset.x,
+			y + current_offset.y,
+			z + current_offset.z
+			);
+
+		const Vectori new_offset(
+			new_chunk_coords.x * MESH_SIZE.x,
+			new_chunk_coords.y * MESH_SIZE.y,
+			new_chunk_coords.z * MESH_SIZE.z
+			);
+
+		Chunk& chunk = *_parent->GetChunkLoader()->GetChunk(new_chunk_coords.x, new_chunk_coords.y, new_chunk_coords.z);
+
+		chunk.SetResourceAt(
+			x + current_offset.x - new_offset.x,
+			y + current_offset.y - new_offset.y,
+			z + current_offset.z - new_offset.z,
+			res
+			);
+	}
+	else
+		SetResourceAt(x, y, z, res);
+}
+
+
+void Chunk::BuildHouse(int spawn_height)
+{
+	const int width = 11;
+	const int length = 11;
+	const int height = 10;
+
+
+	for (int x = -width / 2 - 3; x < width / 2 + 3; x++)
+		for (int y = -1; y < height / 2; y++)
+			for (int z = -length / 2 - 3; z < length / 2 + 3; z++)
+			{
+				ForceSetResourceAt(x + 8, y + spawn_height, z + 8, RES_AIR);
+			}
+
+	for (int x = -width / 2; x < width / 2; x++)
+		for (int y = -height / 2; y < height / 2; y++)
+			for (int z = -length / 2; z < length / 2; z++)
+			{
+				if (y < 0)
+					ForceSetResourceAt(x + 8, y + spawn_height, z + 8, RES_BRICKS);
+				else
+				{
+					if( (x == -width / 2 && z == -length / 2) ||
+						(x == -width / 2 && z == length / 2 - 1) ||
+						(x == width / 2 - 1 && z == -length / 2) ||
+						(x == width / 2 - 1 && z == length / 2 - 1)
+						)
+						ForceSetResourceAt(x + 8, y + spawn_height, z + 8, RES_BRICKS);
+					else
+						ForceSetResourceAt(x + 8, y + spawn_height, z + 8, RES_PLANKS);
+				}
+			}
+
+	for (int x = -width / 2 + 1; x < width / 2 - 1; x++)
+		for (int y = 0; y < height / 2 - 1; y++)
+			for (int z = -length / 2 + 1; z < length / 2 - 1; z++)
+			{
+				ForceSetResourceAt(x + 8, y + spawn_height, z + 8, RES_AIR);
+			}
+
+	//Door
+	ForceSetResourceAt(8 - width / 2, 0 + spawn_height, 8, RES_AIR);
+	ForceSetResourceAt(8 - width / 2, 1 + spawn_height, 8, RES_AIR);
+	ForceSetResourceAt(8 - width / 2, 0 + spawn_height, 7, RES_AIR);
+	ForceSetResourceAt(8 - width / 2, 1 + spawn_height, 7, RES_AIR);
+
+	const int roof_gradient = 2;
+	//Roof
+	for (int y = 0; y < width/2 + 1; y++)
+	{
+		for (int x = -(width-y * roof_gradient) / 2 - 2; x < (width-y * roof_gradient) / 2 + 2; x++)
+			for (int z = -(length-y * roof_gradient) / 2 - 2; z < (length-y * roof_gradient) / 2 + 2; z++)
+				ForceSetResourceAt(8 + x, height/2 + y + spawn_height, 8 + z, RES_THATCH);
+	}
+}
+
+
 void Chunk::Generate()
 {
 	const int height_offset = MESH_OFFSET.y * MESH_SIZE.y;
-	
+	bool spawn_house = false;
+	int house_height;
+
 	for (int x = 0; x < CHUNK_SIZE_X; x++)
 		for (int z = 0; z < CHUNK_SIZE_Z; z++)
 		{
 			int height = GetHeight(x,z);
 
+			if (height - height_offset < MESH_SIZE.y && height - height_offset >= 0)
+			{
+				if (MESH_OFFSET.x == 0 && MESH_OFFSET.z == 0 && x == 8 && z == 8)
+				{
+					spawn_house = true;
+					house_height = height - height_offset;
+				}
+			}
+
 			//Height ends in current chunk or is above
-			if(height - height_offset < MESH_SIZE.y)
+			if (height - height_offset < MESH_SIZE.y)
+			{
 				for (int y = height - height_offset; y >= 0; y--)
 					GeneratePoint(height, x, y, z);
+			}
 				
 			//Height is above current chunk
 			else
@@ -63,6 +170,9 @@ void Chunk::Generate()
 					GeneratePoint(height, x, y, z);
 				
 		}
+
+	if (spawn_house)
+		BuildHouse(house_height);
 }
 
 void Chunk::GeneratePoint(int height, int x, int y, int z) 
@@ -73,7 +183,9 @@ void Chunk::GeneratePoint(int height, int x, int y, int z)
 	{
 		if (y + height_offset >= GEN_SURFACE_START + GEN_SNOW_HEIGHT)
 			SetResourceAt(x, y, z, RES_SNOW);
-		else if (y + height_offset >= GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
+		else if (y + height_offset > GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
+			SetResourceAt(x, y, z, RES_STONE);
+		else if (y + height_offset == GEN_SURFACE_START + GEN_MOUNTAIN_HEIGHT)
 			SetResourceAt(x, y, z, RES_DIRT);
 
 		else if (y + height_offset == height)

@@ -8,38 +8,6 @@ using namespace std;
 using namespace glm;
 
 
-struct Plane 
-{
-private:
-	vec3 _normal;
-	float _plane_constant;
-	vec3 _origin;
-
-public:
-
-	Plane(vec3 origin, vec3 normal) : _origin(origin), _normal(normal)
-	{
-		_plane_constant = -(normal.x * origin.x + normal.y * origin.y + normal.z * origin.z);
-	};
-
-	vec3 GetOrigin() 
-	{
-		return _origin;
-	}
-
-	vec3 GetNormal() 
-	{
-		return _normal;
-	}
-
-	float SignedDistance(vec3 point)
-	{
-		return dot(point, _normal) + _plane_constant;
-	}
-
-};
-
-
 struct Triangle 
 {
 private:
@@ -96,15 +64,15 @@ public:
 	{
 		Triangle& tri = *this;
 
-		vec3 e10 = tri.b - tri.a;
-		vec3 e20 = tri.c - tri.a;
-		float a = dot(e10, e10);
-		float b = dot(e10, e20);
-		float c = dot(e20, e20);
+		vec3 a10 = tri.b - tri.a;
+		vec3 a20 = tri.c - tri.a;
+		float a = dot(a10, a10);
+		float b = dot(a10, a20);
+		float c = dot(a20, a20);
 		float ac_bb = (a*c) - (b*b);
 		vec3 vp(point.x - tri.a.x, point.y - tri.a.y, point.z - tri.a.z);
-		float d = dot(vp, e10);
-		float e = dot(vp, e20);
+		float d = dot(vp, a10);
+		float e = dot(vp, a20);
 		float x = (d*c) - (e*b);
 		float y = (e*a) - (d*b);
 		float z = x + y - ac_bb;

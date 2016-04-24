@@ -61,8 +61,21 @@ public:
 		return getMain()->velocity;
 	}
 
+	static void SetScrollAmount(int amount)
+	{
+		getMain()->scroll_amount = (float)amount;
+	}
+
+	static float GetScrollAmount() 
+	{
+		float amount = getMain()->scroll_amount;
+		getMain()->scroll_amount = 0;
+		return amount;
+	}
+
 private:
 	array<bool, 3> _states;
 	vec2 mouse_coords;
 	vec2 velocity;
+	float scroll_amount;
 };

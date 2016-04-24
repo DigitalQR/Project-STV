@@ -40,7 +40,9 @@ private:
 
 		if (mouse_locked)
 		{
-			mouse_velocity = Mouse::GetPosition();
+			mouse_velocity += Mouse::GetPosition();
+			mouse_velocity.x = round(mouse_velocity.x * 100) / 100.0f;
+			mouse_velocity.y = round(mouse_velocity.y * 100) / 100.0f;
 			Mouse::WarpTo(glutGet(GLUT_WINDOW_WIDTH) / 2, glutGet(GLUT_WINDOW_HEIGHT) / 2);
 		}
 	}
@@ -61,8 +63,8 @@ public:
 		Camera::getMain()->location = parent->location;
 		Camera::getMain()->rotation = parent->rotation;
 
-		vec3 direction = Camera::getMain()->getForward();
-		direction.y = 0;
+		vec2 forward = Camera::getMain()->getFlatForward();
+		vec3 direction = vec3(forward.x, 0, forward.y);
 		const float speed = 0.04f;
 
 		vec3 acceleration;
@@ -87,15 +89,13 @@ public:
 
 		body->velocity += acceleration;
 		GameManager::getMain()->player_light.location = parent->location;
-	};
 
-	void VisualUpdate() 
-	{
-		const float sensitivity = 0.6f;
 
 		if (mouse_locked)
 		{
+			const float sensitivity = 2.0f;
 			vec2 movement = mouse_velocity * sensitivity;
+			mouse_velocity = vec2(0, 0);
 			parent->rotation += vec3(movement.y, -movement.x, 0.0f);
 
 			if (parent->rotation.x >= PI / 2.0f)
@@ -103,6 +103,10 @@ public:
 			if (parent->rotation.x <= -PI / 2.0f)
 				parent->rotation.x = -PI / 2.0f;
 		}
+	};
+
+	void VisualUpdate() 
+	{
 
 	};
 

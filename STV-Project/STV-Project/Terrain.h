@@ -18,6 +18,8 @@ class Chunk;
 class Terrain
 {
 public:
+	static GLuint getTextureAtlas();
+
 	Terrain(unsigned int seed);
 	~Terrain();
 
@@ -49,7 +51,6 @@ protected:
 
 private:
 	Shader* _terrain_shader;
-	GLuint _texture_atlas;
 	ChunkLoader* _chunk_loader = new ChunkLoader(this);
 
 	const unsigned int _SEED;

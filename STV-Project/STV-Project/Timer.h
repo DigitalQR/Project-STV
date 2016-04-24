@@ -1,30 +1,40 @@
 #pragma once
 #include <time.h>
 
-class Timer 
+class Timer
 {
 public:
-	void start() 
+	void start()
 	{
 		start_time = clock();
 	}
 
-	unsigned long GetElapsedTime() 
+	unsigned long GetElapsedTime()
 	{
-		return ((unsigned long)clock() - start_time) / (CLOCKS_PER_SEC/1000);
+		return ((unsigned long)clock() - start_time) / ((float)CLOCKS_PER_SEC / 1000.0f);
 	}
 
-	void HoldUntilExceeded(float sleep_ms) 
+	float GetElapsedTimef()
+	{
+		return ((float)clock() - (float)start_time) / ((float)CLOCKS_PER_SEC / 1000.0f);
+	}
+
+	bool HasExceeded(float time_ms)
+	{
+		return (GetElapsedTime() > time_ms);
+	}
+
+	void HoldUntilExceeded(float sleep_ms)
 	{
 		bool throw_away = 0;
 
-		while (true) 
+		while (true)
 		{
 			if (GetElapsedTime() > sleep_ms)
 			{
 				break;
 			}
-			else 
+			else
 			{
 				throw_away = 0;
 			}

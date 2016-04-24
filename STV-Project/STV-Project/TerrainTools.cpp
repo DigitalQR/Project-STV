@@ -109,9 +109,6 @@ void ModelData::BuildUVs()
 		const float yn = abs(normals[i + 1]);
 		const float zn = abs(normals[i + 2]);
 
-		uvs[uv_i] = x;
-		uvs[uv_i + 1] = z;
-
 		if (xn == 0)
 		{
 			if (yn != 0)
@@ -125,8 +122,7 @@ void ModelData::BuildUVs()
 				uvs[uv_i + 1] = y;
 			}
 		}
-
-		if (yn == 0)
+		else if (yn == 0)
 		{
 			if (xn != 0)
 			{
@@ -139,8 +135,7 @@ void ModelData::BuildUVs()
 				uvs[uv_i + 1] = y;
 			}
 		}
-
-		if (zn == 0)
+		else if (zn == 0)
 		{
 			if (xn != 0)
 			{
@@ -148,6 +143,24 @@ void ModelData::BuildUVs()
 				uvs[uv_i + 1] = y;
 			}
 			if (yn != 0)
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = z;
+			}
+		}
+		else 
+		{
+			if (xn < yn && xn < zn)
+			{
+				uvs[uv_i] = y;
+				uvs[uv_i + 1] = z;
+			}
+			else if (zn < xn && zn < yn)
+			{
+				uvs[uv_i] = x;
+				uvs[uv_i + 1] = y;
+			}
+			else 
 			{
 				uvs[uv_i] = x;
 				uvs[uv_i + 1] = z;

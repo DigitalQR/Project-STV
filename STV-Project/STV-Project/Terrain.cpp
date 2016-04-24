@@ -1,11 +1,19 @@
 #include "Terrain.h"
 #include "Chunk.h"
 #include "GameManager.h"
+#include "Camera.h"
 #include <set>
+
+
+GLuint Terrain::getTextureAtlas()
+{
+	static GLuint texture = GameManager::getMain()->texture_loader->LoadLinearPNG("Res/tileset.png");
+	return texture;
+}
+
 
 Terrain::Terrain(unsigned int seed) : _SEED(seed)
 {
-	_texture_atlas = GameManager::getMain()->texture_loader->LoadLinearPNG("Res/tileset.png");
 	_terrain_shader = GameManager::getMain()->master_renderer->terrain_shader;
 }
 
@@ -234,6 +242,9 @@ void Terrain::VisualUpdate()
 			delete chunk;
 		}
 	}
+
+	for (Chunk* chunk : GetActiveChunks())
+		Camera::getMain()->frustum.AddToTest(chunk);
 }
 
 
@@ -277,7 +288,7 @@ void Terrain::UpdateRenderedChunks(list<Chunk*> active_chunks)
 		{
 			current_chunk->BuildModel();
 			Element3D* element = current_chunk->GetElement();
-			element->textured_model->texture = _texture_atlas;
+			element->textured_model->texture = getTextureAtlas();
 			_terrain_shader->AddForRender(element);
 		}
 

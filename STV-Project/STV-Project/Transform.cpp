@@ -65,16 +65,22 @@ float Transform::getLERPScale()
 	return _last_scale * (1.0f - LERP) + scale * LERP;
 }
 
-mat4& Transform::getModelMatrix() 
-{	
+mat4& Transform::getModelMatrix()
+{
 	if (_parent != nullptr)
 	{
-		_model_matrix = _parent->getModelMatrix();
+		_model_matrix = _parent->getModelMatrix() * getLocalModelMatrix();
 	}
-	else 
+	else
 	{
-		_model_matrix = mat4(1.0);
+		_model_matrix = getLocalModelMatrix();
 	}
+	return _model_matrix;
+}
+
+mat4& Transform::getLocalModelMatrix()
+{
+	mat4 _model_matrix = mat4(1.0);
 
 	vec3 location = getLERPLocation();
 	vec3 rotation = getLERPRotation();

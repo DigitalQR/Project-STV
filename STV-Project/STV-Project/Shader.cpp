@@ -139,9 +139,10 @@ void Shader::Render()
 
 		list<Element3D*>* element_list = render_queue.queue[textured_model];
 		for (Element3D* element : *element_list)
-		{
-			PrepareInstance(element);
-			glDrawElements(GL_TRIANGLES, textured_model->model->getIndiceCount(), GL_UNSIGNED_INT, 0);
-		}
+			if (element->enabled) 
+			{
+				PrepareInstance(element);
+				glDrawElements(GL_TRIANGLES, textured_model->model->getIndiceCount(), GL_UNSIGNED_INT, 0);
+			}
 	}
 }
