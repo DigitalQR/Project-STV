@@ -19,6 +19,7 @@ MasterRenderer::~MasterRenderer()
 {
 	delete static_shader;
 	delete terrain_shader;
+	delete hand_shader;
 }
 
 void MasterRenderer::Render() 
