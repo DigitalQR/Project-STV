@@ -30,7 +30,7 @@ public:
 			GameManager::getMain()->sunlight_colour = colour;
 			GameManager::getMain()->sky_colour = sky_colour;
 
-			vec3 fog = sky_colour * 1.05f;
+			vec3 fog = sky_colour * 1.0f;
 			if (fog.x > 1)
 				fog.x = 1;
 			if (fog.y > 1)

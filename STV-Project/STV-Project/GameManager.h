@@ -81,7 +81,7 @@ public:
 private:
 	Scene* _current_scene = nullptr;
 	const unsigned int UPDATE_SLEEP = 1000 / 30;
-	const unsigned int MAX_FPS = 1000 / 300;
+	const unsigned int MAX_FPS = 10 / 4;
 	bool running = false;
 	bool logic_running = false;
 

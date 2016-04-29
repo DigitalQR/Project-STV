@@ -2,7 +2,7 @@
 #include "Camera.h"
 
 #define PI 3.141592f
-#define deg_rad(y) y * 3.141592f / 180.0f
+#define deg_rad(y) y * 3.14159265359f / 180.0f
 
 void Frustum::GenerateFrustum() 
 {
