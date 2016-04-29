@@ -11,9 +11,14 @@
 
 void RenderScene()
 {
+	Timer timer;
+	timer.start();
+
 	Camera::getMain()->frustum.ClearTests();
 	GameManager::getMain()->VisualUpdate();
 	GameManager::getMain()->master_renderer->Render();
+
+	timer.HoldUntilExceeded(GameManager::getMain()->GetMaxFPS());
 }
 
 void ReshapeWindow(int width, int height)

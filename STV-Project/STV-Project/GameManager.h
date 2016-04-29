@@ -75,9 +75,13 @@ public:
 	float fog_density;
 	float fog_gradient;
 
+	bool isRunning() { return running; }
+	unsigned int GetMaxFPS() { return MAX_FPS; }
+
 private:
 	Scene* _current_scene = nullptr;
-	const unsigned int UPDATE_SLEEP = 1000/30;
+	const unsigned int UPDATE_SLEEP = 1000 / 30;
+	const unsigned int MAX_FPS = 1000 / 300;
 	bool running = false;
 	bool logic_running = false;
 
